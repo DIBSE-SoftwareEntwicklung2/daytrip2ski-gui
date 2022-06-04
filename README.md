@@ -1,0 +1,1 @@
+# daytrip2ski-gui
