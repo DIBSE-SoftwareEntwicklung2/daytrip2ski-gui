@@ -6,6 +6,8 @@ orbs:
     gcp-gcr: circleci/gcp-gcr@0.15.0
     cloudrun: circleci/gcp-cloud-run@1.0.1
     gcp-cli: circleci/gcp-cli@2.1
+    sonarcloud: sonarsource/sonarcloud@1.1.1
+
 executors:
     gcloud-executor:
         docker:
@@ -35,16 +37,25 @@ jobs:
             - store_artifacts: 
                 path: reports 
                 destination: reports
-            
+
+    static_code_analysis:
+        description: Runs a static code analysis
+        docker:
+            # replace with your preferred image
+            - image: sugan1234/vaadinrepo:latest
+        steps:
+            - checkout
+            - run:
+                name: Analyze on SonarCloud
+                command: mvn verify sonar:sonar -Dsonar.projectKey=DIBSE-SoftwareEntwicklung2_daytrip2ski-gui
+
     build_push_image_gcr:
-    
         description: Build docker image and push to gcr registry 
         executor: gcp-gcr/default 
         machine: 
             image: ubuntu-2004:202010-01 
         steps: 
             - checkout
-            
             - run: 
                 name: Build app binary and Docker image 
                 command: | 
@@ -85,6 +96,10 @@ workflows:
         jobs: 
         - build 
         - test: 
+            requires: 
+                - build
+        - static_code_analysis:
+            context: SonarCloud
             requires: 
                 - build
         - build_push_image_gcr:
