@@ -1,0 +1,45 @@
+.tabs-vertical-layout {
+	align-items: stretch;
+    box-sizing: unset;
+    width: -webkit-fill-available;
+}
+
+.tabs-vertical-layout vaadin-horizontal-layout:not(.twincolselect, .message, .content-card) {
+	display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    width: -webkit-fill-available;
+}
+
+.tabs-vertical-layout vaadin-horizontal-layout:not(.twincolselect, .message, .content-card):not(:only-child) {
+	margin-top: 0 !important;
+}
+
+.tabs-vertical-layout  vaadin-integer-field, .tabs-vertical-layout vaadin-big-decimal-field, .tabs-vertical-layout vaadin-text-field, .tabs-vertical-layout vaadin-number-field, .tabs-vertical-layout vaadin-combo-box, .tabs-vertical-layout vaadin-text-area, .tabs-vertical-layout vaadin-date-picker, .tabs-vertical-layout vaadin-date-time-picker, .dialog-main-vertical vaadin-password-field, .tabs-vertical-layout vaadin-text-area:not(.twincolselect, .message, .content-card) {
+	margin: 0;
+	width: -webkit-fill-available;
+}
+
+.div-content {
+	overflow: auto;
+	width: 100%;
+	max-height: 70vh;
+	overflow-y: auto;
+}
+
+.div-content::-webkit-scrollbar {
+  	width: 8px;
+	height: 8px;
+}
+
+.div-content::-webkit-scrollbar-track {
+  	background: var(--lumo-base-color); 
+}
+ 
+.div-content::-webkit-scrollbar-thumb {
+	background: #f1f1f1; 
+}
+
+.div-content::-webkit-scrollbar-thumb:hover {
+  	background: var(--lumo-primary-text-color); 
+}
