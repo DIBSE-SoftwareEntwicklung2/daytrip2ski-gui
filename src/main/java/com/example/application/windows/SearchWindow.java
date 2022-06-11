@@ -1,4 +1,4 @@
-package com.example.application.windowses;
+package com.example.application.windows;
 
 import org.vaadin.addons.PaperSlider;
 
