@@ -30,7 +30,7 @@ public class SingleResultView extends VerticalLayout implements HasUrlParameter<
 	private HorizontalLayout hlSlopes;
 	private HorizontalLayout hlSlopeKm;
 	private HorizontalLayout hlCosts;
-	private Image imgWheather;
+	private Image imgWeather;
 	private Image imgMaps;
 	
 	
@@ -41,8 +41,8 @@ public class SingleResultView extends VerticalLayout implements HasUrlParameter<
 		image = new Image();
 		image.setMaxWidth("100%");
 		
-		imgWheather = new Image();
-		imgWheather.setMaxWidth("100%");
+		imgWeather = new Image();
+		imgWeather.setMaxWidth("100%");
 		
 		imgMaps = new Image();
 		imgMaps.setMaxWidth("100%");
@@ -53,7 +53,7 @@ public class SingleResultView extends VerticalLayout implements HasUrlParameter<
 		hlSlopeKm = new HorizontalLayout(new Span("Kilometers of slopes"));
 		hlCosts = new HorizontalLayout(new Span("Costs"));
 		
-		add(title, image, hlTraffic, hlSlopes, hlSlopeKm, hlCosts, imgWheather, imgMaps);
+		add(title, image, hlTraffic, hlSlopes, hlSlopeKm, hlCosts, imgWeather, imgMaps);
 		
 	}
 	
@@ -80,7 +80,7 @@ public class SingleResultView extends VerticalLayout implements HasUrlParameter<
         		hlSlopeKm.add(item.getDistance());
         		hlCosts.add(item.getTicketPrice() + "€");
         		image.setSrc("images/"+item.getImage());
-        		imgWheather.setSrc("images/wheather.jpg");
+        		imgWeather.setSrc("images/wheather.jpg");
         		imgMaps.setSrc("images/maps.jpg");
         	}
         }

@@ -26,7 +26,7 @@ public class SearchWindow extends Dialog{
     private CustomTabs tabbed;
     private VerticalLayout vlArrival;
     private VerticalLayout vlCosts;
-    private VerticalLayout vlWheather;
+    private VerticalLayout vlWeather;
     private VerticalLayout vlSlopes;
     private VerticalLayout vlCapacity;
     private VerticalLayout vlSpecials;
@@ -41,7 +41,7 @@ public class SearchWindow extends Dialog{
         tabbed = new CustomTabs();
         vlArrival = new VerticalLayout();
         vlCosts = new VerticalLayout();
-        vlWheather = new VerticalLayout();
+        vlWeather = new VerticalLayout();
         vlSlopes = new VerticalLayout();
         vlCapacity = new VerticalLayout();
         vlSpecials = new VerticalLayout();
@@ -117,7 +117,7 @@ public class SearchWindow extends Dialog{
         
         tabbed.add("Arrival", vlArrival);
         tabbed.add("Costs", vlCosts);
-        tabbed.add("Wheather", vlWheather);
+        tabbed.add("Weather", vlWeather);
         tabbed.add("Slopes", vlSlopes);
         tabbed.add("Capacity", vlCapacity);
         tabbed.add("Specials", vlSpecials);
