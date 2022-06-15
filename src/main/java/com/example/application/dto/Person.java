@@ -3,6 +3,12 @@ package com.example.application.dto;
 import java.time.LocalDate;
 import java.time.Period;
 
+import lombok.*;
+
+
+@NoArgsConstructor
+@AllArgsConstructor
+@ToString
 public class Person {
     private Long id;
     private String firstName;
