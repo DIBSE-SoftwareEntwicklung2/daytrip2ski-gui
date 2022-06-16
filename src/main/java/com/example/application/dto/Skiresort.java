@@ -8,6 +8,7 @@ import java.time.LocalTime;
 
 @Getter
 @Setter
+@ToString
 @NoArgsConstructor
 @AllArgsConstructor
 public class Skiresort {
