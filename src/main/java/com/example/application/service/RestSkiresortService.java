@@ -15,8 +15,9 @@ public class RestSkiresortService {
             List<Skiresort> skiresorts = spec.retrieve().toEntityList(Skiresort.class).block().getBody();
 
             System.out.println(String.format("...received %d items.", skiresorts.size()));
-            System.out.println(skiresorts.get(0).toString());
-            System.out.println(skiresorts.get(1).toString());
+            for(Skiresort e : skiresorts){
+                System.out.println(e.toString());
+            }
         }
 
 }
