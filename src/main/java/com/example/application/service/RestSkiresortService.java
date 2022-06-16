@@ -19,9 +19,4 @@ public class RestSkiresortService {
             System.out.println(skiresorts.get(1).toString());
         }
 
-
-
-
-
-    }
 }
