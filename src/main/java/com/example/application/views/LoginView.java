@@ -59,13 +59,6 @@ public class LoginView extends VerticalLayout {
         logo.setSrc("images/logo.png");
         add(logo);
 		add(login);
-
-		RestPersonService myTest = new RestPersonService();
-		RestSkiresortService mysecTest = new RestSkiresortService();
-
-		myTest.test();
-		mysecTest.test();
-
 	}
 
 }

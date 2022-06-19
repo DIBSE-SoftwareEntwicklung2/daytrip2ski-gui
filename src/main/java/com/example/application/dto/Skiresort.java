@@ -39,6 +39,9 @@ public class Skiresort {
     private String webcamUrl;
     private String websiteUrl;
 
+    private String weatherActualUrl;
+    private String weatherForecastUrl;
+
     private Boolean skiRental;
     private Boolean skiCourse;
 

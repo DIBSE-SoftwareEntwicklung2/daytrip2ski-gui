@@ -11,14 +11,11 @@ import org.springframework.web.reactive.function.client.WebClient;
 @Service
 public class RestPersonService {
 
-    public void test() {
+    public List<Person> getallPersons() {
         WebClient.RequestHeadersSpec<?> spec = WebClient.create().get().uri("http://localhost:8081/api/v1/person");
 
         List<Person> ppl = spec.retrieve().toEntityList(Person.class).block().getBody();
-
-        System.out.println(String.format("...received %d items.", ppl.size()));
-        System.out.println(ppl.get(0).toString());
-        System.out.println(ppl.get(1).toString());
+        return ppl;
     }
 
 

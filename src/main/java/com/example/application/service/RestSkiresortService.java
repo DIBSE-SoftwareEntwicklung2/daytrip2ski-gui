@@ -9,15 +9,11 @@ import java.util.List;
 @Service
 public class RestSkiresortService {
 
-        public void test() {
+        public List<Skiresort> getallSkiresorts() {
             WebClient.RequestHeadersSpec<?> spec = WebClient.create().get().uri("http://localhost:8081/api/v1/skiresort");
 
             List<Skiresort> skiresorts = spec.retrieve().toEntityList(Skiresort.class).block().getBody();
-
-            System.out.println(String.format("...received %d items.", skiresorts.size()));
-            for(Skiresort e : skiresorts){
-                System.out.println(e.toString());
-            }
+            return skiresorts;
         }
 
 }
