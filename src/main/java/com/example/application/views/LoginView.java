@@ -1,8 +1,10 @@
 package com.example.application.views;
 
 import com.example.application.dto.Skiresort;
-import com.example.application.service.RestPersonService;
+import com.example.application.dto.WeatherActualReturn;
+import com.example.application.dto.WeatherForecastReturn;
 import com.example.application.service.RestSkiresortService;
+import com.example.application.service.WeatherService;
 import com.vaadin.flow.component.dependency.CssImport;
 import com.vaadin.flow.component.html.Image;
 import com.vaadin.flow.component.login.LoginForm;
@@ -63,10 +65,18 @@ public class LoginView extends VerticalLayout {
         add(logo);
 		add(login);
 
-		RestSkiresortService service = new RestSkiresortService();
-		List<Skiresort> mytest = service.getallSkiresorts();
-
-		mytest.forEach(s-> System.out.println(s));
+//		RestSkiresortService service = new RestSkiresortService();
+//		List<Skiresort> mytest = service.getallSkiresorts();
+//
+//		mytest.forEach(s-> {
+//			System.out.println(s);
+//			WeatherService wservice = new WeatherService();
+//			WeatherActualReturn myweather = wservice.getWeatherActual(s.getWeatherActualUrl());
+//			System.out.println(myweather);
+//
+//			WeatherForecastReturn mysecTest =  wservice.getWeatherForecast(mytest.get(0).getWeatherForecastUrl());
+//			System.out.println(mysecTest);
+//		});
 	}
 
 }
