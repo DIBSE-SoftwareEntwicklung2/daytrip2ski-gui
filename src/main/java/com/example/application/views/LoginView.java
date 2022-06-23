@@ -1,5 +1,6 @@
 package com.example.application.views;
 
+import com.example.application.dto.Skiresort;
 import com.example.application.service.RestPersonService;
 import com.example.application.service.RestSkiresortService;
 import com.vaadin.flow.component.dependency.CssImport;
@@ -9,6 +10,8 @@ import com.vaadin.flow.component.login.LoginI18n;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
+
+import java.util.List;
 
 @Route(value = "loginView")
 @CssImport("./styles/views/loginView.css")
@@ -59,6 +62,11 @@ public class LoginView extends VerticalLayout {
         logo.setSrc("images/logo.png");
         add(logo);
 		add(login);
+
+		RestSkiresortService service = new RestSkiresortService();
+		List<Skiresort> mytest = service.getallSkiresorts();
+
+		mytest.forEach(s-> System.out.println(s));
 	}
 
 }
