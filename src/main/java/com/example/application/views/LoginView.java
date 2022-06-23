@@ -71,10 +71,10 @@ public class LoginView extends VerticalLayout {
 //		mytest.forEach(s-> {
 //			System.out.println(s);
 //			WeatherService wservice = new WeatherService();
-//			WeatherActualReturn myweather = wservice.getWeatherActual(s.getWeatherActualUrl());
+//			WeatherActualReturn myweather = wservice.getWeatherActual(s);
 //			System.out.println(myweather);
 //
-//			WeatherForecastReturn mysecTest =  wservice.getWeatherForecast(mytest.get(0).getWeatherForecastUrl());
+//			WeatherForecastReturn mysecTest =  wservice.getWeatherForecast(s);
 //			System.out.println(mysecTest);
 //		});
 	}
