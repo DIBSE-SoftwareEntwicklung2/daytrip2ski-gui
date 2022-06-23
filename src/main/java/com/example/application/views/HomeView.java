@@ -29,30 +29,41 @@ public class HomeView extends VerticalLayout{
     private Image logo;
 
     public HomeView(){
-
-        setSizeFull();
+    	//Initialization home view - default vaadin functions
+        setSizeFull(); 
 		setAlignItems(Alignment.CENTER); 
 		setJustifyContentMode(JustifyContentMode.CENTER);
         setClassName("home-form");
+        
+        //creating elements 
         form = new Div();
-        form.setClassName("form-center-bottom");
+        form.setClassName("form-center-bottom"); //adding css class name
+        logo = new Image();
+        logo.setSrc("images/logo.png");
+        
+        
+        //creating buttons
         btnWithAccount = new Button("With account");
+        btnWoAccount = new Button("No account");
+        registration = new Button("Registration");
+        
+        //adding custom style attributes on registration buttons
+        registration.getElement().getStyle().set("background-color", "#f3c604");
+
+        //adding on click function
         btnWithAccount.addClickListener(e->{
             UI.getCurrent().navigate(LoginView.class);
         });
-        btnWoAccount = new Button("No account");
         btnWoAccount.addClickListener(e->{
             UI.getCurrent().navigate(ResultsView.class, "test");
         });
-        registration = new Button("Registration");
-        registration.getElement().getStyle().set("background-color", "#f3c604");
-        registration.getElement().getStyle().set("margin-left", "auto");
-        registration.getElement().getStyle().set("margin-right", "auto");
-        logo = new Image();
-        logo.setSrc("images/logo.png");
-        add(logo);
+        
+        
+        //adding elements in form
         form.add(new HorizontalLayout(btnWithAccount, btnWoAccount, registration));
         form.add(new HorizontalLayout());
-        add(form);
+        
+        //place elements on view
+        add(logo, form);
     }
 }

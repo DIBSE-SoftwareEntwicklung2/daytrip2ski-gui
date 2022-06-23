@@ -29,7 +29,7 @@ public class MyAccount extends VerticalLayout{
 	private CustomTabs tabbed;
     private VerticalLayout vlArrival;
     private VerticalLayout vlCosts;
-    private VerticalLayout vlWeather;
+    private VerticalLayout vlWheather;
     private VerticalLayout vlSlopes;
     private VerticalLayout vlCapacity;
     private VerticalLayout vlSpecials;
@@ -56,15 +56,17 @@ public class MyAccount extends VerticalLayout{
 		
 		btnSave = new Button("Save");
 		
-		
 		tabbed = new CustomTabs();
+		
+		//creating vertical layouts for elements in tabs
         vlArrival = new VerticalLayout();
         vlCosts = new VerticalLayout();
-        vlWeather = new VerticalLayout();
+        vlWheather = new VerticalLayout();
         vlSlopes = new VerticalLayout();
         vlCapacity = new VerticalLayout();
         vlSpecials = new VerticalLayout();
         
+        //creating elements for each tab
         PaperSlider arrivalSlider = new PaperSlider(100); 
         arrivalSlider.setLabel("Distance");
         arrivalSlider.showValues();
@@ -136,7 +138,7 @@ public class MyAccount extends VerticalLayout{
         
         tabbed.add("Arrival", vlArrival);
         tabbed.add("Costs", vlCosts);
-        tabbed.add("Weather", vlWeather);
+        tabbed.add("Wheather", vlWheather);
         tabbed.add("Slopes", vlSlopes);
         tabbed.add("Capacity", vlCapacity);
         tabbed.add("Specials", vlSpecials);

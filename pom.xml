@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+		 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<!-- Project from https://start.vaadin.com/project/5830f0c7-bb99-42ff-804f-727234face45 -->
 	<groupId>com.example.application</groupId>
@@ -11,7 +11,7 @@
 	<packaging>jar</packaging>
 
 	<properties>
-		<java.version>11</java.version>
+		<java.version>13</java.version>
 		<vaadin.version>23.1.0</vaadin.version>
 		<selenium.version>4.1.2</selenium.version>
 		<sonar.organization>dibse-softwareentwicklung2</sonar.organization>
@@ -25,7 +25,7 @@
 	</parent>
 
 	<repositories>
-		<!-- The order of definitions matters. Explicitly defining central here 
+		<!-- The order of definitions matters. Explicitly defining central here
 			to make sure it has the highest priority. -->
 
 		<!-- Main Maven repository -->
@@ -39,8 +39,8 @@
 		<repository>
 			<id>vaadin-prereleases</id>
 			<url>
-                https://maven.vaadin.com/vaadin-prereleases/
-            </url>
+				https://maven.vaadin.com/vaadin-prereleases/
+			</url>
 		</repository>
 		<!-- Repository used by many Vaadin add-ons -->
 		<repository>
@@ -53,7 +53,7 @@
 	</repositories>
 
 	<pluginRepositories>
-		<!-- The order of definitions matters. Explicitly defining central here 
+		<!-- The order of definitions matters. Explicitly defining central here
 			to make sure it has the highest priority. -->
 		<pluginRepository>
 			<id>central</id>
@@ -65,8 +65,8 @@
 		<pluginRepository>
 			<id>vaadin-prereleases</id>
 			<url>
-                https://maven.vaadin.com/vaadin-prereleases/
-            </url>
+				https://maven.vaadin.com/vaadin-prereleases/
+			</url>
 		</pluginRepository>
 	</pluginRepositories>
 
@@ -120,6 +120,11 @@
 			<artifactId>lombok</artifactId>
 			<optional>true</optional>
 		</dependency>
+		<dependency>
+			<groupId>com.flowingcode.vaadin.addons</groupId>
+			<artifactId>google-maps</artifactId>
+			<version>1.7.0</version>
+		</dependency>
 		<!-- Include JUnit 4 support for TestBench and others -->
 		<dependency>
 			<groupId>org.junit.vintage</groupId>
@@ -142,6 +147,11 @@
 			<groupId>org.vaadin.addons.abdullah</groupId>
 			<artifactId>paper-slider</artifactId>
 			<version>1.0.2</version>
+		</dependency>
+		<dependency>
+			<groupId>com.flowingcode.vaadin.addons</groupId>
+			<artifactId>google-maps</artifactId>
+			<version>1.7.0</version>
 		</dependency>
 	</dependencies>
 

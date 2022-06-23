@@ -1,7 +1,5 @@
 package com.example.application.views;
 
-import com.example.application.service.RestPersonService;
-import com.example.application.service.RestSkiresortService;
 import com.vaadin.flow.component.dependency.CssImport;
 import com.vaadin.flow.component.html.Image;
 import com.vaadin.flow.component.login.LoginForm;
@@ -30,6 +28,7 @@ public class LoginView extends VerticalLayout {
 		setJustifyContentMode(JustifyContentMode.CENTER);
 		setClassName("login-form");
 		
+		//Vaadin default login form
 		LoginI18n i18n = LoginI18n.createDefault();
 
 		LoginI18n.Form i18nForm = i18n.getForm();
@@ -45,7 +44,7 @@ public class LoginView extends VerticalLayout {
 		i18nErrorMessage.setMessage("Check your credentials and try again");
 		i18n.setErrorMessage(i18nErrorMessage);
 
-		i18n.setAdditionalInformation("If you need more info about this app please send email at info@slopesearcher.com");
+		i18n.setAdditionalInformation("If you need more info about this app please send email at info@demo.com");
 
 		login = new LoginForm(i18n);
 		login.setForgotPasswordButtonVisible(true);
