@@ -225,7 +225,13 @@ public class SingleResultView extends VerticalLayout implements HasUrlParameter<
 
 
 				hlPriceDayTicketAdults.add(item.getPriceDayTicketAdults().toString());
-				hlPriceDayTicketYouth.add(item.getPriceDayTicketYouth().toString());
+				if(item.getPriceDayTicketYouth() == null){
+					hlPriceDayTicketYouth.add("Not Available");
+
+				}else {
+					hlPriceDayTicketYouth.add(item.getPriceDayTicketYouth().toString());
+
+				}
 				hlPriceDayTicketChildren.add(item.getPriceDayTicketChildren().toString());
 
 
