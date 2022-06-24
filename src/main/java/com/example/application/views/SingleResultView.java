@@ -1,5 +1,7 @@
 package com.example.application.views;
 
+import com.vaadin.flow.component.UI;
+import com.vaadin.flow.component.checkbox.Checkbox;
 import com.vaadin.flow.component.map.Map;
 import com.vaadin.flow.component.map.configuration.Coordinate;
 import com.vaadin.flow.component.map.configuration.feature.MarkerFeature;
@@ -24,6 +26,9 @@ import com.vaadin.flow.router.HasUrlParameter;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
+
 @PageTitle("Result")
 @Route(value = "single", layout = MainLayout.class)
 public class SingleResultView extends VerticalLayout implements HasUrlParameter<Long>{
@@ -38,11 +43,7 @@ public class SingleResultView extends VerticalLayout implements HasUrlParameter<
 	private Skiresort item;
 	private H1 title;
 	private Image image;
-	private HorizontalLayout hlTraffic;
-	private HorizontalLayout hlDistance;
-	private HorizontalLayout hlSlopes;
-	private HorizontalLayout hlSlopeKm;
-	private HorizontalLayout hlCosts;
+
 	private Image imgWeather;
 	private Image imgMaps;
 
@@ -63,6 +64,30 @@ public class SingleResultView extends VerticalLayout implements HasUrlParameter<
 	private HorizontalLayout hlnumberOfRestaurants;
 	private HorizontalLayout hlWebCamUrl;
 	private HorizontalLayout hlWebSiteUrl;
+	private HorizontalLayout hlWeatherActualUrl;
+	private HorizontalLayout hlWeatherForecastUrl;
+
+	private HorizontalLayout hlExtras;
+	private Checkbox chkSkiRental;
+	private Checkbox chkSkiCourse;
+
+	private Checkbox chkFamilyFriendly;
+
+	private HorizontalLayout hlPriceDayTicketAdults;
+	private HorizontalLayout hlPriceDayTicketYouth;
+	private HorizontalLayout hlPriceDayTicketChildren;
+
+	private HorizontalLayout hlSeasson;
+	private Span dtSeasonFrom;
+	private Span dtSeasonTo;
+
+	private HorizontalLayout hlHours;
+	private Span tOpeningHoursFrom;
+	private Span tOpeningHoursTo;
+	private Paragraph pOpeningHoursNote;
+
+	private Paragraph pRemark;
+	private Paragraph pDescription;
 
 	private VerticalLayout vlMaps;
 
@@ -89,11 +114,56 @@ public class SingleResultView extends VerticalLayout implements HasUrlParameter<
 		imgMaps = new Image();
 		imgMaps.setMaxWidth("100%");
 
-		hlTraffic = new HorizontalLayout(new Span("Traffic"));
-		hlDistance = new HorizontalLayout(new Span("Distance"));
-		hlSlopes = new HorizontalLayout(new Span("Slopes"));
-		hlSlopeKm = new HorizontalLayout(new Span("Kilometers of slopes"));
-		hlCosts = new HorizontalLayout(new Span("Costs"));
+
+		hlAltValley = new HorizontalLayout(new Span("Alt Valley:"));
+		hlAltMountain = new HorizontalLayout(new Span("Alt Mountain:"));
+		hlNumOfCogRail  = new HorizontalLayout(new Span("Number of Cog Rail:"));
+		hlNumOfFunicular = new HorizontalLayout(new Span("Number of Funicular:"));
+		hlNumOfCableCar = new HorizontalLayout(new Span("Number of Cable Car:"));
+		hlNumOfGondolLift = new HorizontalLayout(new Span("Number of Gondol Lift:"));
+		hlNumOfChairLift = new HorizontalLayout(new Span("Number of Chair Lift:"));
+		hlNumOfTBarLift = new HorizontalLayout(new Span("Number of T Bar Lift:"));
+		hlNumOfBabyLift = new HorizontalLayout(new Span("Number of Baby Lift:"));
+		hlNumOfMovingCarpet = new HorizontalLayout(new Span("Number of Moving Carpet:"));
+		hlDistanceEasy = new HorizontalLayout(new Span("Distance easy:"));
+		hlDistanceIntermediate = new HorizontalLayout(new Span("Distance intermediate:"));
+		hlDistanceDifficult = new HorizontalLayout(new Span("Distance difficult:"));
+		pGeneralSnowCOnditions = new Paragraph(new Span("General snow conditions:"));
+		hlnumberOfRestaurants = new HorizontalLayout(new Span("Number of restaurants:"));
+		hlWebCamUrl = new HorizontalLayout(new Span("Webcam url:"));
+		hlWebSiteUrl = new HorizontalLayout(new Span("Website url:"));
+
+		hlWeatherActualUrl = new HorizontalLayout(new Span("Actual weather url:"));
+		hlWeatherForecastUrl = new HorizontalLayout(new Span("Weather forecast url:"));
+
+		hlExtras = new HorizontalLayout();
+		chkSkiRental = new Checkbox("Ski rentals");
+		chkSkiCourse = new Checkbox("Ski course");
+		chkFamilyFriendly = new Checkbox("Family friendly");
+
+		hlExtras.add(chkSkiRental, chkSkiCourse, chkFamilyFriendly);
+
+		hlPriceDayTicketAdults = new HorizontalLayout(new Span("Price day ticket adults:"));
+		hlPriceDayTicketYouth = new HorizontalLayout(new Span("Price day ticket youth:"));
+		hlPriceDayTicketChildren = new HorizontalLayout(new Span("Price day ticket children:"));
+
+		hlSeasson = new HorizontalLayout();
+		dtSeasonFrom = new Span("Season from:");
+		dtSeasonTo = new Span("Season to:");
+
+		hlSeasson.add(dtSeasonFrom, dtSeasonTo);
+
+		hlHours = new HorizontalLayout();
+		tOpeningHoursFrom = new Span("Open from:");
+		tOpeningHoursTo = new Span("Open to:");
+		hlHours.add(tOpeningHoursFrom, tOpeningHoursTo);
+
+		pOpeningHoursNote = new Paragraph("Hours note:");
+		pOpeningHoursNote.setMaxWidth("500px");
+
+		pRemark = new Paragraph("Remark:");
+		pDescription = new Paragraph("Description:");
+		pDescription.setMaxWidth("500px");
 
 		vlMaps = new VerticalLayout(new H1("Maps"));
 		vlMaps.setSizeFull();
@@ -101,7 +171,9 @@ public class SingleResultView extends VerticalLayout implements HasUrlParameter<
 
 		map = new Map();
 
-		add(title, image, hlTraffic, hlSlopes, hlSlopeKm, hlCosts, imgWeather, vlMaps);
+		add(title, image, hlAltValley, hlAltMountain, hlNumOfCogRail, hlNumOfFunicular, hlNumOfCableCar, hlNumOfGondolLift, hlNumOfChairLift, hlNumOfTBarLift, hlNumOfBabyLift, hlNumOfMovingCarpet, hlDistanceEasy, hlDistanceIntermediate,
+				hlDistanceDifficult, pGeneralSnowCOnditions, hlWebCamUrl, hlWebSiteUrl, hlExtras, hlPriceDayTicketAdults, hlPriceDayTicketYouth,
+				hlPriceDayTicketChildren, hlSeasson, hlHours, pOpeningHoursNote, pRemark, pDescription, imgWeather, vlMaps);
 
 	}
 
@@ -116,15 +188,58 @@ public class SingleResultView extends VerticalLayout implements HasUrlParameter<
 			item = restSkiresortService.getOne(parameter);
 			if(item!=null) {
 				title.add(item.getName());
-				hlTraffic.add(item.getNumberOfCogRailway().toString());
-				hlDistance.add(item.getDistanceEasy().toString());
 
-
-				hlSlopeKm.add(item.getNumberOfFunicular().toString());
-				hlCosts.add(item.getPriceDayTicketAdults() + "€");
 				image.setSrc("images/Soelden.jpg");
 				imgWeather.setSrc("images/wheather.jpg");
 
+				hlAltValley.add(item.getAltitudeValley().toString());
+				hlAltMountain.add(item.getAltitudeMountain().toString());
+				hlNumOfCogRail.add(item.getNumberOfCogRailway().toString());
+				hlNumOfFunicular.add(item.getNumberOfFunicular().toString());
+				hlNumOfCableCar.add(item.getNumberOfCableCar().toString());
+				hlNumOfGondolLift.add(item.getNumberOfGondolaLift().toString());
+				hlNumOfChairLift.add(item.getNumberOfChairLift().toString());
+				hlNumOfTBarLift.add(item.getNumberOfTBarLift().toString());
+				hlNumOfBabyLift.add(item.getNumberOfBabyLift().toString());
+				hlNumOfMovingCarpet.add(item.getNumberOfMovingCarpet().toString());
+				hlDistanceEasy.add(item.getDistanceEasy().toString());
+				hlDistanceIntermediate.add(item.getDistanceIntermediate().toString());
+				hlDistanceDifficult.add(item.getDistanceDifficult().toString());
+				pGeneralSnowCOnditions.add(item.getGeneralSnowCondition());
+				hlnumberOfRestaurants.add(item.getNumberOfRestaurants().toString());
+				hlWebCamUrl.add(item.getWebcamUrl());
+				hlWebSiteUrl.add(item.getWebsiteUrl());
+
+				hlWeatherActualUrl.add(item.getWeatherActualUrl());
+				hlWeatherForecastUrl.add(item.getWeatherForecastUrl());
+
+
+				chkSkiRental.setValue(item.getSkiRental());
+				chkSkiRental.setEnabled(false);
+
+				chkSkiCourse.setValue(item.getSkiCourse());
+				chkSkiCourse.setEnabled(false);
+
+				chkFamilyFriendly.setValue(item.getFamilyFriendly());
+				chkFamilyFriendly.setEnabled(false);
+
+
+				hlPriceDayTicketAdults.add(item.getPriceDayTicketAdults().toString());
+				hlPriceDayTicketYouth.add(item.getPriceDayTicketYouth().toString());
+				hlPriceDayTicketChildren.add(item.getPriceDayTicketChildren().toString());
+
+
+				dtSeasonFrom.add(item.getSeasonFrom().toString());
+				dtSeasonTo.add(item.getSeasonTo().toString());
+
+
+				tOpeningHoursFrom.add(item.getOpeningHoursFrom().toString());
+				tOpeningHoursTo.add(item.getOpeningHoursTo().toString());
+
+				pOpeningHoursNote.add(item.getOpeningHoursNote());
+
+				pRemark.add(item.getRemark());
+				pDescription.add(item.getDescription());
 
 
 				Coordinate coordinate = Coordinate.fromLonLat(item.getLongitude().doubleValue(), item.getLatitude().doubleValue());
@@ -139,7 +254,8 @@ public class SingleResultView extends VerticalLayout implements HasUrlParameter<
 				vlMaps.add(map);
 
 			}
-		}
+		}else
+			UI.getCurrent().navigate(ResultsView.class);
 	}
 
 }
