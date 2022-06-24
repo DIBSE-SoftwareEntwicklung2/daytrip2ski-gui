@@ -84,6 +84,11 @@ public class LoginView extends VerticalLayout {
 //		System.out.println(mypersontest);
 //		Score myTestScore = testservice.getScorefromPerson(mypersontest);
 //		System.out.println(myTestScore);
+//
+//		Person mypersontest2 = testservice.getPersonbyId(2);
+//		System.out.println(mypersontest2);
+//		Score myTestScore2 = testservice.getScorefromPerson(mypersontest2);
+//		System.out.println(myTestScore2);
 
 //		Person anotherTest = new Person(
 //				5l,
