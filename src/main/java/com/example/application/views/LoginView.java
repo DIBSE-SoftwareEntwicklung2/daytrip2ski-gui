@@ -3,6 +3,7 @@ package com.example.application.views;
 import com.example.application.dto.*;
 import com.example.application.service.RestPersonService;
 import com.example.application.service.RestSkiresortService;
+import com.example.application.service.ScoreEvaluator;
 import com.example.application.service.WeatherService;
 import com.vaadin.flow.component.dependency.CssImport;
 import com.vaadin.flow.component.html.Image;
@@ -15,6 +16,8 @@ import com.vaadin.flow.router.Route;
 import java.time.LocalDate;
 import java.time.Month;
 import java.util.List;
+
+import static com.example.application.service.ScoreEvaluator.EvaluateScore;
 
 @Route(value = "loginView")
 @CssImport("./styles/views/loginView.css")
@@ -69,7 +72,11 @@ public class LoginView extends VerticalLayout {
 //		RestSkiresortService service = new RestSkiresortService();
 //		List<Skiresort> mytest = service.getallSkiresorts();
 //
+//		RestPersonService testservice = new RestPersonService();
+//		Person mypersontest = testservice.getPersonbyId(1);
+//
 //		mytest.forEach(s-> {
+//			System.out.println(EvaluateScore(mypersontest, s));
 //			System.out.println(s);
 //			WeatherService wservice = new WeatherService();
 //			WeatherActualReturn myweather = wservice.getWeatherActual(s);
