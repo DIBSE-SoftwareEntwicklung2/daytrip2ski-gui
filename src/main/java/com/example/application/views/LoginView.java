@@ -72,7 +72,7 @@ public class LoginView extends VerticalLayout {
 //		RestSkiresortService service = new RestSkiresortService();
 //		List<Skiresort> mytest = service.getallSkiresorts();
 //
-		RestPersonService testservice = new RestPersonService();
+//		RestPersonService testservice = new RestPersonService();
 //		Person mypersontest = testservice.getPersonbyId(1);
 //
 //		mytest.forEach(s-> {
@@ -97,13 +97,13 @@ public class LoginView extends VerticalLayout {
 //		Score myTestScore2 = testservice.getScorefromPerson(mypersontest2);
 //		System.out.println(myTestScore2);
 
-		Person anotherTest = new Person(
-				"Test",
-				"Testermann",
-				"something@test.test",
-				LocalDate.of(2000, Month.APRIL, 1)
-		);
-		testservice.postRegisterPerson(anotherTest);
+//		Person anotherTest = new Person(
+//				"Test",
+//				"Testermann",
+//				"something@test.test",
+//				LocalDate.of(2000, Month.APRIL, 1)
+//		);
+//		testservice.postRegisterPerson(anotherTest);
 	}
 
 }
