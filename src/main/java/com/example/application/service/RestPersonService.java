@@ -5,8 +5,12 @@ import java.util.List;
 import com.example.application.dto.Person;
 import com.example.application.dto.Score;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.BodyInserters;
+import org.springframework.web.reactive.function.client.ClientResponse;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
 
@@ -36,8 +40,12 @@ public class RestPersonService {
         return score;
     }
 
-//    public void postRegisterPerson(Person person){
-//        WebClient.RequestHeadersSpec<?> spec = WebClient.create().post().uri("http://localhost:8081/api/v1/person/register").body(BodyInserters.fromValue(person));
-//    }
+    public void postRegisterPerson(Person person){
+        Mono<Person> myTest = WebClient.create().post().uri("http://localhost:8081/api/v1/person/register").header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE).body(Mono.just(person), Person.class).retrieve().bodyToMono(Person.class);
+        myTest.block();
+//        System.out.println(myTest.block());
+
+        System.out.println("something got posted");
+    }
 
 }

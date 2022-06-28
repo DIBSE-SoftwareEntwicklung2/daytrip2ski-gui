@@ -15,6 +15,7 @@ public class Person {
     private String lastName;
     private String email;
     private LocalDate dob;
+    private Score score;
     private Integer age;
 
     public Person(String firstName,
