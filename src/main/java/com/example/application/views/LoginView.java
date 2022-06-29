@@ -75,6 +75,9 @@ public class LoginView extends VerticalLayout {
 //		RestPersonService testservice = new RestPersonService();
 //		Person mypersontest = testservice.getPersonbyId(1);
 //
+//
+//		System.out.println(EvaluateScore(mypersontest, mytest.get(1)));
+//
 //		mytest.forEach(s-> {
 //			System.out.println(EvaluateScore(mypersontest, s));
 //			System.out.println(s);
@@ -97,13 +100,21 @@ public class LoginView extends VerticalLayout {
 //		Score myTestScore2 = testservice.getScorefromPerson(mypersontest2);
 //		System.out.println(myTestScore2);
 
+
+//		RestPersonService testservice = new RestPersonService();
 //		Person anotherTest = new Person(
 //				"Test",
 //				"Testermann",
 //				"something@test.test",
 //				LocalDate.of(2000, Month.APRIL, 1)
 //		);
+//		anotherTest.setScore(new Score());
 //		testservice.postRegisterPerson(anotherTest);
+//		anotherTest = testservice.getPersonbyId(3);
+//		System.out.println(anotherTest);
+//		anotherTest.setFirstName("updated");
+//		testservice.savePerson(anotherTest);
+//		System.out.println(testservice.getPersonbyId(3));
 	}
 
 }

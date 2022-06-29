@@ -5,7 +5,8 @@ import java.time.Period;
 
 import lombok.*;
 
-
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString

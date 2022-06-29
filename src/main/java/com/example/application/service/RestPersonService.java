@@ -17,23 +17,25 @@ import reactor.core.publisher.Mono;
 
 @Service
 public class RestPersonService {
+    private String basepath = "http://localhost:8081/";
+    private String extension = "api/v1/";
 
     public List<Person> getallPersons() {
-        WebClient.RequestHeadersSpec<?> spec = WebClient.create().get().uri("http://localhost:8081/api/v1/person");
+        WebClient.RequestHeadersSpec<?> spec = WebClient.create().get().uri(basepath + extension + "person");
 
         List<Person> ppl = spec.retrieve().toEntityList(Person.class).block().getBody();
         return ppl;
     }
 
     public Person getPersonbyId(int id){
-        WebClient.RequestHeadersSpec<?> spec = WebClient.create().get().uri("http://localhost:8081/api/v1/person/" + id);
+        WebClient.RequestHeadersSpec<?> spec = WebClient.create().get().uri(basepath + extension + "person/" + id);
 
         Person person = spec.retrieve().toEntity(Person.class).block().getBody();
         return person;
     }
 
     public Score getScorefromPerson(Person person){
-        WebClient.RequestHeadersSpec<?> spec = WebClient.create().get().uri("http://localhost:8081/api/v1/person/score/" + person.getId());
+        WebClient.RequestHeadersSpec<?> spec = WebClient.create().get().uri(basepath + extension + "person/score/" + person.getId());
 
         Score score = spec.retrieve().onStatus(status -> status.value() == 500, clientResponse -> Mono.empty()).toEntity(Score.class).block().getBody();
         if(score.getId() == null) score = null;
@@ -41,11 +43,17 @@ public class RestPersonService {
     }
 
     public void postRegisterPerson(Person person){
-        Mono<Person> myTest = WebClient.create().post().uri("http://localhost:8081/api/v1/person/register").header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE).body(Mono.just(person), Person.class).retrieve().bodyToMono(Person.class);
-        myTest.block();
-//        System.out.println(myTest.block());
+        Mono<Person> mono = WebClient.create().post().uri(basepath + extension + "person/register").header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE).body(Mono.just(person), Person.class).retrieve()
+                .onStatus(status -> status.value() == 500, clientResponse -> Mono.empty())
+                .bodyToMono(Person.class);
+        mono.block();
+    }
 
-        System.out.println("something got posted");
+    public void savePerson(Person person){
+        Mono<Person> mono = WebClient.create().post().uri(basepath + extension + "person/save").header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE).body(Mono.just(person), Person.class).retrieve()
+                .onStatus(status -> status.value() == 500, clientResponse -> Mono.empty())
+                .bodyToMono(Person.class);
+        mono.block();
     }
 
 }
