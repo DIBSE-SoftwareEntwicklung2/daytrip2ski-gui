@@ -1,5 +1,8 @@
 package com.example.application.views;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
+import com.example.application.service.RestSkiresortService;
 import com.example.application.utils.SingleItem;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.BeforeEvent;
@@ -12,43 +15,45 @@ import com.vaadin.flow.router.Route;
 @Route(value = "results", layout = MainLayout.class)
 public class ResultsView extends VerticalLayout implements HasUrlParameter<String>{
 
-	
+
 
     /**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
+     *
+     */
+    private static final long serialVersionUID = 1L;
+
+    @Autowired
+    private RestSkiresortService restSkiresortService;
 
 
-
-	public ResultsView(){
+    public ResultsView(){
         setWidthFull();
-        setAlignItems(Alignment.CENTER); 
-        
+        setAlignItems(Alignment.CENTER);
+
     }
-    
+
 
 
     @Override
     public void setParameter(BeforeEvent event, @OptionalParameter String parameter) {
         if(parameter!=null){
-        	if(parameter.equals("sponsored")) {
-        		
-        	}else {
-        		MainLayout.getDestinations().forEach(d->{
-                	SingleItem item = new SingleItem();
-                    item.init(d.getName(), d.getImage(), false, d.getId());
+            if(parameter.equals("sponsored")) {
+
+            }else {
+                restSkiresortService.getallSkiresorts().forEach(d->{
+                    SingleItem item = new SingleItem();
+                    item.init(d.getName(), "Soelden.jpg", false, d.getId());
                     add(item);
                 });
-        	}
-        	
+            }
+
         }else {
-    		MainLayout.getDestinations().forEach(d->{
-            	SingleItem item = new SingleItem();
-                item.init(d.getName(), d.getImage(), false, d.getId());
+            restSkiresortService.getallSkiresorts().forEach(d->{
+                SingleItem item = new SingleItem();
+                item.init(d.getName(), "Soelden.jpg", false, d.getId());
                 add(item);
             });
-    	}
+        }
     }
 }
 

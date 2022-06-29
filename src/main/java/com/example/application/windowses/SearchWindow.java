@@ -1,64 +1,43 @@
-package com.example.application.views;
+package com.example.application.windowses;
 
 import org.vaadin.addons.PaperSlider;
 
 import com.example.application.utils.CustomTabs;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.checkbox.Checkbox;
-import com.vaadin.flow.component.html.H2;
+import com.vaadin.flow.component.dependency.CssImport;
+import com.vaadin.flow.component.dialog.Dialog;
 import com.vaadin.flow.component.html.Span;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
-import com.vaadin.flow.component.textfield.TextField;
-import com.vaadin.flow.router.PageTitle;
-import com.vaadin.flow.router.Route;
 
-@PageTitle("My account")
-@Route(value = "account", layout = MainLayout.class)
-public class MyAccount extends VerticalLayout{
 
-	/**
+@CssImport("./styles/windows/searchWindow.css")
+public class SearchWindow extends Dialog{
+
+    /**
 	 * 
 	 */
-	private static final long serialVersionUID = 1L;
-
-	private TextField tfID;
-	private TextField tfName;
-	private TextField tfLastName;
-	private TextField tfEmail;
+	private static final long serialVersionUID = -3745835111251126118L;
 	
-	private CustomTabs tabbed;
+    private Button ok;
+    private Button nok;
+    private CustomTabs tabbed;
     private VerticalLayout vlArrival;
     private VerticalLayout vlCosts;
     private VerticalLayout vlWeather;
     private VerticalLayout vlSlopes;
     private VerticalLayout vlCapacity;
     private VerticalLayout vlSpecials;
-	
-    private Button btnSave;
-    
-	public MyAccount() {
-		
-		tfID = new TextField("ID");
-		tfID.setEnabled(false);
-		add(tfID);
-		
-		tfName = new TextField("Name");
-		tfName.setEnabled(false);
-		add(tfName);
-		
-		tfLastName = new TextField("Last name");
-		tfLastName.setEnabled(false);
-		add(tfLastName);
-		
-		tfEmail = new TextField("Email");
-		tfEmail.setEnabled(false);
-		add(tfEmail);
-		
-		btnSave = new Button("Save");
-		
-		tabbed = new CustomTabs();
-		
-		//creating vertical layouts for elements in tabs
+
+    public SearchWindow(){
+        
+    	//add header text of dialog
+        setHeaderTitle("Search window");
+       
+        
+        tabbed = new CustomTabs();
+        
+        //creating vertical layouts for elements in tabs
         vlArrival = new VerticalLayout();
         vlCosts = new VerticalLayout();
         vlWeather = new VerticalLayout();
@@ -66,7 +45,7 @@ public class MyAccount extends VerticalLayout{
         vlCapacity = new VerticalLayout();
         vlSpecials = new VerticalLayout();
         
-        //creating elements for each tab
+        //adding elements in Arrivals tab
         PaperSlider arrivalSlider = new PaperSlider(100); 
         arrivalSlider.setLabel("Distance");
         arrivalSlider.showValues();
@@ -80,6 +59,7 @@ public class MyAccount extends VerticalLayout{
         Checkbox chkHigh = new Checkbox("High");
         vlArrival.add(spnTraffic, chkLow, chkMedium, chkHigh);
         
+      //adding elements in Costs tab
         PaperSlider costsSlider = new PaperSlider(100); 
         costsSlider.setLabel("Daily costs /pP €");
         costsSlider.showValues();
@@ -136,6 +116,7 @@ public class MyAccount extends VerticalLayout{
         
         vlSpecials.add(chkApresski, chkKids, chkSkiSchool, chkRental, chkFun, chkTour, chkGastronomy, chkNight);
         
+        //Adding elements in each tab
         tabbed.add("Arrival", vlArrival);
         tabbed.add("Costs", vlCosts);
         tabbed.add("Weather", vlWeather);
@@ -143,9 +124,16 @@ public class MyAccount extends VerticalLayout{
         tabbed.add("Capacity", vlCapacity);
         tabbed.add("Specials", vlSpecials);
         
-        add(new H2("Custom filters"));
+        ok = new Button("Search");
+        nok = new Button("Cancel");
+
+        nok.addClickListener(e->{
+            close();
+        });
+
+        getFooter().add(ok, nok);
+
         add(tabbed);
-		add(btnSave);
-	}
-	
+    }
+    
 }
