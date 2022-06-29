@@ -1,4 +1,4 @@
-package com.example.application.dto;
+package com.example.application.dto.apireturn;
 
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
@@ -7,7 +7,7 @@ import lombok.ToString;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
-class Sys{
+public class Sys{
     public int type;
     public int id;
     public double message;
