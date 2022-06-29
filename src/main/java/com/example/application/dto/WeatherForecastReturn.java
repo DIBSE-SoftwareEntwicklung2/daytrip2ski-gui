@@ -1,5 +1,7 @@
 package com.example.application.dto;
 
+import com.example.application.dto.apireturn.City;
+import com.example.application.dto.apireturn.List;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
