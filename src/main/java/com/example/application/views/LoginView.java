@@ -3,6 +3,7 @@ package com.example.application.views;
 import com.example.application.dto.*;
 import com.example.application.service.RestPersonService;
 import com.example.application.service.RestSkiresortService;
+import com.example.application.service.ScoreEvaluator;
 import com.example.application.service.WeatherService;
 import com.vaadin.flow.component.dependency.CssImport;
 import com.vaadin.flow.component.html.Image;
@@ -15,6 +16,8 @@ import com.vaadin.flow.router.Route;
 import java.time.LocalDate;
 import java.time.Month;
 import java.util.List;
+
+import static com.example.application.service.ScoreEvaluator.EvaluateScore;
 
 @Route(value = "loginView")
 @CssImport("./styles/views/loginView.css")
@@ -70,7 +73,14 @@ public class LoginView extends VerticalLayout {
 //		RestSkiresortService service = new RestSkiresortService();
 //		List<Skiresort> mytest = service.getallSkiresorts();
 //
+//		RestPersonService testservice = new RestPersonService();
+//		Person mypersontest = testservice.getPersonbyId(1);
+//
+//
+//		System.out.println(EvaluateScore(mypersontest, mytest.get(1)));
+//
 //		mytest.forEach(s-> {
+//			System.out.println(EvaluateScore(mypersontest, s));
 //			System.out.println(s);
 //			WeatherService wservice = new WeatherService();
 //			WeatherActualReturn myweather = wservice.getWeatherActual(s);
@@ -91,15 +101,21 @@ public class LoginView extends VerticalLayout {
 //		Score myTestScore2 = testservice.getScorefromPerson(mypersontest2);
 //		System.out.println(myTestScore2);
 
+
+//		RestPersonService testservice = new RestPersonService();
 //		Person anotherTest = new Person(
-//				5l,
 //				"Test",
 //				"Testermann",
 //				"something@test.test",
-//				LocalDate.of(2000, Month.APRIL, 1),
-//				99
+//				LocalDate.of(2000, Month.APRIL, 1)
 //		);
+//		anotherTest.setScore(new Score());
 //		testservice.postRegisterPerson(anotherTest);
+//		anotherTest = testservice.getPersonbyId(3);
+//		System.out.println(anotherTest);
+//		anotherTest.setFirstName("updated");
+//		testservice.savePerson(anotherTest);
+//		System.out.println(testservice.getPersonbyId(3));
 	}
 
 }
