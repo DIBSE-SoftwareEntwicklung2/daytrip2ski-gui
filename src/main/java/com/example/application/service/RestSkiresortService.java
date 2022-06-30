@@ -14,16 +14,48 @@ public class RestSkiresortService {
 
 //    @Autowired
 //    private Environment env;
-
+private String basepath = "http://localhost:8081/";
+    private String extension = "api/v1/skiresort/";
 
 
         public List<Skiresort> getallSkiresorts() {
-            //System.out.println( env.getProperty("api.baseurl"));
-            WebClient.RequestHeadersSpec<?> spec = WebClient.create().get().uri( "http://localhost:8081/api/v1/skiresort");
-            //env.getProperty("api.baseurl") + "skiresort"
+            WebClient.RequestHeadersSpec<?> spec = WebClient.create().get().uri( basepath + extension);
+
 
             List<Skiresort> skiresorts = spec.retrieve().toEntityList(Skiresort.class).block().getBody();
             return skiresorts;
         }
+
+    public List<Skiresort> getmaxdistanceeasy() {
+        WebClient.RequestHeadersSpec<?> spec = WebClient.create().get().uri( basepath + extension + "maxdistanceeasy");
+        List<Skiresort> skiresorts = spec.retrieve().toEntityList(Skiresort.class).block().getBody();
+        return skiresorts;
+    }
+    public List<Skiresort> getmindistanceeasy() {
+        WebClient.RequestHeadersSpec<?> spec = WebClient.create().get().uri( basepath + extension + "mindistanceeasy");
+        List<Skiresort> skiresorts = spec.retrieve().toEntityList(Skiresort.class).block().getBody();
+        return skiresorts;
+    }
+    public List<Skiresort> getmaxdistanceintermediate() {
+        WebClient.RequestHeadersSpec<?> spec = WebClient.create().get().uri( basepath + extension + "maxdistanceintermediate");
+        List<Skiresort> skiresorts = spec.retrieve().toEntityList(Skiresort.class).block().getBody();
+        return skiresorts;
+    }
+    public List<Skiresort> getmindistanceintermediate() {
+        WebClient.RequestHeadersSpec<?> spec = WebClient.create().get().uri( basepath + extension + "mindistanceintermediate");
+        List<Skiresort> skiresorts = spec.retrieve().toEntityList(Skiresort.class).block().getBody();
+        return skiresorts;
+    }
+    public List<Skiresort> getmaxdistancedifficult() {
+        WebClient.RequestHeadersSpec<?> spec = WebClient.create().get().uri( basepath + extension + "maxdistancedifficult");
+        List<Skiresort> skiresorts = spec.retrieve().toEntityList(Skiresort.class).block().getBody();
+        return skiresorts;
+    }
+    public List<Skiresort> getmindistancedifficult() {
+        WebClient.RequestHeadersSpec<?> spec = WebClient.create().get().uri( basepath + extension + "mindistancedifficult");
+        List<Skiresort> skiresorts = spec.retrieve().toEntityList(Skiresort.class).block().getBody();
+        return skiresorts;
+    }
+
 
 }

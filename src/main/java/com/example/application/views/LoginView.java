@@ -69,25 +69,25 @@ public class LoginView extends VerticalLayout {
         add(logo);
 		add(login);
 
-//		RestSkiresortService service = new RestSkiresortService();
-//		List<Skiresort> mytest = service.getallSkiresorts();
-//
-//		RestPersonService testservice = new RestPersonService();
-//		Person mypersontest = testservice.getPersonbyId(1);
+		RestSkiresortService service = new RestSkiresortService();
+		List<Skiresort> mytest = service.getallSkiresorts();
+
+		RestPersonService testservice = new RestPersonService();
+		Person mypersontest = testservice.getPersonbyId(1);
 //
 //
 //		System.out.println(EvaluateScore(mypersontest, mytest.get(1)));
 //
-//		mytest.forEach(s-> {
-//			System.out.println(EvaluateScore(mypersontest, s));
-//			System.out.println(s);
+		mytest.forEach(s-> {
+			System.out.println(s.getName());
+			System.out.println(EvaluateScore(mypersontest, s));
 //			WeatherService wservice = new WeatherService();
 //			WeatherActualReturn myweather = wservice.getWeatherActual(s);
 //			System.out.println(myweather);
 //
 //			WeatherForecastReturn mysecTest =  wservice.getWeatherForecast(s);
 //			System.out.println(mysecTest);
-//		});
+		});
 
 //		RestPersonService testservice = new RestPersonService();
 //		Person mypersontest = testservice.getPersonbyId(1);
