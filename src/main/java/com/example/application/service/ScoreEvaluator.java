@@ -89,6 +89,8 @@ public class ScoreEvaluator {
         Long difficult_min = getStats.getmindistancedifficult().get(0).getDistanceDifficult();
         Long difficult_max = getStats.getmaxdistancedifficult().get(0).getDistanceDifficult();
 
+
+        //scale results to a value between 0 and 1
         Double scaled_easy;
         if(easy_min != easy_max){
            scaled_easy = (skiresort.getDistanceEasy().doubleValue() - easy_min.doubleValue()) / (easy_max.doubleValue() - easy_min.doubleValue());
@@ -108,6 +110,7 @@ public class ScoreEvaluator {
             scaled_difficult = 1d;
         }
 
+        //evaluate how close the values are and transform them to a value between 0 and 10
         Double easy_result = abs(score.getAffinityToEasyTracks() - scaled_easy);
         easy_result = (1 - easy_result) * 10;
         Double intermediate_result = abs(score.getAffinityToIntermediateTracks() - scaled_intermediate);
