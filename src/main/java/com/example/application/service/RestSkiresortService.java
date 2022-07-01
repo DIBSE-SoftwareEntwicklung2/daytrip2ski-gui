@@ -57,5 +57,17 @@ private String basepath = "http://localhost:8081/";
         return skiresorts;
     }
 
+    public Long getmaxnumbersofclimbingaids() {
+        WebClient.RequestHeadersSpec<?> spec = WebClient.create().get().uri( basepath + extension + "maxnumbersofclimbingaids");
+        Long result = spec.retrieve().toEntity(Long.class).block().getBody();
+        return result;
+    }
+
+    public Long getminnumbersofclimbingaids() {
+        WebClient.RequestHeadersSpec<?> spec = WebClient.create().get().uri( basepath + extension + "minnumbersofclimbingaids");
+        Long result = spec.retrieve().toEntity(Long.class).block().getBody();
+        return result;
+    }
+
 
 }

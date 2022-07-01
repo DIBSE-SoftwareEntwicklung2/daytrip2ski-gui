@@ -15,8 +15,8 @@ public class Skiresort {
     private Long id;
     private String name;
 
-    private Long latitude;
-    private Long longitude;
+    private Double latitude;
+    private Double longitude;
     private Long altitudeValley;
     private Long altitudeMountain;
 
@@ -29,9 +29,13 @@ public class Skiresort {
     private Long numberOfBabyLift;
     private Long numberOfMovingCarpet;
 
+    private Long totalNumbersOfClimbingAids;
+
     private Long distanceEasy;
     private Long distanceIntermediate;
     private Long distanceDifficult;
+
+    private Long totalSlopeDistance;
 
     private String generalSnowCondition;
     private Long numberOfRestaurants;

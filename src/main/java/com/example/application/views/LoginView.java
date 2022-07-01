@@ -17,6 +17,7 @@ import java.time.LocalDate;
 import java.time.Month;
 import java.util.List;
 
+import static com.example.application.service.GDistanceMatrixService.getDistanceMatrix;
 import static com.example.application.service.ScoreEvaluator.EvaluateScore;
 
 @Route(value = "loginView")
@@ -89,7 +90,7 @@ public class LoginView extends VerticalLayout {
 //			WeatherForecastReturn mysecTest =  wservice.getWeatherForecast(s);
 //			System.out.println(mysecTest);
 		});
-
+//		getDistanceMatrix(mypersontest, mytest.get(0));
 //		RestPersonService testservice = new RestPersonService();
 //		Person mypersontest = testservice.getPersonbyId(1);
 //		System.out.println(mypersontest);
