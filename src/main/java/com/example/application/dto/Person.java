@@ -16,6 +16,8 @@ public class Person {
     private String lastName;
     private String email;
     private LocalDate dob;
+    private Double homeLatitude;
+    private Double homeLongitude;
     private Score score;
     private Integer age;
 

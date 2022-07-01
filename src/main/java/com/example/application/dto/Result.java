@@ -22,7 +22,7 @@ public class Result {
 
         this.score = 0;
 
-        this.recomendet = false;
+        this.recomendet = true;
         this.recomendet_errors = new ArrayList<>();
     }
 }
