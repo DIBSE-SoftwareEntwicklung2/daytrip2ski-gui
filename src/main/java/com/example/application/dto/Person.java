@@ -19,6 +19,9 @@ public class Person {
     private Score score;
     private Integer age;
 
+    private Double homeLatitude = 47.269211;
+    private Double homeLongitude = 11.404102;
+
     public Person(String firstName,
                   String lastName,
                   String email,
@@ -31,6 +34,9 @@ public class Person {
 
     public Long getId() {
         return id;
+    }
+    public String getIdStr() {
+        return id.toString();
     }
 
     public String getFirstName() {
