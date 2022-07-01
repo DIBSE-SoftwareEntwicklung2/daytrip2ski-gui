@@ -42,7 +42,7 @@ public class ResultsView extends VerticalLayout implements HasUrlParameter<Strin
             }else {
                 restSkiresortService.getallSkiresorts().forEach(d->{
                     SingleItem item = new SingleItem();
-                    item.init(d.getName(), d.getId() + ".jpeg", false, d.getId());
+                    item.init(d.getName(), "Soelden.jpg", false, d.getId());
                     add(item);
                 });
             }
@@ -50,7 +50,7 @@ public class ResultsView extends VerticalLayout implements HasUrlParameter<Strin
         }else {
             restSkiresortService.getallSkiresorts().forEach(d->{
                 SingleItem item = new SingleItem();
-                item.init(d.getName(), d.getId() + ".jpeg", false, d.getId());
+                item.init(d.getName(), "Soelden.jpg", false, d.getId());
                 add(item);
             });
         }

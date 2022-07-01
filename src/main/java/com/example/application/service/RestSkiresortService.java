@@ -22,9 +22,6 @@ private String basepath = "http://localhost:8081/";
             List<Skiresort> skiresorts = spec.retrieve().toEntityList(Skiresort.class).block().getBody();
             return skiresorts;
         }
-    public Skiresort getOne(Long id) {
-        return WebClient.create().get().uri("http://localhost:8081/api/v1/skiresort/"+id).retrieve().toEntity(Skiresort.class).block().getBody();
-    }
 
     public List<Skiresort> getmaxdistanceeasy() {
         WebClient.RequestHeadersSpec<?> spec = WebClient.create().get().uri( basepath + extension + "maxdistanceeasy");
