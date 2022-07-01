@@ -189,7 +189,7 @@ public class SingleResultView extends VerticalLayout implements HasUrlParameter<
 			if(item!=null) {
 				title.add(item.getName());
 
-				image.setSrc("images/Soelden.jpg");
+				image.setSrc("images/"+item.getId() + ".jpeg");
 				imgWeather.setSrc("images/wheather.jpg");
 
 				hlAltValley.add(item.getAltitudeValley().toString());
