@@ -87,7 +87,7 @@ jobs:
             - run:
                 name: Deploy to Heroku
                 command: git push https://heroku:$HEROKU_API_KEY@git.heroku.com/$HEROKU_APP_NAME.git master
-                
+
     gcp_cloudrun_deploy: 
         description: Deploy using cloud run 
         executor: machine-executor 
@@ -117,6 +117,6 @@ workflows:
         - gcp_cloudrun_deploy: 
             requires: 
                 - build_push_image_gcr
-        - heroku/deploy-via-git:
+        - herokudeploy:
             requires:
                 - test
