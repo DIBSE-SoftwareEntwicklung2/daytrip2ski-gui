@@ -17,7 +17,6 @@ import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 
 import java.util.List;
-import java.util.TreeMap;
 
 @PageTitle("Results")
 @Route(value = "results", layout = MainLayout.class)
@@ -69,7 +68,7 @@ public class ResultsView extends VerticalLayout implements HasUrlParameter<Strin
     }
 
     private List<Skiresort> getAllSkiresorts() {
-        List<Skiresort> result = restSkiresortService.getallSkiresorts();
+        List<Skiresort> result = restSkiresortService.getAllSkiresorts();
 
         if(!this.hasScore()) {
             return result;

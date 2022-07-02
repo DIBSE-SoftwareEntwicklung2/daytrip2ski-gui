@@ -12,15 +12,14 @@ public class RestSkiresortService {
     private static final String BASE_PATH = System.getenv("BASE_URL");
     private static final String EXTENSION = "api/v1/skiresort/";
 
-    public List<Skiresort> getallSkiresorts() {
+    public List<Skiresort> getAllSkiresorts() {
         WebClient.RequestHeadersSpec<?> spec = WebClient.create().get().uri(BASE_PATH + EXTENSION);
-
-
         return Objects.requireNonNull(spec.retrieve().toEntityList(Skiresort.class).block()).getBody();
     }
 
     public Skiresort getOne(Long id) {
-        return WebClient.create().get().uri(BASE_PATH + EXTENSION + id).retrieve().toEntity(Skiresort.class).block().getBody();
+        WebClient.RequestHeadersSpec<?> spec = WebClient.create().get().uri(BASE_PATH + EXTENSION + id);
+        return Objects.requireNonNull(spec.retrieve().toEntity(Skiresort.class).block()).getBody();
     }
 
     public List<Skiresort> getMaxDistanceEasy() {
