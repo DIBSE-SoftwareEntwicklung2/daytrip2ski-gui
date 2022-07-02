@@ -2,6 +2,15 @@ package com.example.application.views;
 
 import com.example.application.dto.Person;
 import com.example.application.service.RestPersonService;
+
+import com.vaadin.flow.component.AttachEvent;
+import com.vaadin.flow.component.notification.Notification;
+import com.vaadin.flow.component.notification.NotificationVariant;
+import com.vaadin.flow.data.binder.Binder;
+import com.vaadin.flow.data.binder.ValidationException;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.vaadin.addons.PaperSlider;
+
 import com.example.application.utils.CustomTabs;
 import com.vaadin.flow.component.AttachEvent;
 import com.vaadin.flow.component.button.Button;
@@ -284,7 +293,7 @@ public class MyAccount extends VerticalLayout{
     protected void onAttach(AttachEvent attachEvent) {
         super.onAttach(attachEvent);
 
-        person = personService.getPersonbyId(1);
+        person = personService.getPersonById(1);
         System.out.println(person);
         binder.readBean(person);
     }
