@@ -29,10 +29,12 @@ public class ResultsView extends VerticalLayout implements HasUrlParameter<Strin
     private static final long serialVersionUID = 1L;
 
     @Autowired
-    private RestSkiresortService restSkiresortService;
+    // No serialization needed.
+    private transient RestSkiresortService restSkiresortService;
 
     @Autowired
-    private RestPersonService personService;
+    // No serialization needed.
+    private transient RestPersonService personService;
 
     public ResultsView() {
         setWidthFull();

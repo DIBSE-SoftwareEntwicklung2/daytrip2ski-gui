@@ -23,11 +23,14 @@ import org.vaadin.addons.PaperSlider;
 @Route(value = "account", layout = MainLayout.class)
 public class MyAccount extends VerticalLayout {
     @Autowired
-    private RestPersonService personService;
+    // No serialization needed.
+    private transient RestPersonService personService;
 
     private static final long serialVersionUID = 1L;
     private final Binder<Person> binder = new Binder<>();
-    private Person person;
+
+    // No serialization needed.
+    private transient Person person;
 
     public MyAccount() {
         TextField tfID = new TextField("ID");

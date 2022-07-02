@@ -71,10 +71,12 @@ public class SingleResultView extends VerticalLayout implements HasUrlParameter<
     private final Map map;
 
     @Autowired
-    private RestSkiresortService restSkiresortService;
+    // No serialization needed.
+    private transient RestSkiresortService restSkiresortService;
 
     @Autowired
-    private WeatherService weatherService;
+    // No serialization needed.
+    private transient WeatherService weatherService;
 
     public SingleResultView() {
         setSizeFull();

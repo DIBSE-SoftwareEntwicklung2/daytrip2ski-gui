@@ -1,14 +1,5 @@
 package com.example.application.views;
 
-
-import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-
-import org.apache.commons.collections4.map.HashedMap;
-
-import com.example.application.model.Item;
 import com.example.application.windows.SearchWindow;
 import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.UI;
@@ -81,7 +72,6 @@ public class MainLayout extends AppLayout {
         addToNavbar(true, createHeaderContent());
         addToDrawer(createDrawerContent());
         searchWindow = new SearchWindow();
-        //generateDestinations();
     }
 
     private Component createHeaderContent() {
