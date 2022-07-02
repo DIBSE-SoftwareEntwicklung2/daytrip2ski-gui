@@ -37,6 +37,8 @@ public class ScoreEvaluator {
 
         resolveDistance(person, skiresort, result, score);
 
+        result.score *= (10/6);
+
         return result;
     }
 
