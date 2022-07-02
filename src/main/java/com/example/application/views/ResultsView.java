@@ -75,10 +75,10 @@ public class ResultsView extends VerticalLayout implements HasUrlParameter<Strin
             return result;
         }
 
-        Person person = personService.getPersonbyId(1);
+        Person person = personService.getPersonById(1);
 
         for (Skiresort resort: result) {
-            Result scoreResult = ScoreEvaluator.EvaluateScore(person, resort);
+            Result scoreResult = ScoreEvaluator.evaluateScore(person, resort);
 
             if (!scoreResult.valid) {
                 resort.setScore(-1);
