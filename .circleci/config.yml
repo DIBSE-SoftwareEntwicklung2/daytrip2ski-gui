@@ -97,7 +97,6 @@ jobs:
             - store_artifacts: 
                 path: target 
                 destination: target 
-            - heroku/deploy-via-git
 
     gcp_cloudrun_deploy: 
         description: Deploy using cloud run 
