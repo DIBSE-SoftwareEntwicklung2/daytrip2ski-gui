@@ -90,7 +90,6 @@ jobs:
             - checkout
             - heroku/install
             - run: mvn $MAVEN_CLI_OPTS clean package -Pproduction
-            - run: heroku create $HEROKU_APP_NAME
             - run: heroku deploy:jar my-app.jar --app $HEROKU_APP_NAME
             - store_artifacts: 
                 path: target 
