@@ -1,11 +1,8 @@
 package com.example.application.views;
 
 import com.example.application.dto.Person;
-import com.example.application.dto.Score;
 import com.example.application.service.RestPersonService;
-import com.example.application.service.RestSkiresortService;
 import com.vaadin.flow.component.AttachEvent;
-import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.notification.NotificationVariant;
 import com.vaadin.flow.data.binder.Binder;
@@ -276,7 +273,7 @@ public class MyAccount extends VerticalLayout{
     protected void onAttach(AttachEvent attachEvent) {
         super.onAttach(attachEvent);
 
-        person = personService.getPersonbyId(1);
+        person = personService.getPersonById(1);
         System.out.println(person);
         binder.readBean(person);
     }

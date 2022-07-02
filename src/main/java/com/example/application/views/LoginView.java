@@ -13,13 +13,6 @@ import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 
-import java.time.LocalDate;
-import java.time.Month;
-import java.util.List;
-
-import static com.example.application.service.GDistanceMatrixService.getDistanceMatrix;
-import static com.example.application.service.ScoreEvaluator.EvaluateScore;
-
 @Route(value = "loginView")
 @CssImport("./styles/views/loginView.css")
 @PageTitle("Login view")
@@ -97,12 +90,12 @@ public class LoginView extends VerticalLayout {
 //		RestPersonService testservice = new RestPersonService();
 //		Person mypersontest = testservice.getPersonbyId(1);
 //		System.out.println(mypersontest);
-//		Score myTestScore = testservice.getScorefromPerson(mypersontest);
+//		Score myTestScore = testservice.getScoreFromPerson(mypersontest);
 //		System.out.println(myTestScore);
 //
 //		Person mypersontest2 = testservice.getPersonbyId(2);
 //		System.out.println(mypersontest2);
-//		Score myTestScore2 = testservice.getScorefromPerson(mypersontest2);
+//		Score myTestScore2 = testservice.getScoreFromPerson(mypersontest2);
 //		System.out.println(myTestScore2);
 
 
