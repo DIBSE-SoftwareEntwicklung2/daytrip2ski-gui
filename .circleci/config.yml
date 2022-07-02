@@ -82,6 +82,10 @@ jobs:
     herokudeploy:
         deploy:
         executor: heroku/default
+        docker:
+            - image: sugan1234/vaadinrepo:latest
+        environment:
+            MAVEN_CLI_OPTS: "--batch-mode"
         steps:
             - checkout
             - heroku/install
