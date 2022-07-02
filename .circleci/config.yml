@@ -93,8 +93,12 @@ jobs:
             - run:
                 command: >
                     echo "The command above installs Heroku, the command below deploys.
-                    What you do inbetween is up to you!"   
+                    What you do inbetween is up to you!"
+            - store_artifacts: 
+                path: target 
+                destination: target 
             - heroku/deploy-via-git
+
     gcp_cloudrun_deploy: 
         description: Deploy using cloud run 
         executor: machine-executor 
