@@ -172,15 +172,16 @@
 				and main.js files. It also creates webpack.config.js if not exists yet. -->
 			<plugin>
 				<groupId>com.vaadin</groupId>
-				<artifactId>vaadin-maven-plugin</artifactId>
-				<version>${vaadin.version}</version>
-				<executions>
-					<execution>
-						<goals>
-							<goal>prepare-frontend</goal>
-						</goals>
-					</execution>
-				</executions>
+                   		<artifactId>vaadin-maven-plugin</artifactId>
+                   		<version>${vaadin.version}</version>
+                   		<executions>
+                       			<execution>
+                           			<goals>
+                               				<goal>prepare-frontend</goal>
+                               				<goal>build-frontend</goal>
+                           			</goals>
+                       			</execution>
+                   		</executions>
 			</plugin>
 			<plugin>
    				<groupId>com.heroku.sdk</groupId>
