@@ -26,6 +26,12 @@ private String basepath = System.getenv("BASE_URL");
             List<Skiresort> skiresorts = spec.retrieve().toEntityList(Skiresort.class).block().getBody();
             return skiresorts;
         }
+<<<<<<< Updated upstream
+=======
+    public Skiresort getOne(Long id) {
+        return WebClient.create().get().uri(basepath + extension + "skiresort/"+id).retrieve().toEntity(Skiresort.class).block().getBody();
+    }
+>>>>>>> Stashed changes
 
     public List<Skiresort> getmaxdistanceeasy() {
         WebClient.RequestHeadersSpec<?> spec = WebClient.create().get().uri( basepath + extension + "maxdistanceeasy");
