@@ -284,7 +284,7 @@ public class MyAccount extends VerticalLayout{
     protected void onAttach(AttachEvent attachEvent) {
         super.onAttach(attachEvent);
 
-        person = personService.getPersonbyId(1);
+        person = personService.getPersonById(1);
         System.out.println(person);
         binder.readBean(person);
     }
