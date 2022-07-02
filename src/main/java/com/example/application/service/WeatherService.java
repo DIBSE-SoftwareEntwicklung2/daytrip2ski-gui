@@ -3,8 +3,10 @@ package com.example.application.service;
 import com.example.application.dto.Skiresort;
 import com.example.application.dto.WeatherActualReturn;
 import com.example.application.dto.WeatherForecastReturn;
+import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 
+@Service
 public class WeatherService {
 
     public WeatherActualReturn getWeatherActual(Skiresort current) {
@@ -17,6 +19,7 @@ public class WeatherService {
     }
 
     public WeatherForecastReturn getWeatherForecast(Skiresort current){
+        System.out.println(current.getWeatherForecastUrl());
         WebClient.RequestHeadersSpec<?> spec = WebClient.create().get().uri(current.getWeatherForecastUrl());
         WeatherForecastReturn weather = spec.retrieve().toEntity(WeatherForecastReturn.class).block().getBody();
         return weather;

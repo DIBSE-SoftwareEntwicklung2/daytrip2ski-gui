@@ -15,3 +15,12 @@
     position: absolute;
     font-weight: 600;
 }
+.score {
+    padding: 10px;
+    bottom: 0;
+    left: 0;
+    width: auto;
+    position: absolute;
+    font-weight: 600;
+    background: #80D9E1;
+}

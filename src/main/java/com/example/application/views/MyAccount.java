@@ -1,27 +1,24 @@
 package com.example.application.views;
 
 import com.example.application.dto.Person;
-import com.example.application.dto.Score;
 import com.example.application.service.RestPersonService;
-import com.example.application.service.RestSkiresortService;
-import com.vaadin.flow.component.AttachEvent;
-import com.vaadin.flow.component.UI;
-import com.vaadin.flow.component.notification.Notification;
-import com.vaadin.flow.component.notification.NotificationVariant;
-import com.vaadin.flow.data.binder.Binder;
-import com.vaadin.flow.data.binder.ValidationException;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.vaadin.addons.PaperSlider;
-
 import com.example.application.utils.CustomTabs;
+import com.vaadin.flow.component.AttachEvent;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.checkbox.Checkbox;
+import com.vaadin.flow.component.datepicker.DatePicker;
 import com.vaadin.flow.component.html.H2;
 import com.vaadin.flow.component.html.Span;
+import com.vaadin.flow.component.notification.Notification;
+import com.vaadin.flow.component.notification.NotificationVariant;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.TextField;
+import com.vaadin.flow.data.binder.Binder;
+import com.vaadin.flow.data.binder.ValidationException;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.vaadin.addons.PaperSlider;
 
 @PageTitle("My account")
 @Route(value = "account", layout = MainLayout.class)
@@ -43,6 +40,8 @@ public class MyAccount extends VerticalLayout{
     private TextField tfName;
     private TextField tfLastName;
     private TextField tfEmail;
+
+    private DatePicker dpBirthDate;
 
     private CustomTabs tabbed;
 
@@ -97,6 +96,15 @@ public class MyAccount extends VerticalLayout{
         add(tfEmail);
 
         binder.bind(tfEmail, Person::getEmail, null);
+
+        DatePicker.DatePickerI18n singleFormatI18n = new DatePicker.DatePickerI18n();
+        singleFormatI18n.setDateFormat("dd.MM.yyyy");
+        dpBirthDate = new DatePicker("Birth date");
+        dpBirthDate.setI18n(singleFormatI18n);
+        dpBirthDate.setEnabled(false);
+        add(dpBirthDate);
+
+        binder.bind(dpBirthDate, Person::getDob, null);
 
         btnSave = new Button("Save");
         btnSave.addClickListener(event -> {
@@ -201,7 +209,7 @@ public class MyAccount extends VerticalLayout{
 //        tabbed.add("Capacity", vlCapacity);
 //        tabbed.add("Specials", vlSpecials);
 
-        add(new H2("Your custom filters"));
+        add(new H2("Customize your trip!"));
 
         varietySlider = new PaperSlider(1);
         varietySlider.setLabel("Variety");

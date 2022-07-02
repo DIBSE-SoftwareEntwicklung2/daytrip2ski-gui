@@ -67,6 +67,8 @@ public class Skiresort {
 
     private Boolean isActive;
 
+    private Integer score;
+
     public Long getId() {
         return id;
     }
@@ -361,5 +363,13 @@ public class Skiresort {
 
     public void setActive(Boolean active) {
         isActive = active;
+    }
+
+    public Integer getScore() {
+        return score;
+    }
+
+    public void setScore(Integer score) {
+        this.score = score;
     }
 }
