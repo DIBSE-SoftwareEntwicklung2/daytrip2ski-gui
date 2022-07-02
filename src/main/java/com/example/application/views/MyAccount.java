@@ -227,7 +227,7 @@ public class MyAccount extends VerticalLayout{
         varietySlider.setMin(1);
         add(varietySlider);
 
-        binder.bind(varietySlider, person -> person.getScore().getVariety().intValue(), (person, value) -> person.getScore().setVariety(Double.valueOf(value)));
+        binder.bind(varietySlider, person -> person.getScore().getVariety().intValue(), (person, value) -> person.getScore().setVariety(Double.valueOf(value * 0.1)));
 
         easyTracksSlider = new PaperSlider(1);
         easyTracksSlider.setLabel("Easy Tracks");
