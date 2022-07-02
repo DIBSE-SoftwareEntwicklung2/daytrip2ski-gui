@@ -1,7 +1,12 @@
 package com.example.application.views;
 
+import com.example.application.dto.WeatherActualReturn;
+import com.example.application.dto.WeatherForecastReturn;
+import com.example.application.service.WeatherService;
+import com.vaadin.flow.component.AttachEvent;
 import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.checkbox.Checkbox;
+import com.vaadin.flow.component.html.*;
 import com.vaadin.flow.component.map.Map;
 import com.vaadin.flow.component.map.configuration.Coordinate;
 import com.vaadin.flow.component.map.configuration.feature.MarkerFeature;
@@ -15,10 +20,6 @@ import com.example.application.service.RestSkiresortService;
 import com.flowingcode.vaadin.addons.googlemaps.GoogleMap;
 import com.flowingcode.vaadin.addons.googlemaps.LatLon;
 import com.vaadin.flow.component.Text;
-import com.vaadin.flow.component.html.H1;
-import com.vaadin.flow.component.html.Image;
-import com.vaadin.flow.component.html.Paragraph;
-import com.vaadin.flow.component.html.Span;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.BeforeEvent;
@@ -26,8 +27,12 @@ import com.vaadin.flow.router.HasUrlParameter;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 @PageTitle("Result")
 @Route(value = "single", layout = MainLayout.class)
@@ -40,11 +45,13 @@ public class SingleResultView extends VerticalLayout implements HasUrlParameter<
 	 */
 	private static final long serialVersionUID = 1L;
 
+	private SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM");
+
 	private Skiresort item;
 	private H1 title;
 	private Image image;
 
-	private Image imgWeather;
+	private List<VerticalLayout> imgWeathers = new ArrayList();
 	private Image imgMaps;
 
 	private HorizontalLayout hlAltValley;
@@ -89,6 +96,8 @@ public class SingleResultView extends VerticalLayout implements HasUrlParameter<
 	private Paragraph pRemark;
 	private Paragraph pDescription;
 
+	private HorizontalLayout hlWeather;
+
 	private VerticalLayout vlMaps;
 
 	private GoogleMap gmaps;
@@ -100,6 +109,9 @@ public class SingleResultView extends VerticalLayout implements HasUrlParameter<
 	@Autowired
 	private RestSkiresortService restSkiresortService;
 
+	@Autowired
+	private WeatherService weatherService;
+
 
 	public SingleResultView() {
 		setSizeFull();
@@ -108,8 +120,8 @@ public class SingleResultView extends VerticalLayout implements HasUrlParameter<
 		image = new Image();
 		image.setMaxWidth("100%");
 
-		imgWeather = new Image();
-		imgWeather.setMaxWidth("100%");
+//		imgWeather = new Image();
+//		imgWeather.setMaxWidth("100%");
 
 		imgMaps = new Image();
 		imgMaps.setMaxWidth("100%");
@@ -165,6 +177,39 @@ public class SingleResultView extends VerticalLayout implements HasUrlParameter<
 		pDescription = new Paragraph("Description:");
 		pDescription.setMaxWidth("500px");
 
+		Paragraph weatherHeader = new Paragraph("Next 10 days:");
+		weatherHeader.getStyle().set("font-weight", "bold");
+		weatherHeader.getStyle().set("border", "1px solid #ACACAC");
+		weatherHeader.getStyle().set("background-color", "#F2F2F2");
+		weatherHeader.getStyle().set("padding", "8px");
+		weatherHeader.setWidth("100%");
+
+		hlWeather = new HorizontalLayout();
+
+		for (int i = 0; i < 10; i++) {
+			VerticalLayout vlWeather = new VerticalLayout();
+			vlWeather.setSpacing(false);
+			vlWeather.setAlignItems(Alignment.CENTER);
+			vlWeather.setJustifyContentMode(JustifyContentMode.CENTER);
+			vlWeather.add(new Span());
+
+			Image imgWeather = new Image();
+			imgWeather.setWidth("75px");
+			vlWeather.add(imgWeather);
+
+			vlWeather.add(new Span());
+
+			Span min = new Span();
+			min.getStyle().set("font-size", " 11px");
+			Span max = new Span();
+			max.getStyle().set("font-size", " 11px");
+			vlWeather.add(min);
+			vlWeather.add(max);
+			hlWeather.add(vlWeather);
+//			imgWeather.setMaxWidth("100%");
+			imgWeathers.add(vlWeather);
+		}
+
 		vlMaps = new VerticalLayout(new H1("Maps"));
 		vlMaps.setSizeFull();
 		vlMaps.setHeight("600px");
@@ -173,13 +218,9 @@ public class SingleResultView extends VerticalLayout implements HasUrlParameter<
 
 		add(title, image, hlAltValley, hlAltMountain, hlNumOfCogRail, hlNumOfFunicular, hlNumOfCableCar, hlNumOfGondolLift, hlNumOfChairLift, hlNumOfTBarLift, hlNumOfBabyLift, hlNumOfMovingCarpet, hlDistanceEasy, hlDistanceIntermediate,
 				hlDistanceDifficult, pGeneralSnowCOnditions, hlWebCamUrl, hlWebSiteUrl, hlExtras, hlPriceDayTicketAdults, hlPriceDayTicketYouth,
-				hlPriceDayTicketChildren, hlSeasson, hlHours, pOpeningHoursNote, pRemark, pDescription, imgWeather, vlMaps);
+				hlPriceDayTicketChildren, hlSeasson, hlHours, pOpeningHoursNote, pRemark, pDescription, weatherHeader, hlWeather, vlMaps);
 
 	}
-
-
-
-
 
 	@Override
 	public void setParameter(BeforeEvent event,
@@ -189,8 +230,7 @@ public class SingleResultView extends VerticalLayout implements HasUrlParameter<
 			if(item!=null) {
 				title.add(item.getName());
 
-				image.setSrc("images/"+item.getId() + ".jpeg");
-				imgWeather.setSrc("images/wheather.jpg");
+				image.setSrc("images/" + item.getId() + ".jpeg");
 
 				hlAltValley.add(item.getAltitudeValley().toString());
 				hlAltMountain.add(item.getAltitudeMountain().toString());
@@ -259,6 +299,19 @@ public class SingleResultView extends VerticalLayout implements HasUrlParameter<
 
 				vlMaps.add(map);
 
+				WeatherForecastReturn forecastWeather = weatherService.getWeatherForecast(item);
+
+				for(int i = 0; i < 10; i++) {
+					Object[] childElements = imgWeathers.get(i).getChildren().toArray();
+					com.example.application.dto.apireturn.List weather = forecastWeather.list.get(i);
+					System.out.println(new Date(weather.dt * 1000));
+					((Span) childElements[0]).setText(simpleDateFormat.format(new Date(weather.dt * 1000)));
+					((Image) childElements[1]).setSrc("https://openweathermap.org/img/wn/" + weather.weather.get(0).icon + "@2x.png");
+					((Image) childElements[1]).setTitle(weather.weather.get(0).description);
+					((Span) childElements[2]).setText(weather.feels_like.day + "°C");
+					((Span) childElements[3]).setText("Min. " + weather.temp.min + "°C");
+					((Span) childElements[4]).setText("Max. " + weather.temp.max + "°C");
+				}
 			}
 		}else
 			UI.getCurrent().navigate(ResultsView.class);

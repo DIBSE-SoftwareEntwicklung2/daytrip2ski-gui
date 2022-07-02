@@ -11,7 +11,7 @@ import java.util.ArrayList;
 @NoArgsConstructor
 @ToString
 public class List {
-    public int dt;
+    public long dt;
     public int sunrise;
     public int sunset;
     public Temp temp;
