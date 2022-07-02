@@ -11,7 +11,8 @@ public class RestSkiresortService {
 
 //    @Autowired
 //    private Environment env;
-private String basepath = "http://localhost:8081/";
+    //"http://localhost:8081/"
+private String basepath = System.getenv("BASE_URL");
     private String extension = "api/v1/skiresort/";
 
 
@@ -55,6 +56,18 @@ private String basepath = "http://localhost:8081/";
         WebClient.RequestHeadersSpec<?> spec = WebClient.create().get().uri( basepath + extension + "mindistancedifficult");
         List<Skiresort> skiresorts = spec.retrieve().toEntityList(Skiresort.class).block().getBody();
         return skiresorts;
+    }
+
+    public Long getmaxnumbersofclimbingaids() {
+        WebClient.RequestHeadersSpec<?> spec = WebClient.create().get().uri( basepath + extension + "maxnumbersofclimbingaids");
+        Long result = spec.retrieve().toEntity(Long.class).block().getBody();
+        return result;
+    }
+
+    public Long getminnumbersofclimbingaids() {
+        WebClient.RequestHeadersSpec<?> spec = WebClient.create().get().uri( basepath + extension + "minnumbersofclimbingaids");
+        Long result = spec.retrieve().toEntity(Long.class).block().getBody();
+        return result;
     }
 
 
