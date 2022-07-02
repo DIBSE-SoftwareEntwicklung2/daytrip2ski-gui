@@ -85,9 +85,9 @@ jobs:
         steps:
             - checkout
             - heroku/install
+            - run: mvn $MAVEN_CLI_OPTS clean package -Pproduction -e heroku:deploy
             - run:
                 command: >
-                    mvn clean package -Pproduction heroku:deploy
                     echo "The command above installs Heroku, the command below deploys.
                     What you do inbetween is up to you!"   
             - heroku/deploy-via-git
