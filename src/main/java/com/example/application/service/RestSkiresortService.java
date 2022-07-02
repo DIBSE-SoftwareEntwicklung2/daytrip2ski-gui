@@ -20,7 +20,7 @@ public class RestSkiresortService {
     }
 
     public Skiresort getOne(Long id) {
-        return WebClient.create().get().uri(basepath + extension + id).retrieve().toEntity(Skiresort.class).block().getBody();
+        return WebClient.create().get().uri(BASE_PATH + EXTENSION + id).retrieve().toEntity(Skiresort.class).block().getBody();
     }
 
     public List<Skiresort> getMaxDistanceEasy() {
