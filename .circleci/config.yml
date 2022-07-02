@@ -78,26 +78,7 @@ jobs:
                 image: $CIRCLE_WORKFLOW_ID 
                 registry-url: "gcr.io" 
                 tag: "latest"
-
-    herokudeploy:
-        deploy:
-        executor: heroku/default
-        docker:
-            - image: sugan1234/vaadinrepo:latest
-        environment:
-            MAVEN_CLI_OPTS: "--batch-mode"
-        steps:
-            - checkout
-            - heroku/install
-            - run: mvn $MAVEN_CLI_OPTS clean package -Pproduction -e heroku:deploy
-            - run:
-                command: >
-                    echo "The command above installs Heroku, the command below deploys.
-                    What you do inbetween is up to you!"
-            - store_artifacts: 
-                path: target 
-                destination: target 
-
+                
     gcp_cloudrun_deploy: 
         description: Deploy using cloud run 
         executor: machine-executor 
@@ -127,6 +108,3 @@ workflows:
         - gcp_cloudrun_deploy: 
             requires: 
                 - build_push_image_gcr
-        - herokudeploy:
-            requires:
-                - test
