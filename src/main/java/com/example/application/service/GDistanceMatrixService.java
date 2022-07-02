@@ -10,7 +10,7 @@ public class GDistanceMatrixService {
     public static ResultDistanceMatrix getDistanceMatrix(Person person, Skiresort skiresort){
         WebClient.RequestHeadersSpec<?> spec = WebClient.create().get().uri("https://maps.googleapis.com/maps/api/distancematrix/json?departure_time=now&destinations="
                                                                                 + skiresort.getLatitude() + "," + skiresort.getLongitude() + "&origins=" +  person.getHomeLatitude()+ "," + person.getHomeLongitude()
-                                                                                + "&key=");
+                                                                                + "&key=" + System.getenv("GOOGLE_MATRIX_API"));
         ResultDistanceMatrix result = spec.retrieve().toEntity(ResultDistanceMatrix.class).block().getBody();
 //        System.out.println("https://maps.googleapis.com/maps/api/distancematrix/json?departure_time=now&destinations="
 //                + skiresort.getLatitude() + "," + skiresort.getLongitude() + "&origins" +  person.getHomeLatitude()+ "," + person.getHomeLongitude()

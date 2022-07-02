@@ -14,7 +14,8 @@ public class RestSkiresortService {
 
 //    @Autowired
 //    private Environment env;
-private String basepath = "http://localhost:8081/";
+    //"http://localhost:8081/"
+private String basepath = System.getenv("BASE_URL");
     private String extension = "api/v1/skiresort/";
 
 
