@@ -218,7 +218,7 @@ public class MyAccount extends VerticalLayout{
         varietySlider.setMin(1);
         add(varietySlider);
 
-        binder.bind(varietySlider, person -> person.getScore().getVariety().intValue(), (person, value) -> person.getScore().setVariety(Double.valueOf(value * 0.1)));
+        binder.bind(varietySlider, person ->  (int)(person.getScore().getVariety() * 10) , (person, value) -> person.getScore().setVariety(Double.valueOf(value * 0.1)));
 
         easyTracksSlider = new PaperSlider(1);
         easyTracksSlider.setLabel("Easy Tracks");
@@ -227,7 +227,7 @@ public class MyAccount extends VerticalLayout{
         easyTracksSlider.setMin(1);
         add(easyTracksSlider);
 
-        binder.bind(easyTracksSlider, person -> person.getScore().getAffinityToEasyTracks().intValue(), (person, value) -> person.getScore().setAffinityToEasyTracks(Double.valueOf(value * 0.1)));
+        binder.bind(easyTracksSlider, person -> (int)(person.getScore().getAffinityToEasyTracks() * 10), (person, value) -> person.getScore().setAffinityToEasyTracks(Double.valueOf(value * 0.1)));
 
         intermediateTracksSlider = new PaperSlider(1);
         intermediateTracksSlider.setLabel("Intermediate Tracks");
@@ -236,7 +236,7 @@ public class MyAccount extends VerticalLayout{
         intermediateTracksSlider.setMin(1);
         add(intermediateTracksSlider);
 
-        binder.bind(intermediateTracksSlider, person -> person.getScore().getAffinityToIntermediateTracks().intValue(), (person, value) -> person.getScore().setAffinityToIntermediateTracks(Double.valueOf(value * 0.1)));
+        binder.bind(intermediateTracksSlider, person -> (int)(person.getScore().getAffinityToIntermediateTracks() * 10), (person, value) -> person.getScore().setAffinityToIntermediateTracks(Double.valueOf(value * 0.1)));
 
         difficultTracksSlider = new PaperSlider(1);
         difficultTracksSlider.setLabel("Difficult Tracks");
@@ -245,7 +245,7 @@ public class MyAccount extends VerticalLayout{
         difficultTracksSlider.setMin(1);
         add(difficultTracksSlider);
 
-        binder.bind(difficultTracksSlider, person -> person.getScore().getAffinityToDifficultTracks().intValue(), (person, value) -> person.getScore().setAffinityToDifficultTracks(Double.valueOf(value) * 0.1));
+        binder.bind(difficultTracksSlider, person -> (int)(person.getScore().getAffinityToDifficultTracks() * 10), (person, value) -> person.getScore().setAffinityToDifficultTracks(Double.valueOf(value) * 0.1));
 
         chkRentalRequired = new Checkbox("Rental Required");
         chkFamilyFriendly = new Checkbox("Family Friendly");
