@@ -109,6 +109,5 @@ workflows:
             requires: 
                 - build_push_image_gcr
         - heroku/deploy-via-git:
-            tag: -Pproduction
             requires:
                 - test
