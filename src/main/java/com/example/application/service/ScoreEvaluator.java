@@ -1,14 +1,12 @@
 package com.example.application.service;
 
-import com.example.application.dto.Person;
-import com.example.application.dto.Result;
-import com.example.application.dto.Score;
-import com.example.application.dto.Skiresort;
+import com.example.application.dto.*;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.Objects;
 
+import static com.example.application.service.GDistanceMatrixService.getDistanceMatrix;
 import static java.lang.Math.abs;
 
 public class ScoreEvaluator {
@@ -36,6 +34,8 @@ public class ScoreEvaluator {
         resolveSlopeDistance(skiresort, result, score);
 
         resolveVariety(skiresort, result, score);
+
+        resolveDistance(person, skiresort, result, score);
 
         return result;
     }
@@ -127,27 +127,50 @@ public class ScoreEvaluator {
     }
 
     static private void resolveVariety(Skiresort skiresort, Result result, Score score){
-        double ammount_different_lifts = 0D;
-        double total_ammount = 0D;
+        RestSkiresortService getStats = new RestSkiresortService();
 
-        if(skiresort.getNumberOfBabyLift() != 0)        {total_ammount += skiresort.getNumberOfBabyLift();       ammount_different_lifts++;}
-        if(skiresort.getNumberOfCableCar() != 0)        {total_ammount += skiresort.getNumberOfCableCar();       ammount_different_lifts++;}
-        if(skiresort.getNumberOfChairLift() != 0)       {total_ammount += skiresort.getNumberOfChairLift();      ammount_different_lifts++;}
-        if(skiresort.getNumberOfCogRailway() != 0)      {total_ammount += skiresort.getNumberOfCogRailway();     ammount_different_lifts++;}
-        if(skiresort.getNumberOfFunicular() != 0)       {total_ammount += skiresort.getNumberOfFunicular();      ammount_different_lifts++;}
-        if(skiresort.getNumberOfGondolaLift() != 0)     {total_ammount += skiresort.getNumberOfGondolaLift();    ammount_different_lifts++;}
-        if(skiresort.getNumberOfMovingCarpet() != 0)    {total_ammount += skiresort.getNumberOfMovingCarpet();   ammount_different_lifts++;}
-        if(skiresort.getNumberOfTBarLift() != 0)        {total_ammount += skiresort.getNumberOfTBarLift();       ammount_different_lifts++;}
+        double min = getStats.getminnumbersofclimbingaids().doubleValue();
+        double max = getStats.getmaxnumbersofclimbingaids().doubleValue();
+        double current = skiresort.getTotalNumbersOfClimbingAids();
 
-        //in this cas min and max is reversed because the smaller the value is the better it is for us
-        double min = total_ammount;
-        double max = total_ammount / 8;
-        double current = total_ammount / ammount_different_lifts;
-
-        //we prob need staats from the database to make a better guess
         double variety_result = (current - min) / (max - min);
         variety_result = abs(score.getVariety() - variety_result);
         variety_result =  (1 - variety_result) * 10;
         result.score += (int)variety_result;
+    }
+
+    static private void resolveDistance(Person person, Skiresort skiresort, Result result, Score score){
+        ResultDistanceMatrix distancematrix = getDistanceMatrix(person, skiresort);
+
+        if(distancematrix.rows.get(0).elements.get(0).distance == null || distancematrix.rows.get(0).elements.get(0).duration_in_traffic == null){
+            result.recomendet = false;
+            result.recomendet_errors.add("No information on driving distance and driving time");
+            return;
+        }
+
+        double max_distance = score.getMaxDistance() * 1000; //convert to meters
+        double distance = distancematrix.rows.get(0).elements.get(0).distance.value;
+        double distance_result = distance / max_distance;
+        if(distance_result > 1){
+            result.recomendet = false;
+            result.recomendet_errors.add("Destination is to far away");
+        }else{
+           double min_distance = 1000; //1km benchmark for minimum
+           distance_result = (1 - ((distance - max_distance) / (min_distance - max_distance))) * 10;
+           result.score += (int)distance_result;
+        }
+
+        double max_time = score.getMaxDrivingTime() * 60 * 60; //convert to seconds
+        double time = distancematrix.rows.get(0).elements.get(0).duration_in_traffic.value;
+        double time_result = time / max_time;
+        if(time_result > 1){
+            result.recomendet = false;
+            result.recomendet_errors.add("Destination takes to long to drive to");
+        }else{
+            double min_time = 10 * 60; //10 minuit benchmark for minimum;
+            time_result = (1 - ((time - max_time) / (min_time - max_time))) * 10;
+            result.score += (int)time_result;
+        }
+
     }
 }

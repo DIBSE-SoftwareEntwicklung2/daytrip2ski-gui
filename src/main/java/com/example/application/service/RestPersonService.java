@@ -17,7 +17,7 @@ import reactor.core.publisher.Mono;
 
 @Service
 public class RestPersonService {
-    private String basepath = "http://localhost:8081/";
+    private String basepath = System.getenv("BASE_URL");
     private String extension = "api/v1/person/";
 
     public List<Person> getallPersons() {
