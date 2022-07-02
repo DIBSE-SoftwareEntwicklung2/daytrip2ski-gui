@@ -10,24 +10,18 @@ import org.springframework.boot.web.servlet.support.SpringBootServletInitializer
 
 /**
  * The entry point of the Spring Boot application.
- *
+ * <p>
  * Use the @PWA annotation make the application installable on phones, tablets
  * and some desktop browsers.
- *
  */
 @SpringBootApplication
 @Theme(value = "myapp")
 @PWA(name = "My App", shortName = "My App", offlineResources = {})
 @NpmPackage(value = "line-awesome", version = "1.3.0")
 public class Application extends SpringBootServletInitializer implements AppShellConfigurator {
+    private static final long serialVersionUID = -5170116799200123108L;
 
-    /**
-	 * 
-	 */
-	private static final long serialVersionUID = -5170116799200123108L;
-
-	public static void main(String[] args) {
+    public static void main(String[] args) {
         SpringApplication.run(Application.class, args);
     }
-
 }

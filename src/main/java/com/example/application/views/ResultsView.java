@@ -20,8 +20,7 @@ import java.util.List;
 
 @PageTitle("Results")
 @Route(value = "results", layout = MainLayout.class)
-public class ResultsView extends VerticalLayout implements HasUrlParameter<String>{
-
+public class ResultsView extends VerticalLayout implements HasUrlParameter<String> {
 
 
     /**
@@ -35,7 +34,7 @@ public class ResultsView extends VerticalLayout implements HasUrlParameter<Strin
     @Autowired
     private RestPersonService personService;
 
-    public ResultsView(){
+    public ResultsView() {
         setWidthFull();
         setAlignItems(Alignment.CENTER);
 
@@ -47,11 +46,11 @@ public class ResultsView extends VerticalLayout implements HasUrlParameter<Strin
 
     @Override
     public void setParameter(BeforeEvent event, @OptionalParameter String parameter) {
-        if(parameter!=null){
-            if(parameter.equals("sponsored")) {
-
-            }else {
-                this.getAllSkiresorts().forEach(d->{
+        if (parameter != null) {
+            if (parameter.equals("sponsored")) {
+                // ToDo
+            } else {
+                this.getAllSkiresorts().forEach(d -> {
                     SingleItem item = new SingleItem();
                     item.init(d.getName(), d.getId() + ".jpeg", false, d.getId(), this.hasScore(), d.getScore());
                     add(item);
@@ -59,7 +58,7 @@ public class ResultsView extends VerticalLayout implements HasUrlParameter<Strin
             }
 
         } else {
-            this.getAllSkiresorts().forEach(d->{
+            this.getAllSkiresorts().forEach(d -> {
                 SingleItem item = new SingleItem();
                 item.init(d.getName(), d.getId() + ".jpeg", false, d.getId(), this.hasScore(), d.getScore());
                 add(item);
@@ -70,13 +69,13 @@ public class ResultsView extends VerticalLayout implements HasUrlParameter<Strin
     private List<Skiresort> getAllSkiresorts() {
         List<Skiresort> result = restSkiresortService.getAllSkiresorts();
 
-        if(!this.hasScore()) {
+        if (!this.hasScore()) {
             return result;
         }
 
         Person person = personService.getPersonById(1);
 
-        for (Skiresort resort: result) {
+        for (Skiresort resort : result) {
             Result scoreResult = ScoreEvaluator.evaluateScore(person, resort);
 
             if (!scoreResult.valid) {

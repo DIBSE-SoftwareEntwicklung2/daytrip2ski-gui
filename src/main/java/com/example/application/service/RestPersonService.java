@@ -39,16 +39,12 @@ public class RestPersonService {
     }
 
     public void postRegisterPerson(Person person) {
-        Mono<Person> mono = WebClient.create().post().uri(BASE_PATH + EXTENSION + "register").header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE).body(Mono.just(person), Person.class).retrieve()
-                .onStatus(status -> status.value() == 500, clientResponse -> Mono.empty())
-                .bodyToMono(Person.class);
+        Mono<Person> mono = WebClient.create().post().uri(BASE_PATH + EXTENSION + "register").header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE).body(Mono.just(person), Person.class).retrieve().onStatus(status -> status.value() == 500, clientResponse -> Mono.empty()).bodyToMono(Person.class);
         mono.block();
     }
 
     public void savePerson(Person person) {
-        Mono<Person> mono = WebClient.create().post().uri(BASE_PATH + EXTENSION + "save").header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE).body(Mono.just(person), Person.class).retrieve()
-                .onStatus(status -> status.value() == 500, clientResponse -> Mono.empty())
-                .bodyToMono(Person.class);
+        Mono<Person> mono = WebClient.create().post().uri(BASE_PATH + EXTENSION + "save").header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE).body(Mono.just(person), Person.class).retrieve().onStatus(status -> status.value() == 500, clientResponse -> Mono.empty()).bodyToMono(Person.class);
         mono.block();
     }
 }

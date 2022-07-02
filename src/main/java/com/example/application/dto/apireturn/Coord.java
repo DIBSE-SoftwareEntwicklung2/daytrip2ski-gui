@@ -7,7 +7,7 @@ import lombok.ToString;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
-public class Coord{
+public class Coord {
     public double lon;
     public double lat;
 }

@@ -7,7 +7,7 @@ import lombok.ToString;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
-public class Sys{
+public class Sys {
     public int type;
     public int id;
     public double message;

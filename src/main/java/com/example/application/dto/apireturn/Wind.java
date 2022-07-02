@@ -7,7 +7,7 @@ import lombok.ToString;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
-public class Wind{
+public class Wind {
     public double speed;
     public int deg;
 }

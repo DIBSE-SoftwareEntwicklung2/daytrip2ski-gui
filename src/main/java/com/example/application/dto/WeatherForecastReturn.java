@@ -2,13 +2,12 @@ package com.example.application.dto;
 
 import com.example.application.dto.apireturn.City;
 import com.example.application.dto.apireturn.List;
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.*;
 
 import java.util.ArrayList;
 
-
+@Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString

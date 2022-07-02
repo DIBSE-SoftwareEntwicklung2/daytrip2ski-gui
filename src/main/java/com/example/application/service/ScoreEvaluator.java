@@ -31,9 +31,7 @@ public class ScoreEvaluator {
         resolveSlopeDistance(skiresort, result, score);
         resolveVariety(skiresort, result, score);
         resolveDistance(person, skiresort, result, score);
-
-        result.score *= (10/6);
-
+        result.score *= (10.0 / 6);
         return result;
     }
 

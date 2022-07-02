@@ -2,7 +2,6 @@ package com.example.application.views;
 
 import com.example.application.dto.Person;
 import com.example.application.service.RestPersonService;
-import com.example.application.utils.CustomTabs;
 import com.vaadin.flow.component.AttachEvent;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.checkbox.Checkbox;
@@ -22,76 +21,34 @@ import org.vaadin.addons.PaperSlider;
 
 @PageTitle("My account")
 @Route(value = "account", layout = MainLayout.class)
-public class MyAccount extends VerticalLayout{
-
+public class MyAccount extends VerticalLayout {
     @Autowired
     private RestPersonService personService;
 
-    /**
-     *
-     */
     private static final long serialVersionUID = 1L;
-
-    private Binder<Person> binder = new Binder<>();
-
+    private final Binder<Person> binder = new Binder<>();
     private Person person;
 
-    private TextField tfID;
-    private TextField tfName;
-    private TextField tfLastName;
-    private TextField tfEmail;
-
-    private DatePicker dpBirthDate;
-
-    private CustomTabs tabbed;
-
-    private VerticalLayout vlArrival;
-    private VerticalLayout vlCosts;
-    private VerticalLayout vlWeather;
-    private VerticalLayout vlSlopes;
-    private VerticalLayout vlCapacity;
-    private VerticalLayout vlSpecials;
-
-    private PaperSlider varietySlider;
-
-    private PaperSlider easyTracksSlider;
-
-    private PaperSlider intermediateTracksSlider;
-
-    private PaperSlider difficultTracksSlider;
-
-    private Checkbox chkRentalRequired;
-
-    private Checkbox chkFamilyFriendly;
-
-    private TextField tfBudget;
-
-    private TextField tfDistance;
-
-    private TextField tfDrivingTime;
-
-    private Button btnSave;
-
     public MyAccount() {
-        tfID = new TextField("ID");
+        TextField tfID = new TextField("ID");
         tfID.setEnabled(false);
         add(tfID);
 
         binder.bind(tfID, Person::getIdStr, null);
 
-        tfName = new TextField("Name");
+        TextField tfName = new TextField("Name");
         tfName.setEnabled(false);
         add(tfName);
 
         binder.bind(tfName, Person::getFirstName, null);
 
-        tfLastName = new TextField("Last name");
+        TextField tfLastName = new TextField("Last name");
         tfLastName.setEnabled(false);
         add(tfLastName);
 
         binder.bind(tfLastName, Person::getLastName, null);
 
-        tfEmail = new TextField("Email");
+        TextField tfEmail = new TextField("Email");
         tfEmail.setEnabled(false);
         add(tfEmail);
 
@@ -99,37 +56,30 @@ public class MyAccount extends VerticalLayout{
 
         DatePicker.DatePickerI18n singleFormatI18n = new DatePicker.DatePickerI18n();
         singleFormatI18n.setDateFormat("dd.MM.yyyy");
-        dpBirthDate = new DatePicker("Birth date");
+        DatePicker dpBirthDate = new DatePicker("Birth date");
         dpBirthDate.setI18n(singleFormatI18n);
         dpBirthDate.setEnabled(false);
         add(dpBirthDate);
 
         binder.bind(dpBirthDate, Person::getDob, null);
 
-        btnSave = new Button("Save");
+        Button btnSave = new Button("Save");
         btnSave.addClickListener(event -> {
             try {
                 binder.writeBean(person);
                 System.out.println(person);
                 personService.savePerson(person);
-
                 Notification.show("Details saved successfully!").addThemeVariants(NotificationVariant.LUMO_SUCCESS);
             } catch (ValidationException e) {
                 Notification.show("Error while saving details: " + e.getMessage()).addThemeVariants(NotificationVariant.LUMO_ERROR);
-                throw new RuntimeException(e);
             }
         });
 
-        tabbed = new CustomTabs();
-
-        //creating vertical layouts for elements in tabs
-//        customFilters = new VerticalLayout();
-        vlArrival = new VerticalLayout();
-        vlCosts = new VerticalLayout();
-        vlWeather = new VerticalLayout();
-        vlSlopes = new VerticalLayout();
-        vlCapacity = new VerticalLayout();
-        vlSpecials = new VerticalLayout();
+        VerticalLayout vlArrival = new VerticalLayout();
+        VerticalLayout vlCosts = new VerticalLayout();
+        VerticalLayout vlSlopes = new VerticalLayout();
+        VerticalLayout vlCapacity = new VerticalLayout();
+        VerticalLayout vlSpecials = new VerticalLayout();
 
         //creating elements for each tab
         PaperSlider arrivalSlider = new PaperSlider(100);
@@ -201,89 +151,73 @@ public class MyAccount extends VerticalLayout{
 
         vlSpecials.add(chkApresski, chkKids, chkSkiSchool, chkRental, chkFun, chkTour, chkGastronomy, chkNight);
 
-//        tabbed.add("Filter", customFilters);
-//        tabbed.add("Arrival", vlArrival);
-//        tabbed.add("Costs", vlCosts);
-//        tabbed.add("Weather", vlWeather);
-//        tabbed.add("Slopes", vlSlopes);
-//        tabbed.add("Capacity", vlCapacity);
-//        tabbed.add("Specials", vlSpecials);
-
         add(new H2("Customize your trip!"));
 
-        varietySlider = new PaperSlider(1);
+        PaperSlider varietySlider = new PaperSlider(1);
         varietySlider.setLabel("Variety");
         varietySlider.showValues();
         varietySlider.setMax(10);
         varietySlider.setMin(1);
         add(varietySlider);
 
-        binder.bind(varietySlider, person ->  (int)(person.getScore().getVariety() * 10) , (person, value) -> person.getScore().setVariety(Double.valueOf(value * 0.1)));
+        binder.bind(varietySlider, p -> (int) (p.getScore().getVariety() * 10), (p, value) -> p.getScore().setVariety(value * 0.1));
 
-        easyTracksSlider = new PaperSlider(1);
+        PaperSlider easyTracksSlider = new PaperSlider(1);
         easyTracksSlider.setLabel("Easy Tracks");
         easyTracksSlider.showValues();
         easyTracksSlider.setMax(10);
         easyTracksSlider.setMin(1);
         add(easyTracksSlider);
 
-        binder.bind(easyTracksSlider, person -> (int)(person.getScore().getAffinityToEasyTracks() * 10), (person, value) -> person.getScore().setAffinityToEasyTracks(Double.valueOf(value * 0.1)));
+        binder.bind(easyTracksSlider, p -> (int) (p.getScore().getAffinityToEasyTracks() * 10), (p, value) -> p.getScore().setAffinityToEasyTracks(value * 0.1));
 
-        intermediateTracksSlider = new PaperSlider(1);
+        PaperSlider intermediateTracksSlider = new PaperSlider(1);
         intermediateTracksSlider.setLabel("Intermediate Tracks");
         intermediateTracksSlider.showValues();
         intermediateTracksSlider.setMax(10);
         intermediateTracksSlider.setMin(1);
         add(intermediateTracksSlider);
 
-        binder.bind(intermediateTracksSlider, person -> (int)(person.getScore().getAffinityToIntermediateTracks() * 10), (person, value) -> person.getScore().setAffinityToIntermediateTracks(Double.valueOf(value * 0.1)));
+        binder.bind(intermediateTracksSlider, p -> (int) (p.getScore().getAffinityToIntermediateTracks() * 10), (p, value) -> p.getScore().setAffinityToIntermediateTracks(value * 0.1));
 
-        difficultTracksSlider = new PaperSlider(1);
+        PaperSlider difficultTracksSlider = new PaperSlider(1);
         difficultTracksSlider.setLabel("Difficult Tracks");
         difficultTracksSlider.showValues();
         difficultTracksSlider.setMax(10);
         difficultTracksSlider.setMin(1);
         add(difficultTracksSlider);
 
-        binder.bind(difficultTracksSlider, person -> (int)(person.getScore().getAffinityToDifficultTracks() * 10), (person, value) -> person.getScore().setAffinityToDifficultTracks(Double.valueOf(value) * 0.1));
+        binder.bind(difficultTracksSlider, p -> (int) (p.getScore().getAffinityToDifficultTracks() * 10), (p, value) -> p.getScore().setAffinityToDifficultTracks(Double.valueOf(value) * 0.1));
 
-        chkRentalRequired = new Checkbox("Rental Required");
-        chkFamilyFriendly = new Checkbox("Family Friendly");
+        Checkbox chkRentalRequired = new Checkbox("Rental Required");
+        Checkbox chkFamilyFriendly = new Checkbox("Family Friendly");
         add(chkRentalRequired);
         add(chkFamilyFriendly);
 
-        binder.bind(chkRentalRequired, person -> person.getScore().getRequiresRental(), (person, value) -> person.getScore().setRequiresRental(value));
-        binder.bind(chkFamilyFriendly, person -> person.getScore().getRequiresFamilyFriendly(), (person, value) -> person.getScore().setRequiresFamilyFriendly(value));
+        binder.bind(chkRentalRequired, p -> p.getScore().getRequiresRental(), (p, value) -> p.getScore().setRequiresRental(value));
+        binder.bind(chkFamilyFriendly, p -> p.getScore().getRequiresFamilyFriendly(), (p, value) -> p.getScore().setRequiresFamilyFriendly(value));
 
-        tfBudget = new TextField("Budget in €");
+        TextField tfBudget = new TextField("Budget in €");
         add(tfBudget);
 
-        binder.bind(tfBudget,
-                person -> person.getScore().getBudged() != null ? person.getScore().getBudged().toString() : "",
-                (person, value) -> person.getScore().setBudged(value == null || value.isEmpty() ? null : Double.valueOf(value)));
+        binder.bind(tfBudget, p -> p.getScore().getBudged() != null ? p.getScore().getBudged().toString() : "", (p, value) -> p.getScore().setBudged(value == null || value.isEmpty() ? null : Double.valueOf(value)));
 
-        tfDistance = new TextField("Distance in km");
+        TextField tfDistance = new TextField("Distance in km");
         add(tfDistance);
 
-        binder.bind(tfDistance,
-                person -> person.getScore().getMaxDistance() != null ? person.getScore().getMaxDistance().toString() : "",
-                (person, value) -> person.getScore().setMaxDistance(value == null || value.isEmpty() ? null : Double.valueOf(value)));
+        binder.bind(tfDistance, p -> p.getScore().getMaxDistance() != null ? p.getScore().getMaxDistance().toString() : "", (p, value) -> p.getScore().setMaxDistance(value == null || value.isEmpty() ? null : Double.valueOf(value)));
 
-        tfDrivingTime = new TextField("Driving Time in h");
+        TextField tfDrivingTime = new TextField("Driving Time in h");
         add(tfDrivingTime);
 
-        binder.bind(tfDrivingTime,
-                person -> person.getScore().getMaxDrivingTime() != null ? person.getScore().getMaxDrivingTime().toString() : "",
-                (person, value) -> person.getScore().setMaxDrivingTime(value == null || value.isEmpty() ? null : Double.valueOf(value)));
+        binder.bind(tfDrivingTime, p -> p.getScore().getMaxDrivingTime() != null ? p.getScore().getMaxDrivingTime().toString() : "", (p, value) -> p.getScore().setMaxDrivingTime(value == null || value.isEmpty() ? null : Double.valueOf(value)));
 
-//        add(tabbed);
         add(btnSave);
     }
 
     @Override
     protected void onAttach(AttachEvent attachEvent) {
         super.onAttach(attachEvent);
-
         person = personService.getPersonById(1);
         System.out.println(person);
         binder.readBean(person);

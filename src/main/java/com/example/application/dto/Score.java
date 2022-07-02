@@ -8,9 +8,7 @@ import lombok.*;
 @AllArgsConstructor
 @ToString
 public class Score {
-
     private Long id;
-
     private Double variety;
     private Double affinityToEasyTracks;
     private Double affinityToIntermediateTracks;
