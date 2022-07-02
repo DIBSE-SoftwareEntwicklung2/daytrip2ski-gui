@@ -17,6 +17,7 @@ import java.time.LocalDate;
 import java.time.Month;
 import java.util.List;
 
+import static com.example.application.service.GDistanceMatrixService.getDistanceMatrix;
 import static com.example.application.service.ScoreEvaluator.EvaluateScore;
 
 @Route(value = "loginView")
@@ -70,6 +71,8 @@ public class LoginView extends VerticalLayout {
         add(logo);
 		add(login);
 
+
+
 		RestSkiresortService service = new RestSkiresortService();
 		List<Skiresort> mytest = service.getallSkiresorts();
 
@@ -79,7 +82,7 @@ public class LoginView extends VerticalLayout {
 //
 //		System.out.println(EvaluateScore(mypersontest, mytest.get(1)));
 //
-//		System.out.println(mypersontest);
+		System.out.println(mypersontest);
 		mytest.forEach(s-> {
 			System.out.println(s.getName());
 			System.out.println(EvaluateScore(mypersontest, s));
@@ -90,7 +93,7 @@ public class LoginView extends VerticalLayout {
 //			WeatherForecastReturn mysecTest =  wservice.getWeatherForecast(s);
 //			System.out.println(mysecTest);
 		});
-
+//		getDistanceMatrix(mypersontest, mytest.get(0));
 //		RestPersonService testservice = new RestPersonService();
 //		Person mypersontest = testservice.getPersonbyId(1);
 //		System.out.println(mypersontest);
