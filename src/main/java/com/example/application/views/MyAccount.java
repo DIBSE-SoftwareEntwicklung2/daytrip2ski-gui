@@ -227,7 +227,7 @@ public class MyAccount extends VerticalLayout{
         easyTracksSlider.setMin(1);
         add(easyTracksSlider);
 
-        binder.bind(easyTracksSlider, person -> person.getScore().getAffinityToEasyTracks().intValue(), (person, value) -> person.getScore().setAffinityToEasyTracks(Double.valueOf(value)));
+        binder.bind(easyTracksSlider, person -> person.getScore().getAffinityToEasyTracks().intValue(), (person, value) -> person.getScore().setAffinityToEasyTracks(Double.valueOf(value * 0.1)));
 
         intermediateTracksSlider = new PaperSlider(1);
         intermediateTracksSlider.setLabel("Intermediate Tracks");
@@ -236,7 +236,7 @@ public class MyAccount extends VerticalLayout{
         intermediateTracksSlider.setMin(1);
         add(intermediateTracksSlider);
 
-        binder.bind(intermediateTracksSlider, person -> person.getScore().getAffinityToIntermediateTracks().intValue(), (person, value) -> person.getScore().setAffinityToIntermediateTracks(Double.valueOf(value)));
+        binder.bind(intermediateTracksSlider, person -> person.getScore().getAffinityToIntermediateTracks().intValue(), (person, value) -> person.getScore().setAffinityToIntermediateTracks(Double.valueOf(value * 0.1)));
 
         difficultTracksSlider = new PaperSlider(1);
         difficultTracksSlider.setLabel("Difficult Tracks");
@@ -245,7 +245,7 @@ public class MyAccount extends VerticalLayout{
         difficultTracksSlider.setMin(1);
         add(difficultTracksSlider);
 
-        binder.bind(difficultTracksSlider, person -> person.getScore().getAffinityToDifficultTracks().intValue(), (person, value) -> person.getScore().setAffinityToDifficultTracks(Double.valueOf(value)));
+        binder.bind(difficultTracksSlider, person -> person.getScore().getAffinityToDifficultTracks().intValue(), (person, value) -> person.getScore().setAffinityToDifficultTracks(Double.valueOf(value) * 0.1));
 
         chkRentalRequired = new Checkbox("Rental Required");
         chkFamilyFriendly = new Checkbox("Family Friendly");
