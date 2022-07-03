@@ -4,15 +4,10 @@ import com.example.application.dto.Person;
 import com.example.application.dto.Result;
 import com.example.application.dto.Score;
 import com.example.application.dto.Skiresort;
-import org.junit.Assert;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.*;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.context.TestConfiguration;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Primary;
 
 import static com.helger.commons.mock.CommonsAssert.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -35,7 +30,7 @@ class ScoreEvaluatorTest {
 
     @BeforeEach
     void setUp() {
-        localDateTime = LocalDateTime.of(2022, 11, 01, 10, 0, 0);
+        localDateTime = LocalDateTime.of(2022, 11, 1, 10, 0, 0);
         MockitoAnnotations.openMocks(this);
         person = new Person("Max", "Mustermann", "max.mustermann@test.com", LocalDate.of(1999, 1, 8), 7.8, 8.9);
         skiresort = new Skiresort(1L, "KitzSki", 47.444990D, 12.391430D, 800L, 2000L,
