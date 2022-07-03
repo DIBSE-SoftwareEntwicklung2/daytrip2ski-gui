@@ -39,7 +39,7 @@ public class MainLayout extends AppLayout {
             link.setRoute(view);
             Span text = new Span(menuTitle);
             text.addClassNames("menu-item-text");
-            link.add(new LineAwesomeIcon(iconClass), text);
+            //link.add(new LineAwesomeIcon(iconClass), text);
             add(link);
         }
 
@@ -54,12 +54,12 @@ public class MainLayout extends AppLayout {
              */
             private static final long serialVersionUID = -7066162644675821833L;
 
-            public LineAwesomeIcon(String lineawesomeClassnames) {
-                addClassNames("menu-item-icon");
-                if (!lineawesomeClassnames.isEmpty()) {
-                    addClassNames(lineawesomeClassnames);
-                }
-            }
+            // public LineAwesomeIcon(String lineawesomeClassnames) {
+            //     addClassNames("menu-item-icon");
+            //     if (!lineawesomeClassnames.isEmpty()) {
+            //         addClassNames(lineawesomeClassnames);
+            //     }
+            // }
         }
 
     }
