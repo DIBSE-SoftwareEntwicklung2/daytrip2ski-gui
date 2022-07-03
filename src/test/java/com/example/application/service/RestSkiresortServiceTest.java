@@ -11,7 +11,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class RestSkiresortServiceTest {
 
 
-    RestSkiresortService restSkiresortService;
+    RestSkiresortService restSkiresortService = new RestSkiresortService();
 
     @Test
     void getAllSkiresorts() {
