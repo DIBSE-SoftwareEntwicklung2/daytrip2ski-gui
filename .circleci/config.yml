@@ -8,6 +8,7 @@ orbs:
     gcp-cli: circleci/gcp-cli@2.1
     sonarcloud: sonarsource/sonarcloud@1.1.1
     heroku: circleci/heroku@1.2.6
+    
 executors:
     gcloud-executor:
         docker:
@@ -108,3 +109,6 @@ workflows:
         - gcp_cloudrun_deploy: 
             requires: 
                 - build_push_image_gcr
+        - heroku/deploy-via-git:
+            requires:
+                - test
