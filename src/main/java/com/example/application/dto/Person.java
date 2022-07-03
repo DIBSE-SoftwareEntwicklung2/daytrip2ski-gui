@@ -25,11 +25,13 @@ public class Person {
         return id.toString();
     }
 
-    public Person(String firstName, String lastName, String email, LocalDate dob) {
+    public Person(String firstName, String lastName, String email, LocalDate dob, Double homeLatitude, double homeLongitude) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.dob = dob;
+        this.homeLatitude = homeLatitude;
+        this.homeLongitude = homeLongitude;
     }
 
     public Integer getAge() {

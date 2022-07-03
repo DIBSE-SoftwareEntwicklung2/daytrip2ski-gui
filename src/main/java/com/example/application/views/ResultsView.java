@@ -16,6 +16,9 @@ import com.vaadin.flow.router.OptionalParameter;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.List;
 
 @PageTitle("Results")
@@ -78,7 +81,7 @@ public class ResultsView extends VerticalLayout implements HasUrlParameter<Strin
         Person person = personService.getPersonById(1);
 
         for (Skiresort resort : result) {
-            Result scoreResult = ScoreEvaluator.evaluateScore(person, resort);
+            Result scoreResult = ScoreEvaluator.evaluateScore(person, resort, LocalDateTime.now());
 
             if (!scoreResult.valid) {
                 resort.setScore(-1);

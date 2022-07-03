@@ -2,8 +2,7 @@ package com.example.application.service;
 
 import com.example.application.dto.*;
 
-import java.time.LocalDate;
-import java.time.LocalTime;
+import java.time.LocalDateTime;
 import java.util.Objects;
 
 import static com.example.application.service.GDistanceMatrixService.getDistanceMatrix;
@@ -14,7 +13,7 @@ public class ScoreEvaluator {
         throw new IllegalStateException(ScoreEvaluator.class.getName());
     }
 
-    public static Result evaluateScore(Person person, Skiresort skiresort) {
+    public static Result evaluateScore(Person person, Skiresort skiresort, LocalDateTime dateTimeForTrip) {
         Result result = new Result();
         RestPersonService rps = new RestPersonService();
         Score score = rps.getScoreFromPerson(person);
@@ -25,7 +24,7 @@ public class ScoreEvaluator {
         }
 
         result.valid = true;
-        resolveTime(skiresort, result);
+        resolveTime(skiresort, result, dateTimeForTrip);
         resolveBooleans(skiresort, result, score);
         resolveBudged(skiresort, result, score);
         resolveSlopeDistance(skiresort, result, score);
@@ -35,7 +34,7 @@ public class ScoreEvaluator {
         return result;
     }
 
-    private static void resolveTime(Skiresort skiresort, Result result) {
+    protected static void resolveTime(Skiresort skiresort, Result result, LocalDateTime dateTimeForTrip) {
         /*
          Assuming that we calculate that the user can teleport instantly to the destination at the moment
          we can add a preferred visiting time later on
@@ -44,11 +43,11 @@ public class ScoreEvaluator {
             result.recomendet = false;
             result.recomendet_errors.add("Resort is closed");
         }
-        if (LocalDate.now().isBefore(skiresort.getSeasonFrom()) || LocalDate.now().isAfter(skiresort.getSeasonTo())) {
+        if (dateTimeForTrip.toLocalDate().isBefore(skiresort.getSeasonFrom()) || dateTimeForTrip.toLocalDate().isAfter(skiresort.getSeasonTo())) {
             result.recomendet = false;
             result.recomendet_errors.add("Resort is out of Season");
         }
-        if (LocalTime.now().isBefore(skiresort.getOpeningHoursFrom()) || LocalTime.now().isAfter(skiresort.getOpeningHoursTo())) {
+        if (dateTimeForTrip.toLocalTime().isBefore(skiresort.getOpeningHoursFrom()) || dateTimeForTrip.toLocalTime().isAfter(skiresort.getOpeningHoursTo())) {
             result.recomendet = false;
             result.recomendet_errors.add("Resort is closed at this time");
         }
