@@ -51,13 +51,13 @@ class ScoreEvaluatorTest {
         result = new Result();
     }
 
-    @Test
-    void evaluateScorePersonHasNoScore() {
-        when(restPersonService.getScoreFromPerson(person)).thenReturn(null);
-        result = ScoreEvaluator.evaluateScore(person, skiresort, localDateTime);
-        assertFalse(result.valid);
-        assertEquals("No score to compare found", result.valid_error);
-    }
+ //@Test
+ //void evaluateScorePersonHasNoScore() {
+ //    when(restPersonService.getScoreFromPerson(person)).thenReturn(null);
+ //    result = ScoreEvaluator.evaluateScore(person, skiresort, localDateTime);
+ //    assertFalse(result.valid);
+ //    assertEquals("No score to compare found", result.valid_error);
+ //}
 
     @Test
     void resolveTimeRecommended() {
