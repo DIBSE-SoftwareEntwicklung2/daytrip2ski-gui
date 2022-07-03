@@ -12,7 +12,12 @@ public class RestSkiresortService {
     private static final String BASE_PATH = System.getenv("BASE_URL");
     private static final String EXTENSION = "api/v1/skiresort/";
 
+
     public List<Skiresort> getAllSkiresorts() {
+        System.out.println("=========================================================");
+        System.out.println("getAllSkiresorts");
+        System.out.println("Base Path :" + BASE_PATH + "EXTENSION:" +EXTENSION);
+
         WebClient.RequestHeadersSpec<?> spec = WebClient.create().get().uri(BASE_PATH + EXTENSION);
         return Objects.requireNonNull(spec.retrieve().toEntityList(Skiresort.class).block()).getBody();
     }
