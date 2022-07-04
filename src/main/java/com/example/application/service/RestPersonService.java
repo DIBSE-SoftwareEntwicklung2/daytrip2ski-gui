@@ -17,10 +17,6 @@ public class RestPersonService {
     private static final String BASE_PATH = System.getenv("BASE_URL");
     private static final String EXTENSION = "api/v1/person/";
 
-    @Autowired
-    public RestPersonService() {
-    }
-
     public List<Person> getAllPersons() {
         WebClient.RequestHeadersSpec<?> spec = WebClient.create().get().uri(BASE_PATH + EXTENSION);
 
