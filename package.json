@@ -2,7 +2,6 @@
   "name": "no-name",
   "license": "UNLICENSED",
   "dependencies": {
-    "@flowingcode/google-map": "3.1.0",
     "@polymer/iron-icon": "3.0.1",
     "@polymer/iron-iconset-svg": "3.0.1",
     "@polymer/iron-list": "3.1.0",
@@ -265,7 +264,6 @@
   },
   "vaadin": {
     "dependencies": {
-      "@flowingcode/google-map": "3.1.0",
       "@polymer/iron-icon": "3.0.1",
       "@polymer/iron-iconset-svg": "3.0.1",
       "@polymer/iron-list": "3.1.0",
@@ -406,6 +404,6 @@
       "workbox-precaching": "6.5.0",
       "workbox-webpack-plugin": "6.5.0"
     },
-    "hash": "f19185c41caf12f01a9c0647fad62f9def60bb438cd7e756c02f7f47ca353852"
+    "hash": "9089424416348619342626d8684759b7cc8a4720b698e10af29916a58f78e1e2"
   }
 }

@@ -3,6 +3,7 @@ package com.example.application.views;
 import com.example.application.dto.Person;
 import com.example.application.dto.Result;
 import com.example.application.dto.Skiresort;
+import com.example.application.service.GDistanceMatrixService;
 import com.example.application.service.RestPersonService;
 import com.example.application.service.ScoreEvaluator;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,33 +17,30 @@ import com.vaadin.flow.router.OptionalParameter;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.LocalTime;
 import java.util.List;
 
 @PageTitle("Results")
 @Route(value = "results", layout = MainLayout.class)
 public class ResultsView extends VerticalLayout implements HasUrlParameter<String> {
-    /**
-     *
-     */
     private static final long serialVersionUID = 1L;
 
-    @Autowired
-    // No serialization needed.
-    private transient RestSkiresortService restSkiresortService;
+    private final  RestSkiresortService restSkiresortService;
+
+    private final RestPersonService personService;
+
+    private final GDistanceMatrixService distanceService;
+
+    private ScoreEvaluator scoreEvaluator;
 
     @Autowired
-    // No serialization needed.
-    private transient RestPersonService personService;
-
-    private transient ScoreEvaluator scoreEvaluator;
-
-    @Autowired
-    public ResultsView() {
+    public ResultsView(RestSkiresortService restSkiresortService, RestPersonService personService, GDistanceMatrixService distanceService) {
         setWidthFull();
         setAlignItems(Alignment.CENTER);
+        this.restSkiresortService = restSkiresortService;
+        this.personService = personService;
+        this.distanceService = distanceService;
+        this.scoreEvaluator = new ScoreEvaluator(this.personService, this.distanceService);
     }
 
     protected boolean hasScore() {

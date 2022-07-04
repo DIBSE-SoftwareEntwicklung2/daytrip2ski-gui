@@ -4,13 +4,15 @@ import com.example.application.dto.Person;
 import com.example.application.dto.ResultDistanceMatrix;
 import com.example.application.dto.Skiresort;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 
 import java.util.Objects;
 
+@Service
 public class GDistanceMatrixService {
+    @Autowired
     public GDistanceMatrixService() {
-
     }
 
     public ResultDistanceMatrix getDistanceMatrix(Person person, Skiresort skiresort) {

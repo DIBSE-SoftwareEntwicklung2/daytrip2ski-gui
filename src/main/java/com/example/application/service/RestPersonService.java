@@ -5,6 +5,7 @@ import java.util.Objects;
 
 import com.example.application.dto.Person;
 import com.example.application.dto.Score;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
@@ -15,6 +16,10 @@ import reactor.core.publisher.Mono;
 public class RestPersonService {
     private static final String BASE_PATH = System.getenv("BASE_URL");
     private static final String EXTENSION = "api/v1/person/";
+
+    @Autowired
+    public RestPersonService() {
+    }
 
     public List<Person> getAllPersons() {
         WebClient.RequestHeadersSpec<?> spec = WebClient.create().get().uri(BASE_PATH + EXTENSION);
