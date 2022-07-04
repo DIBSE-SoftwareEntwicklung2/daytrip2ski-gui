@@ -28,8 +28,8 @@ public class RestPersonService {
         return Objects.requireNonNull(spec.retrieve().toEntity(Person.class).block()).getBody();
     }
 
-    public Score getScoreFromPerson(Person person) {
-        WebClient.RequestHeadersSpec<?> spec = WebClient.create().get().uri(BASE_PATH + EXTENSION + "score/" + person.getId());
+    public Score getScoreFromPerson(Long id) {
+        WebClient.RequestHeadersSpec<?> spec = WebClient.create().get().uri(BASE_PATH + EXTENSION + "score/" + id);
 
         Score score = Objects.requireNonNull(spec.retrieve().onStatus(status -> status.value() == 500, clientResponse -> Mono.empty()).toEntity(Score.class).block()).getBody();
         if ((score != null ? score.getId() : null) == null) {

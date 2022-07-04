@@ -24,8 +24,6 @@ import java.util.List;
 @PageTitle("Results")
 @Route(value = "results", layout = MainLayout.class)
 public class ResultsView extends VerticalLayout implements HasUrlParameter<String> {
-
-
     /**
      *
      */
@@ -39,10 +37,12 @@ public class ResultsView extends VerticalLayout implements HasUrlParameter<Strin
     // No serialization needed.
     private transient RestPersonService personService;
 
+    private transient ScoreEvaluator scoreEvaluator;
+
+    @Autowired
     public ResultsView() {
         setWidthFull();
         setAlignItems(Alignment.CENTER);
-
     }
 
     protected boolean hasScore() {
@@ -81,7 +81,7 @@ public class ResultsView extends VerticalLayout implements HasUrlParameter<Strin
         Person person = personService.getPersonById(1);
 
         for (Skiresort resort : result) {
-            Result scoreResult = ScoreEvaluator.evaluateScore(person, resort, LocalDateTime.now());
+            Result scoreResult = scoreEvaluator.evaluateScore(person, resort, LocalDateTime.now());
 
             if (!scoreResult.valid) {
                 resort.setScore(-1);
