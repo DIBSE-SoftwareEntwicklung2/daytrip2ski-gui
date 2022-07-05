@@ -1,10 +1,14 @@
 package com.example.application.dto.gdistancematrix;
 
+import lombok.Getter;
+import lombok.Setter;
 import lombok.ToString;
 
-import java.util.ArrayList;
+import java.util.List;
 
+@Setter
+@Getter
 @ToString
 public class Row {
-    public ArrayList<Element> elements;
+    private List<Element> elements;
 }

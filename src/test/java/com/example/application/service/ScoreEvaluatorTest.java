@@ -13,6 +13,7 @@ import static org.mockito.Mockito.*;
 
 import java.time.*;
 import java.util.ArrayList;
+import java.util.List;
 
 class ScoreEvaluatorTest {
     static Person person;
@@ -45,28 +46,29 @@ class ScoreEvaluatorTest {
         score = new Score(1L, 0.5d, 0.5d, 0.5d, 0.5d, true, true, 100d, 300d, 5d);
 
         distanceMatrix = new ResultDistanceMatrix();
-        distanceMatrix.destination_addresses = new ArrayList<>();
-        distanceMatrix.origin_addresses = new ArrayList<>();
-        distanceMatrix.rows = new ArrayList<>();
+        distanceMatrix.setDestinationAddresses(new ArrayList<>());
+        distanceMatrix.setOriginAddresses(new ArrayList<>());
+        distanceMatrix.setRows(new ArrayList<>());
         var element = new Element();
-        element.status = "";
+        element.setStatus("");
         var durationInTraffic = new DurationInTraffic();
-        durationInTraffic.value = 3;
-        durationInTraffic.text = "";
+        durationInTraffic.setValue(3);
+        durationInTraffic.setText("");
         var distance = new Distance();
-        distance.value = 200;
-        distance.text = "";
+        distance.setValue(200);
+        distance.setText("");
         var duration = new Duration();
-        duration.value = 2;
-        duration.text = "";
-        element.duration_in_traffic = durationInTraffic;
-        element.duration = duration;
-        element.distance = distance;
+        duration.setValue(2);
+        duration.setText("");
+        element.setDurationInTraffic(durationInTraffic);
+        element.setDuration(duration);
+        element.setDistance(distance);
         var row = new Row();
-        row.elements = new ArrayList<>();
-        row.elements.add(element);
-        distanceMatrix.rows.add(row);
-        distanceMatrix.status = "";
+        var elementList = new ArrayList<Element>();
+        elementList.add(element);
+        row.setElements(elementList);
+        distanceMatrix.getRows().add(row);
+        distanceMatrix.setStatus("");
     }
 
     //@Test

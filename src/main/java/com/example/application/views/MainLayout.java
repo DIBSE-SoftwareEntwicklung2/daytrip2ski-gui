@@ -114,9 +114,9 @@ public class MainLayout extends AppLayout {
         nav.addClassNames("menu-item-container");
         nav.getElement().setAttribute("aria-labelledby", "views");
 
-        // Wrap the links in a list; improves accessibility
+        // Wrap the links in a weatherSummaries; improves accessibility
         UnorderedList list = new UnorderedList();
-        list.addClassNames("navigation-list");
+        list.addClassNames("navigation-weatherSummaries");
         nav.add(list);
 
         for (MenuItemInfo menuItem : createMenuItems()) {

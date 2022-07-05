@@ -1,11 +1,15 @@
 package com.example.application.dto.gdistancematrix;
 
+import lombok.Getter;
+import lombok.Setter;
 import lombok.ToString;
 
+@Getter
+@Setter
 @ToString
 public class Element {
-    public Distance distance;
-    public Duration duration;
-    public DurationInTraffic duration_in_traffic;
-    public String status;
+    private Distance distance;
+    private Duration duration;
+    private DurationInTraffic durationInTraffic;
+    private String status;
 }

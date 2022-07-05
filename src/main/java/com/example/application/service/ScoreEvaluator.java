@@ -20,19 +20,19 @@ public class ScoreEvaluator {
         Result result = new Result();
         Score score = rps.getScoreFromPerson(person.getId());
         if (score == null) {
-            result.valid = false;
-            result.valid_error = "No score to compare found";
+            result.setValid(false);
+            result.setValidError("No score to compare found");
             return result;
         }
 
-        result.valid = true;
+        result.setValid(true);
         resolveTime(skiresort, result, dateTimeForTrip);
         resolveBooleans(skiresort, result, score);
         resolveBudged(skiresort, result, score);
         resolveSlopeDistance(skiresort, result, score);
         resolveVariety(skiresort, result, score);
         resolveDistance(person, skiresort, result, score);
-        result.score *= (10.0 / 6);
+        result.setScore((int) (result.getScore() * (10.0 / 6)));
         return result;
     }
 
@@ -42,27 +42,27 @@ public class ScoreEvaluator {
          we can add a preferred visiting time later on
         */
         if (!skiresort.getIsActive()) {
-            result.recommended = false;
-            result.recommended_errors.add("Resort is closed");
+            result.setRecommended(false);
+            result.getRecommendedErrors().add("Resort is closed");
         }
         if (dateTimeForTrip.toLocalDate().isBefore(skiresort.getSeasonFrom()) || dateTimeForTrip.toLocalDate().isAfter(skiresort.getSeasonTo())) {
-            result.recommended = false;
-            result.recommended_errors.add("Resort is out of Season");
+            result.setRecommended(false);
+            result.getRecommendedErrors().add("Resort is out of Season");
         }
         if (dateTimeForTrip.toLocalTime().isBefore(skiresort.getOpeningHoursFrom()) || dateTimeForTrip.toLocalTime().isAfter(skiresort.getOpeningHoursTo())) {
-            result.recommended = false;
-            result.recommended_errors.add("Resort is closed at this time");
+            result.setRecommended(false);
+            result.getRecommendedErrors().add("Resort is closed at this time");
         }
     }
 
     private void resolveBooleans(Skiresort skiresort, Result result, Score score) {
         if (score.getRequiresRental() && !skiresort.getSkiRental()) {
-            result.recommended = false;
-            result.recommended_errors.add("Does not have Rental");
+            result.setRecommended(false);
+            result.getRecommendedErrors().add("Does not have Rental");
         }
         if (score.getRequiresFamilyFriendly() && !skiresort.getFamilyFriendly()) {
-            result.recommended = false;
-            result.recommended_errors.add("Is not Family friendly");
+            result.setRecommended(false);
+            result.getRecommendedErrors().add("Is not Family friendly");
         }
     }
 
@@ -71,8 +71,8 @@ public class ScoreEvaluator {
         i am also assuming right now that only one adult is going for one day
          */
         if (score.getBudged() < skiresort.getPriceDayTicketAdults()) {
-            result.recommended = false;
-            result.recommended_errors.add("Does not fit Budget");
+            result.setRecommended(false);
+            result.getRecommendedErrors().add("Does not fit Budget");
         }
     }
 
@@ -115,9 +115,9 @@ public class ScoreEvaluator {
         double difficultResult = abs(score.getAffinityToDifficultTracks() - scaledDifficult);
         difficultResult = (1 - difficultResult) * 10;
 
-        result.score += (int) easyResult;
-        result.score += (int) intermediateResult;
-        result.score += (int) difficultResult;
+        result.setScore(result.getScore() + (int) easyResult);
+        result.setScore(result.getScore() + (int) intermediateResult);
+        result.setScore(result.getScore() + (int) difficultResult);
     }
 
     private void resolveVariety(Skiresort skiresort, Result result, Score score) {
@@ -130,41 +130,41 @@ public class ScoreEvaluator {
         double varietyResult = (current - min) / (max - min);
         varietyResult = abs(score.getVariety() - varietyResult);
         varietyResult = (1 - varietyResult) * 10;
-        result.score += (int) varietyResult;
+        result.setScore(result.getScore() + (int) varietyResult);
     }
 
     private void resolveDistance(Person person, Skiresort skiresort, Result result, Score score) {
         var distanceMatrix = dms.getDistanceMatrix(person, skiresort);
 
-        if (distanceMatrix.rows.get(0).elements.get(0).distance == null || distanceMatrix.rows.get(0).elements.get(0).duration_in_traffic == null) {
-            result.recommended = false;
-            result.recommended_errors.add("No information on driving distance and driving time");
+        if (distanceMatrix.getRows().get(0).getElements().get(0).getDistance() == null || distanceMatrix.getRows().get(0).getElements().get(0).getDurationInTraffic() == null) {
+            result.setRecommended(false);
+            result.getRecommendedErrors().add("No information on driving distance and driving time");
             return;
         }
 
         double maxDistance = score.getMaxDistance() * 1000; //convert to meters
-        double distance = distanceMatrix.rows.get(0).elements.get(0).distance.value;
+        double distance = distanceMatrix.getRows().get(0).getElements().get(0).getDistance().getValue();
         double distanceResult = distance / maxDistance;
         if (distanceResult > 1) {
-            result.recommended = false;
-            result.recommended_errors.add("Destination is to far away");
+            result.setRecommended(false);
+            result.getRecommendedErrors().add("Destination is to far away");
         } else {
             double minDistance = 1000; //1km benchmark for minimum
             distanceResult = (1 - ((distance - maxDistance) / (minDistance - maxDistance))) * 10;
-            result.score += (int) distanceResult;
+            result.setScore(result.getScore() + (int) distanceResult);
         }
 
         double maxTime = score.getMaxDrivingTime() * 60 * 60; //convert to seconds
-        double time = distanceMatrix.rows.get(0).elements.get(0).duration_in_traffic.value;
+        double time = distanceMatrix.getRows().get(0).getElements().get(0).getDurationInTraffic().getValue();
         double timeResult = time / maxTime;
         if (timeResult > 1) {
-            result.recommended = false;
-            result.recommended_errors.add("Destination takes to long to drive to");
+            result.setRecommended(false);
+            result.getRecommendedErrors().add("Destination takes to long to drive to");
         } else {
             // 10 minutes benchmark for minimum
             double minTime = 10d * 60d;
             timeResult = (1 - ((time - maxTime) / (minTime - maxTime))) * 10;
-            result.score += (int) timeResult;
+            result.setScore(result.getScore() + (int) timeResult);
         }
     }
 }

@@ -1,17 +1,19 @@
 package com.example.application.dto.apireturn;
 
 import lombok.AllArgsConstructor;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 @NoArgsConstructor
 @AllArgsConstructor
+@Getter
 @ToString
 public class Main {
-    public double temp;
-    public double feels_like;
-    public double temp_min;
-    public double temp_max;
-    public int pressure;
-    public int humidity;
+    private double temp;
+    private double feelsLike;
+    private double tempMin;
+    private double tempMax;
+    private int pressure;
+    private int humidity;
 }

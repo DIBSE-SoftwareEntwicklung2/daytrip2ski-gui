@@ -3,7 +3,6 @@ package com.example.application.service;
 import com.example.application.dto.Person;
 import com.example.application.dto.ResultDistanceMatrix;
 import com.example.application.dto.Skiresort;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 

@@ -6,20 +6,22 @@ import java.util.List;
 import lombok.*;
 
 @AllArgsConstructor
+@Setter
+@Getter
 @ToString
 public class Result {
-    public boolean valid;
-    public String valid_error;
-    public int score;
-    public boolean recommended;
-    public List<String> recommended_errors;
+    private boolean valid;
+    private String validError;
+    private int score;
+    private boolean recommended;
+    private List<String> recommendedErrors;
 
     public Result() {
         this.valid = false;
-        this.valid_error = "";
+        this.validError = "";
         this.score = 0;
         this.recommended = true;
-        this.recommended_errors = new ArrayList<>();
+        this.recommendedErrors = new ArrayList<>();
     }
 
     @Override
@@ -34,21 +36,28 @@ public class Result {
 
         Result r = (Result) o;
         // Simple equality check.
-        if (Boolean.compare(valid, r.valid) != 0 ||
-                Boolean.compare(recommended, r.recommended) != 0 ||
-                !valid_error.equals(r.valid_error) ||
-                score != r.score ||
-                recommended_errors.size() != r.recommended_errors.size()) {
+        if (Boolean.compare(valid, r.valid) != 0 || Boolean.compare(recommended, r.recommended) != 0 || !validError.equals(r.validError) || score != r.score || recommendedErrors.size() != r.recommendedErrors.size()) {
             return false;
         }
 
         // ArrayList String compare.
-        for (int i = 0; i < recommended_errors.size(); i++) {
-            if (!recommended_errors.get(i).equals(r.recommended_errors.get(0))) {
+        for (int i = 0; i < recommendedErrors.size(); i++) {
+            if (!recommendedErrors.get(i).equals(r.recommendedErrors.get(0))) {
                 return false;
             }
         }
 
         return true;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = 17;
+        result = 31 * result + (valid ? 1 : 0);
+        result = 31 * result + (recommended ? 1 : 0);
+        result = 31 * result + score;
+        result = 31 * result + validError.hashCode();
+        result = 31 * result + recommendedErrors.hashCode();
+        return result;
     }
 }

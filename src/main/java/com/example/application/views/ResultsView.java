@@ -25,7 +25,7 @@ import java.util.List;
 public class ResultsView extends VerticalLayout implements HasUrlParameter<String> {
     private static final long serialVersionUID = 1L;
 
-    private final  RestSkiresortService restSkiresortService;
+    private final RestSkiresortService restSkiresortService;
 
     private final RestPersonService personService;
 
@@ -81,12 +81,12 @@ public class ResultsView extends VerticalLayout implements HasUrlParameter<Strin
         for (Skiresort resort : result) {
             Result scoreResult = scoreEvaluator.evaluateScore(person, resort, LocalDateTime.now());
 
-            if (!scoreResult.valid) {
+            if (!scoreResult.isValid()) {
                 resort.setScore(-1);
                 continue;
             }
 
-            resort.setScore(scoreResult.score);
+            resort.setScore(scoreResult.getScore());
         }
 
         result.sort((r1, r2) -> r2.getScore().compareTo(r1.getScore()));
