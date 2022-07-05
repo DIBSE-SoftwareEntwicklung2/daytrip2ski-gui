@@ -25,7 +25,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
-@PageTitle("Result")
+@PageTitle("Ski Resort")
 @Route(value = "single", layout = MainLayout.class)
 public class SingleResultView extends VerticalLayout implements HasUrlParameter<Long> {
     private static final long serialVersionUID = 1L;

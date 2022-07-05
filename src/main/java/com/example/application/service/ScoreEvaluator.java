@@ -149,7 +149,7 @@ public class ScoreEvaluator {
             result.getRecommendedErrors().add("Destination is to far away");
         } else {
             double minDistance = 1000; //1km benchmark for minimum
-            distanceResult = (((distance - maxDistance) / (minDistance - maxDistance))) * 10;
+            distanceResult = ((distance - maxDistance) / (minDistance - maxDistance)) * 10;
             result.setScore(result.getScore() + (int) Math.round(distanceResult));
         }
 
@@ -162,7 +162,7 @@ public class ScoreEvaluator {
         } else {
             // 10 minutes benchmark for minimum
             double minTime = 10d * 60d;
-            timeResult = (((time - maxTime) / (minTime - maxTime))) * 10;
+            timeResult = ((time - maxTime) / (minTime - maxTime)) * 10;
             result.setScore(result.getScore() + (int) Math.round(timeResult));
         }
     }

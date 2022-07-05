@@ -20,11 +20,9 @@ jobs:
         description: Build the Project
         docker:
             - image: sugan1234/vaadinrepo:latest
-        environment:
-            MAVEN_CLI_OPTS: "--batch-mode"
         steps: 
             - checkout 
-            - run: mvn $MAVEN_CLI_OPTS clean package -Pproduction -e 
+            - run: mvn package -Pproduction
             - store_artifacts: 
                 path: target 
                 destination: target 
@@ -88,27 +86,33 @@ jobs:
             - cloudrun/deploy: 
                 platform: 'managed' 
                 image: 'gcr.io/$GOOGLE_PROJECT_ID/$CIRCLE_WORKFLOW_ID' 
-                service-name: 'vaadin-ui-service' 
+                service-name: 'daytrip2ski-gui' 
                 region: 'europe-west1' 
-                unauthenticated: true 
+                unauthenticated: true      
+    
+    build_for_heroku:
+        description: build the project for heroku (needed cause other steps are neccesary)
+        docker: 
+            - image: sugan1234/vaadinrepo:latest 
+        steps:
+            - checkout 
+            - run: mvn package -Pproduction
+            - store_artifacts: 
+                path: target 
+                destination: target  
+    heroku_deploy:
+        executor: heroku/default
+        steps:
+        - checkout
+        - heroku/install
+        - run: heroku plugins:install java
+        - run: heroku deploy:jar target/myapp-1.0-SNAPSHOT.jar --app daytrip2ski-gui
+
 workflows: 
     version: 2
     workflow: 
         jobs: 
-        - build 
-        - test: 
-            requires: 
-                - build
-        - static_code_analysis:
-            context: SonarCloud
-            requires: 
-                - build
-        - build_push_image_gcr:
-            requires: 
-                - test 
-        - gcp_cloudrun_deploy: 
-            requires: 
-                - build_push_image_gcr
-        - heroku/deploy-via-git:
+        - build_for_heroku
+        - heroku_deploy:
             requires:
-                - test
+                - build_for_heroku
