@@ -106,7 +106,8 @@ jobs:
         - checkout
         - heroku/install
         - run: heroku plugins:install java
-        - run: heroku deploy:jar target/myapp-1.0-SNAPSHOT.jar --app daytrip2ski-gui
+        - run: ls
+        #- run: heroku deploy:jar ./root/project/target/myapp-1.0-SNAPSHOT.jar --app daytrip2ski-gui
 
 workflows: 
     version: 2
