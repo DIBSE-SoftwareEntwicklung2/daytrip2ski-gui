@@ -90,9 +90,10 @@ jobs:
                 image: 'gcr.io/$GOOGLE_PROJECT_ID/$CIRCLE_WORKFLOW_ID' 
                 service-name: 'vaadin-ui-service' 
                 region: 'europe-west1' 
-                unauthenticated: true         
-    heroku_deploy:
-        description: Test the Project
+                unauthenticated: true      
+    
+    build_for_heroku:
+        description: build the project for heroku (needed cause other steps are neccesary)
         docker: 
             - image: sugan1234/vaadinrepo:latest 
         steps:
@@ -100,11 +101,7 @@ jobs:
             - run: mvn package -Pproduction
             - store_artifacts: 
                 path: target 
-                destination: target
-            - run:
-                name: Deploy to Heroku
-                command: heroku deploy:jar target/myapp-1.0-SNAPSHOT.jar --app daytrip2ski-gui
-
+                destination: target   
 
 workflows: 
     version: 2
@@ -124,6 +121,9 @@ workflows:
         - gcp_cloudrun_deploy: 
             requires: 
                 - build_push_image_gcr
-        - heroku_deploy:
+        - build_for_heroku: 
+            requires: 
+                - test 
+        -  heroku/deploy-via-git:
             requires:
-                - test
+                - build_for_heroku
