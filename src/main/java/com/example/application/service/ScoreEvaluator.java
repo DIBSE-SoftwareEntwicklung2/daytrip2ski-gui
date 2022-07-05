@@ -34,7 +34,7 @@ public class ScoreEvaluator {
         resolveSlopeDistance(skiresort, result, score);
         resolveVariety(skiresort, result, score);
         resolveDistance(person, skiresort, result, score);
-        result.setScore((int) (result.getScore() * (10.0 / 6)));
+        result.setScore((int) Math.round((result.getScore() * (10.0 / 6))));
         return result;
     }
 
@@ -116,22 +116,20 @@ public class ScoreEvaluator {
         double difficultResult = abs(score.getAffinityToDifficultTracks() - scaledDifficult);
         difficultResult = (1 - difficultResult) * 10;
 
-        result.setScore(result.getScore() + (int) easyResult);
-        result.setScore(result.getScore() + (int) intermediateResult);
-        result.setScore(result.getScore() + (int) difficultResult);
+        result.setScore(result.getScore() + (int) Math.round(easyResult));
+        result.setScore(result.getScore() + (int) Math.round(intermediateResult));
+        result.setScore(result.getScore() + (int) Math.round(difficultResult));
     }
 
     private void resolveVariety(Skiresort skiresort, Result result, Score score) {
-        RestSkiresortService getStats = new RestSkiresortService();
-
-        double min = getStats.getMinNumbersOfClimbingAids().doubleValue();
-        double max = getStats.getMaxNumbersOfClimbingAids().doubleValue();
+        double min = rss.getMinNumbersOfClimbingAids().doubleValue();
+        double max = rss.getMaxNumbersOfClimbingAids().doubleValue();
         double current = skiresort.getTotalNumbersOfClimbingAids();
 
         double varietyResult = (current - min) / (max - min);
         varietyResult = abs(score.getVariety() - varietyResult);
         varietyResult = (1 - varietyResult) * 10;
-        result.setScore(result.getScore() + (int) varietyResult);
+        result.setScore(result.getScore() + (int) Math.round( varietyResult));
     }
 
     private void resolveDistance(Person person, Skiresort skiresort, Result result, Score score) {
@@ -151,8 +149,8 @@ public class ScoreEvaluator {
             result.getRecommendedErrors().add("Destination is to far away");
         } else {
             double minDistance = 1000; //1km benchmark for minimum
-            distanceResult = (1 - ((distance - maxDistance) / (minDistance - maxDistance))) * 10;
-            result.setScore(result.getScore() + (int) distanceResult);
+            distanceResult = (((distance - maxDistance) / (minDistance - maxDistance))) * 10;
+            result.setScore(result.getScore() + (int) Math.round(distanceResult));
         }
 
         double maxTime = score.getMaxDrivingTime() * 60 * 60; //convert to seconds
@@ -164,8 +162,8 @@ public class ScoreEvaluator {
         } else {
             // 10 minutes benchmark for minimum
             double minTime = 10d * 60d;
-            timeResult = (1 - ((time - maxTime) / (minTime - maxTime))) * 10;
-            result.setScore(result.getScore() + (int) timeResult);
+            timeResult = (((time - maxTime) / (minTime - maxTime))) * 10;
+            result.setScore(result.getScore() + (int) Math.round(timeResult));
         }
     }
 }
