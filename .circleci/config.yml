@@ -101,7 +101,8 @@ jobs:
             - checkout
             - run : ls
             - run: mkdir -p buildfiles
-            - run: mvn package -Pproduction -DoutputDirectory=/app/buildfiles
+            - run: mvn package -Pproduction -DoutputDirectory=</app/buildfiles>
+            - run : cd /app/buildfiles
             - run : ls
             - store_artifacts: 
                 path: target
