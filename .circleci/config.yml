@@ -105,7 +105,7 @@ jobs:
         steps:
         - checkout
         - heroku/install
-        - run: heroku plugins:install java -app daytrip2ski-gui
+        - run: heroku plugins:install java --app daytrip2ski-gui
         - run: heroku deploy:jar target/myapp-1.0-SNAPSHOT.jar --app daytrip2ski-gui
 
 workflows: 
