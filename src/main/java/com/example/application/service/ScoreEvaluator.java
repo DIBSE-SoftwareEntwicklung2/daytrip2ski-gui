@@ -137,14 +137,14 @@ public class ScoreEvaluator {
     private void resolveDistance(Person person, Skiresort skiresort, Result result, Score score) {
         var distanceMatrix = dms.getDistanceMatrix(person, skiresort);
 
-        if (distanceMatrix.getRows().get(0).getElements().get(0).getDistance() == null || distanceMatrix.getRows().get(0).getElements().get(0).getDurationInTraffic() == null) {
+        if (distanceMatrix.rows.get(0).elements.get(0).distance == null || distanceMatrix.rows.get(0).elements.get(0).duration_in_traffic == null) {
             result.setRecommended(false);
             result.getRecommendedErrors().add("No information on driving distance and driving time");
             return;
         }
 
         double maxDistance = score.getMaxDistance() * 1000; //convert to meters
-        double distance = distanceMatrix.getRows().get(0).getElements().get(0).getDistance().getValue();
+        double distance = distanceMatrix.rows.get(0).elements.get(0).distance.value;
         double distanceResult = distance / maxDistance;
         if (distanceResult > 1) {
             result.setRecommended(false);
@@ -156,7 +156,7 @@ public class ScoreEvaluator {
         }
 
         double maxTime = score.getMaxDrivingTime() * 60 * 60; //convert to seconds
-        double time = distanceMatrix.getRows().get(0).getElements().get(0).getDurationInTraffic().getValue();
+        double time = distanceMatrix.rows.get(0).elements.get(0).duration_in_traffic.value;
         double timeResult = time / maxTime;
         if (timeResult > 1) {
             result.setRecommended(false);

@@ -1,15 +1,13 @@
 package com.example.application.dto.apireturn;
 
 import lombok.AllArgsConstructor;
-import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 @NoArgsConstructor
 @AllArgsConstructor
-@Getter
 @ToString
 public class Coord {
-    private double lon;
-    private double lat;
+    public double lon;
+    public double lat;
 }

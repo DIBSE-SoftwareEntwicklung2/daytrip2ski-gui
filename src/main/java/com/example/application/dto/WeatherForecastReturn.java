@@ -4,7 +4,7 @@ import com.example.application.dto.apireturn.City;
 import com.example.application.dto.apireturn.WeatherSummary;
 import lombok.*;
 
-import java.util.List;
+import java.util.ArrayList;
 
 @Getter
 @Setter
@@ -12,9 +12,9 @@ import java.util.List;
 @NoArgsConstructor
 @ToString
 public class WeatherForecastReturn {
-    private City city;
-    private String cod;
-    private double message;
-    private int cnt;
-    private List<WeatherSummary> weatherSummaries;
+    public City city;
+    public String cod;
+    public double message;
+    public int cnt;
+    public ArrayList<WeatherSummary> list;
 }

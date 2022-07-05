@@ -276,19 +276,18 @@ public class SingleResultView extends VerticalLayout implements HasUrlParameter<
 
                 for (int i = 0; i < 10; i++) {
                     Object[] childElements = imgWeathers.get(i).getChildren().toArray();
-                    WeatherSummary weather = forecastWeather.getWeatherSummaries().get(i);
-                    System.out.println(new Date(weather.getDt() * 1000));
-                    ((Span) childElements[0]).setText(simpleDateFormat.format(new Date(weather.getDt() * 1000)));
-                    ((Image) childElements[1]).setSrc("https://openweathermap.org/img/wn/" + weather.getWeather().get(0).getIcon() + "@2x.png");
-                    ((Image) childElements[1]).setTitle(weather.getWeather().get(0).getDescription());
-                    ((Span) childElements[2]).setText(weather.getFeelsLike().getDay() + "°C");
-                    ((Span) childElements[3]).setText("Min. " + weather.getTemp().getMin() + "°C");
-                    ((Span) childElements[4]).setText("Max. " + weather.getTemp().getMax() + "°C");
+                    WeatherSummary weather = forecastWeather.list.get(i);
+                    System.out.println(new Date(weather.dt * 1000));
+                    ((Span) childElements[0]).setText(simpleDateFormat.format(new Date(weather.dt * 1000)));
+                    ((Image) childElements[1]).setSrc("https://openweathermap.org/img/wn/" + weather.weather.get(0).icon + "@2x.png");
+                    ((Image) childElements[1]).setTitle(weather.weather.get(0).description);
+                    ((Span) childElements[2]).setText(weather.feels_like.day + "°C");
+                    ((Span) childElements[3]).setText("Min. " + weather.temp.min + "°C");
+                    ((Span) childElements[4]).setText("Max. " + weather.temp.max + "°C");
                 }
             }
         } else {
             UI.getCurrent().navigate(ResultsView.class);
         }
     }
-
 }

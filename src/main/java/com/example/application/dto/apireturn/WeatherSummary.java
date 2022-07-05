@@ -1,29 +1,27 @@
 package com.example.application.dto.apireturn;
 
 import lombok.AllArgsConstructor;
-import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
-import java.util.List;
+import java.util.ArrayList;
 
 @AllArgsConstructor
 @NoArgsConstructor
-@Getter
 @ToString
 public class WeatherSummary {
-    private long dt;
-    private int sunrise;
-    private int sunset;
-    private Temp temp;
-    private FeelsLike feelsLike;
-    private int pressure;
-    private int humidity;
-    private List<Weather> weather;
-    private double speed;
-    private int deg;
-    private double gust;
-    private int clouds;
-    private double pop;
-    private double rain;
+    public long dt;
+    public int sunrise;
+    public int sunset;
+    public Temp temp;
+    public FeelsLike feels_like;
+    public int pressure;
+    public int humidity;
+    public ArrayList<Weather> weather;
+    public double speed;
+    public int deg;
+    public double gust;
+    public int clouds;
+    public double pop;
+    public double rain;
 }

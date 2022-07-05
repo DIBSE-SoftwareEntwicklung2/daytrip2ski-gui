@@ -1,11 +1,12 @@
 package com.example.application.dto.apireturn;
 
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 @NoArgsConstructor
 @AllArgsConstructor
-@Getter
 @ToString
 public class Clouds {
-    private int all;
+    public int all;
 }
