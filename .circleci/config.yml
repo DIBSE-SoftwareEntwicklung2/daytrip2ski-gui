@@ -104,8 +104,7 @@ jobs:
             - run : ls
             - run: mkdir -p buildfiles
             - run: mvn package -Pproduction -DoutputDirectory=/app/buildfiles#
-            - run : cd ./buildfiles
-            - run : ls
+            - run : ls /app/buildfiles
             - run: heroku deploy:jar /app/buildfiles/myapp-1.0-SNAPSHOT.jar --app daytrip2ski-gui
             - store_artifacts: 
                 path: target
