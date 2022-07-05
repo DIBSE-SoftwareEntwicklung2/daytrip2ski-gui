@@ -20,7 +20,7 @@ import com.vaadin.flow.router.Route;
 import java.time.LocalDateTime;
 import java.util.List;
 
-@PageTitle("Results")
+@PageTitle("All Ski Resorts")
 @Route(value = "results", layout = MainLayout.class)
 public class ResultsView extends VerticalLayout implements HasUrlParameter<String> {
     private static final long serialVersionUID = 1L;

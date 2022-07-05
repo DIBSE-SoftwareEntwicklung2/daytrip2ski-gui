@@ -33,7 +33,7 @@ public class LoginView extends VerticalLayout {
         i18nErrorMessage.setTitle("Wrong username or password");
         i18nErrorMessage.setMessage("Check your credentials and try again");
         i18n.setErrorMessage(i18nErrorMessage);
-        i18n.setAdditionalInformation("If you need more info about this app please send email at info@demo.com");
+        i18n.setAdditionalInformation("If you need more info about this app please send email at info@slopesearcher.com");
         LoginForm login = new LoginForm(i18n);
         login.setForgotPasswordButtonVisible(true);
         login.addLoginListener(e -> {
