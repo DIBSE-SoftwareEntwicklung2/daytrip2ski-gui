@@ -276,7 +276,7 @@ public class SingleResultView extends VerticalLayout implements HasUrlParameter<
 
                 for (int i = 0; i < 10; i++) {
                     Object[] childElements = imgWeathers.get(i).getChildren().toArray();
-                    WeatherSummary weather = forecastWeather.weatherSummaries.get(i);
+                    WeatherSummary weather = forecastWeather.getWeatherSummaries().get(i);
                     System.out.println(new Date(weather.getDt() * 1000));
                     ((Span) childElements[0]).setText(simpleDateFormat.format(new Date(weather.getDt() * 1000)));
                     ((Image) childElements[1]).setSrc("https://openweathermap.org/img/wn/" + weather.getWeather().get(0).getIcon() + "@2x.png");

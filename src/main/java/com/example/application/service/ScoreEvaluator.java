@@ -10,10 +10,12 @@ import static java.lang.Math.abs;
 public class ScoreEvaluator {
     private final RestPersonService rps;
     private final GDistanceMatrixService dms;
+    private final RestSkiresortService rss;
 
-    public ScoreEvaluator(RestPersonService rps, GDistanceMatrixService dms) {
+    public ScoreEvaluator(RestPersonService rps, GDistanceMatrixService dms, RestSkiresortService rss) {
         this.rps = rps;
         this.dms = dms;
+        this.rss = rss;
     }
 
     public Result evaluateScore(Person person, Skiresort skiresort, LocalDateTime dateTimeForTrip) {
@@ -77,13 +79,12 @@ public class ScoreEvaluator {
     }
 
     private void resolveSlopeDistance(Skiresort skiresort, Result result, Score score) {
-        RestSkiresortService getStats = new RestSkiresortService();
-        Long easyMin = getStats.getMinDistanceEasy().get(0).getDistanceEasy();
-        Long easyMax = getStats.getMaxDistanceEasy().get(0).getDistanceEasy();
-        Long intermediateMin = getStats.getMinDistanceIntermediate().get(0).getDistanceIntermediate();
-        Long intermediateMax = getStats.getMaxDistanceIntermediate().get(0).getDistanceIntermediate();
-        Long difficultMin = getStats.getMinDistanceDifficult().get(0).getDistanceDifficult();
-        Long difficultMax = getStats.getMaxDistanceDifficult().get(0).getDistanceDifficult();
+        Long easyMin = rss.getMinDistanceEasy().get(0).getDistanceEasy();
+        Long easyMax = rss.getMaxDistanceEasy().get(0).getDistanceEasy();
+        Long intermediateMin = rss.getMinDistanceIntermediate().get(0).getDistanceIntermediate();
+        Long intermediateMax = rss.getMaxDistanceIntermediate().get(0).getDistanceIntermediate();
+        Long difficultMin = rss.getMinDistanceDifficult().get(0).getDistanceDifficult();
+        Long difficultMax = rss.getMaxDistanceDifficult().get(0).getDistanceDifficult();
 
         //scale results to a value between 0 and 1
         Double scaledEasy;

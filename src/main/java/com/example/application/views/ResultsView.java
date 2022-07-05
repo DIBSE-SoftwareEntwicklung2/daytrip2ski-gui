@@ -40,7 +40,7 @@ public class ResultsView extends VerticalLayout implements HasUrlParameter<Strin
         this.restSkiresortService = restSkiresortService;
         this.personService = personService;
         this.distanceService = distanceService;
-        this.scoreEvaluator = new ScoreEvaluator(this.personService, this.distanceService);
+        this.scoreEvaluator = new ScoreEvaluator(this.personService, this.distanceService, this.restSkiresortService);
     }
 
     protected boolean hasScore() {
