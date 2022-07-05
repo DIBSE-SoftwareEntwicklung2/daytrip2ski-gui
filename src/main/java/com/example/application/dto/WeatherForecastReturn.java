@@ -11,6 +11,7 @@ import java.util.ArrayList;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
+@SuppressWarnings("squid:S1104") // We need public variables for the api return.
 public class WeatherForecastReturn {
     public City city;
     public String cod;

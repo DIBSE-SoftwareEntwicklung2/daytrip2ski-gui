@@ -7,6 +7,7 @@ import lombok.ToString;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
+@SuppressWarnings("squid:S1104") // We need public variables for the api return.
 public class Main {
     public double temp;
     public double feels_like;

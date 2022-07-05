@@ -8,5 +8,6 @@ import lombok.ToString;
 @AllArgsConstructor
 @ToString
 public class Clouds {
+    @SuppressWarnings("squid:S1104") // We need public variables for the api return.
     public int all;
 }

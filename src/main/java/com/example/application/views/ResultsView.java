@@ -25,13 +25,11 @@ import java.util.List;
 public class ResultsView extends VerticalLayout implements HasUrlParameter<String> {
     private static final long serialVersionUID = 1L;
 
-    private final RestSkiresortService restSkiresortService;
+    private final transient RestSkiresortService restSkiresortService;
 
-    private final RestPersonService personService;
+    private final transient RestPersonService personService;
 
-    private final GDistanceMatrixService distanceService;
-
-    private ScoreEvaluator scoreEvaluator;
+    private final transient ScoreEvaluator scoreEvaluator;
 
     @Autowired
     public ResultsView(RestSkiresortService restSkiresortService, RestPersonService personService, GDistanceMatrixService distanceService) {
@@ -39,8 +37,7 @@ public class ResultsView extends VerticalLayout implements HasUrlParameter<Strin
         setAlignItems(Alignment.CENTER);
         this.restSkiresortService = restSkiresortService;
         this.personService = personService;
-        this.distanceService = distanceService;
-        this.scoreEvaluator = new ScoreEvaluator(this.personService, this.distanceService, this.restSkiresortService);
+        this.scoreEvaluator = new ScoreEvaluator(personService, distanceService, restSkiresortService);
     }
 
     protected boolean hasScore() {

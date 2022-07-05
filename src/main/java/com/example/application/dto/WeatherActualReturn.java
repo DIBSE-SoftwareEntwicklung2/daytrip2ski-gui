@@ -10,6 +10,7 @@ import java.util.ArrayList;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
+@SuppressWarnings("squid:S1104") // We need public variables for the api return.
 public class WeatherActualReturn {
     public Coord coord;
     public ArrayList<Weather> weather;
