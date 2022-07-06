@@ -81,7 +81,7 @@ jobs:
                 image: $CIRCLE_WORKFLOW_ID 
                 registry-url: "gcr.io" 
                 tag: "latest"
-                
+
     gcp_cloudrun_deploy: 
         description: Deploy using cloud run 
         executor: machine-executor 
@@ -103,13 +103,24 @@ jobs:
             - run: heroku plugins:install java
             - run : ls
             - run: mkdir -p buildfiles
-            - run: mvn package -Pproduction -DoutputDirectory=/app/buildfiles#
-            - run : ls /app/buildfiles
-            - run: heroku deploy:jar /app/buildfiles/myapp-1.0-SNAPSHOT.jar --app daytrip2ski-gui
+            - run: mvn package -Pproduction -DoutputDirectory=/app/buildfiles/jarfile
+            - persist_to_workspace:
+                root: buildfiles
+                paths: -jarfile
+            
             - store_artifacts: 
                 path: target
+    heroku_deploy:
+        executor: vaadinrepo-executor
+        steps:
+            - attach_workspace:
+                at: /app/buildfiles
+            - run: heroku deploy:jar /app/buildfiles/myapp-1.0-SNAPSHOT.jar --app daytrip2ski-gui
 workflows: 
     version: 2
     workflow: 
         jobs: 
         - build_for_heroku
+        - heroku_deploy: 
+            requires:
+                - build_for_heroku
