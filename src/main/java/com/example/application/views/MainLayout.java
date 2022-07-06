@@ -8,15 +8,7 @@ import com.vaadin.flow.component.applayout.DrawerToggle;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.button.ButtonVariant;
 import com.vaadin.flow.component.dependency.NpmPackage;
-import com.vaadin.flow.component.html.Footer;
-import com.vaadin.flow.component.html.H1;
-import com.vaadin.flow.component.html.H2;
-import com.vaadin.flow.component.html.Header;
-import com.vaadin.flow.component.html.Image;
-import com.vaadin.flow.component.html.ListItem;
-import com.vaadin.flow.component.html.Nav;
-import com.vaadin.flow.component.html.Span;
-import com.vaadin.flow.component.html.UnorderedList;
+import com.vaadin.flow.component.html.*;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.RouterLink;
 
@@ -49,9 +41,6 @@ public class MainLayout extends AppLayout {
          */
         @NpmPackage(value = "line-awesome", version = "1.3.0")
         public static class LineAwesomeIcon extends Span {
-            /**
-             *
-             */
             private static final long serialVersionUID = -7066162644675821833L;
 
             public LineAwesomeIcon(String lineawesomeClassnames) {
@@ -66,6 +55,7 @@ public class MainLayout extends AppLayout {
 
 
     private H1 viewTitle;
+
 
     public MainLayout() {
         setPrimarySection(Section.DRAWER);
@@ -97,7 +87,7 @@ public class MainLayout extends AppLayout {
         H2 appName = new H2("My App");
         appName.addClassNames("app-name");
         Image logo = new Image();
-        logo.addClickListener(e -> UI.getCurrent().navigate(HomeView.class));
+        logo.addClickListener(e -> UI.getCurrent().navigate(ResultsView.class));
         logo.setSrc("images/logo-dark.png");
         logo.setWidth("168px");
         logo.setHeight("100px");
@@ -127,7 +117,7 @@ public class MainLayout extends AppLayout {
 
     private MenuItemInfo[] createMenuItems() {
         return new MenuItemInfo[]{ //
-                new MenuItemInfo("HOME", "la la-globe", HomeView.class), new MenuItemInfo("Suggestions", "la la-thumbs-up", SuggestionsView.class), new MenuItemInfo("Favorites", "la la-star", HomeView.class), new MenuItemInfo("My account", "la la-user", MyAccount.class),};
+                new MenuItemInfo("HOME", "la la-globe", ResultsView.class), new MenuItemInfo("Suggestions", "la la-thumbs-up", SuggestionsView.class), new MenuItemInfo("Favorites", "la la-star", SuggestionsView.class), new MenuItemInfo("My account", "la la-user", MyAccount.class)};
     }
 
     private Footer createFooter() {
