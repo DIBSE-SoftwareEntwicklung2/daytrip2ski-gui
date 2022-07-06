@@ -190,7 +190,7 @@
    				<configuration>
        				<appName>daytrip2ski-gui</appName>
        				<processTypes>
-   				<web>java $JAVA_OPTS -jar target/vaadin-heroku-2.0-SNAPSHOT.jar --server.port=$PORT</web>
+   				<web> mvn package -Pproduction </web>
        				</processTypes>
    				</configuration>
 			</plugin>
