@@ -1,19 +1,21 @@
 package com.example.application.views;
 
+import com.example.application.dto.Skiresort;
 import com.example.application.dto.WeatherForecastReturn;
 import com.example.application.dto.apireturn.WeatherSummary;
+import com.example.application.service.RestSkiresortService;
 import com.example.application.service.WeatherService;
 import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.checkbox.Checkbox;
-import com.vaadin.flow.component.html.*;
+import com.vaadin.flow.component.html.H1;
+import com.vaadin.flow.component.html.Image;
+import com.vaadin.flow.component.html.Paragraph;
+import com.vaadin.flow.component.html.Span;
 import com.vaadin.flow.component.map.Map;
 import com.vaadin.flow.component.map.configuration.Coordinate;
 import com.vaadin.flow.component.map.configuration.feature.MarkerFeature;
 import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.notification.NotificationVariant;
-
-import com.example.application.dto.Skiresort;
-import com.example.application.service.RestSkiresortService;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.BeforeEvent;
@@ -25,6 +27,9 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
+/**
+ * Detailed information about one Ski resort
+ */
 @PageTitle("Ski Resort")
 @Route(value = "single", layout = MainLayout.class)
 public class SingleResultView extends VerticalLayout implements HasUrlParameter<Long> {
@@ -71,6 +76,12 @@ public class SingleResultView extends VerticalLayout implements HasUrlParameter<
     private final transient RestSkiresortService restSkiresortService;
     private final transient WeatherService weatherService;
 
+    /**
+     * link to get information about the targeted ski resort from the API, including the Weather information from the Weather API
+     *
+     * @param restSkiresortService ski resorts
+     * @param weatherService       weather
+     */
     public SingleResultView(RestSkiresortService restSkiresortService, WeatherService weatherService) {
         this.restSkiresortService = restSkiresortService;
         this.weatherService = weatherService;
@@ -205,6 +216,12 @@ public class SingleResultView extends VerticalLayout implements HasUrlParameter<
         add(title, image, hlAltitude, hlNumbers, hlDistances, pGeneralSnowConditions, hlWebCamUrl, hlWebSiteUrl, hlExtras, hlPrices, hlSeasson, hlHours, pOpeningHoursNote, pRemark, pDescription, weatherHeader, hlWeather, vlMaps);
     }
 
+    /**
+     * Set the information we got from the API
+     *
+     * @param event
+     * @param parameter
+     */
     @Override
     public void setParameter(BeforeEvent event, Long parameter) {
         if (parameter != null) {

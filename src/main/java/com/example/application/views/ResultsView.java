@@ -5,21 +5,19 @@ import com.example.application.dto.Result;
 import com.example.application.dto.Skiresort;
 import com.example.application.service.GDistanceMatrixService;
 import com.example.application.service.RestPersonService;
-import com.example.application.service.ScoreEvaluator;
-import org.springframework.beans.factory.annotation.Autowired;
-
 import com.example.application.service.RestSkiresortService;
+import com.example.application.service.ScoreEvaluator;
 import com.example.application.utils.SingleItem;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
-import com.vaadin.flow.router.BeforeEvent;
-import com.vaadin.flow.router.HasUrlParameter;
-import com.vaadin.flow.router.OptionalParameter;
-import com.vaadin.flow.router.PageTitle;
-import com.vaadin.flow.router.Route;
+import com.vaadin.flow.router.*;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.time.LocalDateTime;
 import java.util.List;
 
+/**
+ * ResultsView, All SKi resorts including the sponsored resorts
+ */
 @PageTitle("All Ski Resorts")
 @Route(value = "results", layout = MainLayout.class)
 public class ResultsView extends VerticalLayout implements HasUrlParameter<String> {
@@ -31,6 +29,13 @@ public class ResultsView extends VerticalLayout implements HasUrlParameter<Strin
 
     private final transient ScoreEvaluator scoreEvaluator;
 
+    /**
+     * Get information (ski resorts persons and distance) from the API
+     *
+     * @param restSkiresortService Ski Resorts
+     * @param personService        Persons
+     * @param distanceService      distance
+     */
     @Autowired
     public ResultsView(RestSkiresortService restSkiresortService, RestPersonService personService, GDistanceMatrixService distanceService) {
         setWidthFull();
@@ -44,6 +49,12 @@ public class ResultsView extends VerticalLayout implements HasUrlParameter<Strin
         return false;
     }
 
+    /**
+     * list the ski resorts with their images on the page
+     *
+     * @param event
+     * @param parameter
+     */
     @Override
     public void setParameter(BeforeEvent event, @OptionalParameter String parameter) {
         if (parameter != null) {

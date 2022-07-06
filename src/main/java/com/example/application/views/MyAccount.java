@@ -19,6 +19,9 @@ import com.vaadin.flow.router.Route;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.vaadin.addons.PaperSlider;
 
+/**
+ * User personal account page, enable the user to change his custom filters and see his personal information
+ */
 @PageTitle("My account")
 @Route(value = "account", layout = MainLayout.class)
 public class MyAccount extends VerticalLayout {
@@ -217,6 +220,7 @@ public class MyAccount extends VerticalLayout {
 
         add(btnSave);
     }
+
 
     @Override
     protected void onAttach(AttachEvent attachEvent) {

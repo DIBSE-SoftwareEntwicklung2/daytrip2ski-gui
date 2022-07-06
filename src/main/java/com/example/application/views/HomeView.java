@@ -11,6 +11,10 @@ import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.router.RouteAlias;
 
+/**
+ * HomeView, first page allow user to enter the App with or without login
+ */
+
 @Route(value = "homeView")
 @RouteAlias(value = "")
 @CssImport("./styles/views/homeView.css")

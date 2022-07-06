@@ -8,6 +8,9 @@ import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 
+/**
+ * Login View, enable users to log in with their Login credentials and verify their identities
+ */
 @Route(value = "loginView")
 @CssImport("./styles/views/loginView.css")
 @PageTitle("Login view")
