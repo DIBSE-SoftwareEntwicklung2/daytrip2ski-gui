@@ -112,7 +112,7 @@ jobs:
             - run: 
                 name: Download artifacts
                 command: | 
-                    curl -H "Circle-Token: $CIRCLE_TOKEN" https://circleci.com/api/v1.1/project/github/DIBSE-SoftwareEntwicklung2/daytrip2ski-gui/198/artifacts \ | grep -o 'https://[^"]*' \ | wget --verbose --header "Circle-Token: $CIRCLE_TOKEN" --input-file -
+                    curl -H "Circle-Token: $CIRCLE_TOKEN" https://circleci.com/api/v1.1/project/github/DIBSE-SoftwareEntwicklung2/daytrip2ski-gui/200/artifacts \ | grep -o 'https://[^"]*' \ | wget --verbose --header "Circle-Token: $CIRCLE_TOKEN" --input-file -
             - run: ls
             - run: heroku run bash :jar /app/myapp-1.0-SNAPSHOT.jar --app daytrip2ski-gui
 workflows: 
