@@ -98,28 +98,25 @@ jobs:
         executor: vaadinrepo-executor
         description: build the project for heroku (needed cause other steps are neccesary)
         steps:
-            - checkout
-            - heroku/install
-            - run: heroku plugins:install java
-            - run : ls
-            - run: mkdir -p buildfiles
-            - run: mvn package -Pproduction -DoutputDirectory=/app/buildfiles
-            - run: echo "Hello, world!" > buildfiles/echo-output
-            - run : ls /app/buildfiles
-            - persist_to_workspace:
-                root: buildfiles
-                paths: 
-                    - myapp-1.0-SNAPSHOT.jar
-                    - echo-output
-            
+            - run: mvn package -Pproduction
             - store_artifacts: 
-                path: target
+                path: target/heroku_build
+
     heroku_deploy:
         executor: vaadinrepo-executor
         steps:
-            - attach_workspace:
-                at: /app/buildfiles
-            - run: heroku deploy:jar /app/buildfiles/myapp-1.0-SNAPSHOT.jar --app daytrip2ski-gui
+            - checkout
+            - heroku/install
+            - run: heroku plugins:install java
+            - run: export CIRCLE_TOKEN='0d0eb67e5e1fe0e9baf5ccf4bea979c33772440e'
+            - run: 
+                name: Download artifacts
+                command: | 
+                    curl -H "Circle-Token: $CIRCLE_TOKEN" https://circleci.com/api/v1.1/project/:vcs-type/:username/:project/:build_num/artifacts \
+                    | grep -o 'https://[^"]*' \
+                    | wget --verbose --header "Circle-Token: $CIRCLE_TOKEN" --input-file -
+            - run: ls
+            - run: heroku run bash :jar /app/myapp-1.0-SNAPSHOT.jar --app daytrip2ski-gui
 workflows: 
     version: 2
     workflow: 
