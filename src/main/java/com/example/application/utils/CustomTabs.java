@@ -1,14 +1,14 @@
 package com.example.application.utils;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.dependency.CssImport;
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.tabs.Tab;
 import com.vaadin.flow.component.tabs.Tabs;
+
+import java.util.HashMap;
+import java.util.Map;
 
 @CssImport("./styles/components/customTabs.css")
 public class CustomTabs extends HorizontalLayout {

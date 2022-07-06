@@ -2,18 +2,23 @@ package com.example.application.service;
 
 import com.example.application.dto.*;
 import com.example.application.dto.gdistancematrix.*;
-import com.example.application.dto.gdistancematrix.Duration;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.*;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.Mockito.*;
-
-import java.time.*;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.Month;
 import java.util.ArrayList;
 import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.Mockito.any;
+import static org.mockito.Mockito.when;
 
 class ScoreEvaluatorTest {
     static Person person;
@@ -88,7 +93,7 @@ class ScoreEvaluatorTest {
         when(rss.getMaxDistanceDifficult()).thenReturn(singleListSkiresortsMax);
         when(rss.getMinNumbersOfClimbingAids()).thenReturn(singleListSkiresortsMin.get(0).getTotalNumbersOfClimbingAids());
         when(rss.getMaxNumbersOfClimbingAids()).thenReturn(singleListSkiresortsMax.get(0).getTotalNumbersOfClimbingAids());
-		
+
         row.elements = new ArrayList<>();
         row.elements.add(element);
         distanceMatrix.rows.add(row);
@@ -98,7 +103,7 @@ class ScoreEvaluatorTest {
     @Test
     void evaluateScorePersonHasNoScore() {
         when(rps.getScoreFromPerson(any(Long.class))).thenReturn(null);
-        Result result = scoreEvaluator.evaluateScore(person, skiresort,  LocalDateTime.of(2022, 10, 29, 10, 0, 0));
+        Result result = scoreEvaluator.evaluateScore(person, skiresort, LocalDateTime.of(2022, 10, 29, 10, 0, 0));
         var expected = new ArrayList<String>();
         assertEquals(new Result(false, "No score to compare found", 0, true, expected), result);
     }

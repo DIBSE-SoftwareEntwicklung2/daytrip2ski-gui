@@ -3,7 +3,6 @@ package com.example.application.service;
 import com.example.application.dto.Skiresort;
 import com.example.application.dto.WeatherActualReturn;
 import com.example.application.dto.WeatherForecastReturn;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 
@@ -16,6 +15,7 @@ import java.util.Objects;
 public class WeatherService {
     /**
      * this function returns the current weather based on the location of a skiresort
+     *
      * @param current Skiresort
      * @return WeatherActualReturn
      */
@@ -27,6 +27,7 @@ public class WeatherService {
 
     /**
      * this function returns a forecast based on the location of a skiresort
+     *
      * @param current Skiresort
      * @return WeatherForecastReturn
      */

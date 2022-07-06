@@ -7,7 +7,7 @@ import java.time.LocalTime;
 
 /**
  * Stores all our knowledge about a Skiresort
- *
+ * <p>
  * auto generated getters, setters, NoArgsConstructor, AllArgsConstructor and a ToStringMethod
  */
 @Getter

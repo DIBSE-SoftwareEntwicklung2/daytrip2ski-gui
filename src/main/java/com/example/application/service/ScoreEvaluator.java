@@ -1,6 +1,9 @@
 package com.example.application.service;
 
-import com.example.application.dto.*;
+import com.example.application.dto.Person;
+import com.example.application.dto.Result;
+import com.example.application.dto.Score;
+import com.example.application.dto.Skiresort;
 
 import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
@@ -19,11 +22,12 @@ public class ScoreEvaluator {
 
     /**
      * Constructor
+     *
      * @param rps RestPersonService
      * @param dms GDistanceMatrixService
      * @param rss RestSkiresortService
      */
-    public ScoreEvaluator(@NotNull RestPersonService rps,@NotNull GDistanceMatrixService dms,@NotNull RestSkiresortService rss) {
+    public ScoreEvaluator(@NotNull RestPersonService rps, @NotNull GDistanceMatrixService dms, @NotNull RestSkiresortService rss) {
         this.rps = rps;
         this.dms = dms;
         this.rss = rss;
@@ -31,12 +35,13 @@ public class ScoreEvaluator {
 
     /**
      * Evaluates a Person and a Skiresort and returnes (if Valid) a Score and/or multiple reasons why it is not recommendet
-     * @param person Person
-     * @param skiresort Skiresort
+     *
+     * @param person          Person
+     * @param skiresort       Skiresort
      * @param dateTimeForTrip TimeoftheTrip
      * @return Result object
      */
-    public Result evaluateScore(@NotNull Person person,@NotNull Skiresort skiresort,@NotNull LocalDateTime dateTimeForTrip) {
+    public Result evaluateScore(@NotNull Person person, @NotNull Skiresort skiresort, @NotNull LocalDateTime dateTimeForTrip) {
         Result result = new Result();
         Score score = rps.getScoreFromPerson(person.getId());
         if (score == null) {
@@ -147,7 +152,7 @@ public class ScoreEvaluator {
         double varietyResult = (current - min) / (max - min);
         varietyResult = abs(score.getVariety() - varietyResult);
         varietyResult = (1 - varietyResult) * 10;
-        result.setScore(result.getScore() + (int) Math.round( varietyResult));
+        result.setScore(result.getScore() + (int) Math.round(varietyResult));
     }
 
     private void resolveDistance(Person person, Skiresort skiresort, Result result, Score score) {

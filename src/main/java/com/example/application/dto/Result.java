@@ -1,17 +1,20 @@
 package com.example.application.dto;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
+
 import java.util.ArrayList;
 import java.util.List;
 
-import lombok.*;
-
 /**
  * Object that hold the result of an evaluation between Person and Skiresort by an ScoreEvaluator
- *
+ * <p>
  * has auto generated getter and setters aswell as a ToString method and an All args Constructor
- *
+ * <p>
  * boolean valid is false if it could not generate a Score also has an error message in valid Error
- *
+ * <p>
  * int Score hold a result if valid = true
  * even if a score exist we might not recommend it represented by boolean recommended
  * List<String> recommendedErrors holds all given Errors if recommendet is false

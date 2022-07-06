@@ -1,7 +1,5 @@
 package com.example.application.windows;
 
-import org.vaadin.addons.PaperSlider;
-
 import com.example.application.utils.CustomTabs;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.checkbox.Checkbox;
@@ -9,6 +7,7 @@ import com.vaadin.flow.component.dependency.CssImport;
 import com.vaadin.flow.component.dialog.Dialog;
 import com.vaadin.flow.component.html.Span;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
+import org.vaadin.addons.PaperSlider;
 
 @CssImport("./styles/windows/searchWindow.css")
 public class SearchWindow extends Dialog {

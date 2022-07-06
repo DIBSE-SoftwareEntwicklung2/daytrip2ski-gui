@@ -21,6 +21,7 @@ public class RestPersonService {
 
     /**
      * this function returns all persons saved in the database
+     *
      * @return List<Person>
      */
     public List<Person> getAllPersons() {
@@ -30,6 +31,7 @@ public class RestPersonService {
 
     /**
      * this function returns a Person by its Id
+     *
      * @param id ID
      * @return Person
      */
@@ -40,6 +42,7 @@ public class RestPersonService {
 
     /**
      * this function return only the Score of a person recognized by its id
+     *
      * @param id ID
      * @return Score
      */
@@ -54,6 +57,7 @@ public class RestPersonService {
 
     /**
      * this function can register a new Person in the backend
+     *
      * @param person Person
      */
     public void postRegisterPerson(Person person) {
@@ -63,6 +67,7 @@ public class RestPersonService {
 
     /**
      * this function updates a Person in the backend
+     *
      * @param person Person
      */
     public void savePerson(Person person) {

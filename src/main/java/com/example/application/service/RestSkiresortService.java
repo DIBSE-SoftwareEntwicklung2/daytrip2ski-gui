@@ -17,6 +17,7 @@ public class RestSkiresortService {
 
     /**
      * this function returns all Skiresorts
+     *
      * @return List<Skiresort>
      */
     public List<Skiresort> getAllSkiresorts() {
@@ -26,6 +27,7 @@ public class RestSkiresortService {
 
     /**
      * this function returns a Skiresort recognized by its Id
+     *
      * @param id ID
      * @return Skiresort
      */
@@ -36,62 +38,77 @@ public class RestSkiresortService {
 
     /**
      * returns the Skiresort with maxDistanceEasy
+     *
      * @return List<Skiresort>
      */
     public List<Skiresort> getMaxDistanceEasy() {
         WebClient.RequestHeadersSpec<?> spec = WebClient.create().get().uri(BASE_PATH + EXTENSION + "maxdistanceeasy");
         return Objects.requireNonNull(spec.retrieve().toEntityList(Skiresort.class).block()).getBody();
     }
+
     /**
      * returns the Skiresort with MinDistanceEasy
+     *
      * @return List<Skiresort>
      */
     public List<Skiresort> getMinDistanceEasy() {
         WebClient.RequestHeadersSpec<?> spec = WebClient.create().get().uri(BASE_PATH + EXTENSION + "mindistanceeasy");
         return Objects.requireNonNull(spec.retrieve().toEntityList(Skiresort.class).block()).getBody();
     }
+
     /**
      * returns the Skiresort with MaxDistanceIntermediate
+     *
      * @return List<Skiresort>
      */
     public List<Skiresort> getMaxDistanceIntermediate() {
         WebClient.RequestHeadersSpec<?> spec = WebClient.create().get().uri(BASE_PATH + EXTENSION + "maxdistanceintermediate");
         return Objects.requireNonNull(spec.retrieve().toEntityList(Skiresort.class).block()).getBody();
     }
+
     /**
      * returns the Skiresort with MinDistanceIntermediate
+     *
      * @return List<Skiresort>
      */
     public List<Skiresort> getMinDistanceIntermediate() {
         WebClient.RequestHeadersSpec<?> spec = WebClient.create().get().uri(BASE_PATH + EXTENSION + "mindistanceintermediate");
         return Objects.requireNonNull(spec.retrieve().toEntityList(Skiresort.class).block()).getBody();
     }
+
     /**
      * returns the Skiresort with MaxDistanceDifficult
+     *
      * @return List<Skiresort>
      */
     public List<Skiresort> getMaxDistanceDifficult() {
         WebClient.RequestHeadersSpec<?> spec = WebClient.create().get().uri(BASE_PATH + EXTENSION + "maxdistancedifficult");
         return Objects.requireNonNull(spec.retrieve().toEntityList(Skiresort.class).block()).getBody();
     }
+
     /**
      * returns the Skiresort with MinDistanceDifficult
+     *
      * @return List<Skiresort>
      */
     public List<Skiresort> getMinDistanceDifficult() {
         WebClient.RequestHeadersSpec<?> spec = WebClient.create().get().uri(BASE_PATH + EXTENSION + "mindistancedifficult");
         return Objects.requireNonNull(spec.retrieve().toEntityList(Skiresort.class).block()).getBody();
     }
+
     /**
      * returns the Skiresort with MaxNumbersOfClimbingAids
+     *
      * @return List<Skiresort>
      */
     public Long getMaxNumbersOfClimbingAids() {
         WebClient.RequestHeadersSpec<?> spec = WebClient.create().get().uri(BASE_PATH + EXTENSION + "maxnumbersofclimbingaids");
         return Objects.requireNonNull(spec.retrieve().toEntity(Long.class).block()).getBody();
     }
+
     /**
      * returns the Skiresort with MinNumbersOfClimbingAids
+     *
      * @return List<Skiresort>
      */
     public Long getMinNumbersOfClimbingAids() {

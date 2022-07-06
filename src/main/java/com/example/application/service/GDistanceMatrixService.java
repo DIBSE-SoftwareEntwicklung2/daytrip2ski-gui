@@ -14,7 +14,8 @@ import java.util.Objects;
 @Service
 public class GDistanceMatrixService {
     /**
-     *  calls to the google distance matrix api with the lat/lon of a person and a Skiresort
+     * calls to the google distance matrix api with the lat/lon of a person and a Skiresort
+     *
      * @param person
      * @param skiresort
      * @return ResultDistanceMatrix Object
