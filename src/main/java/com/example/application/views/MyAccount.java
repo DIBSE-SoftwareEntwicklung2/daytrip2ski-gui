@@ -12,8 +12,10 @@ import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.notification.NotificationVariant;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.TextField;
-import com.vaadin.flow.data.binder.Binder;
+import com.vaadin.flow.data.binder.BeanValidationBinder;
 import com.vaadin.flow.data.binder.ValidationException;
+import com.vaadin.flow.data.converter.StringToDoubleConverter;
+import com.vaadin.flow.data.converter.StringToLongConverter;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,12 +24,13 @@ import org.vaadin.addons.PaperSlider;
 @PageTitle("My account")
 @Route(value = "account", layout = MainLayout.class)
 public class MyAccount extends VerticalLayout {
+    private static final String BUTTON_BACKGROUND_COLOR = "background-color";
     @Autowired
     // No serialization needed.
     private transient RestPersonService personService;
 
     private static final long serialVersionUID = 1L;
-    private final Binder<Person> binder = new Binder<>();
+    private final BeanValidationBinder<Person> binder = new BeanValidationBinder<>(Person.class);
 
     // No serialization needed.
     private transient Person person;
@@ -37,25 +40,22 @@ public class MyAccount extends VerticalLayout {
         tfID.setEnabled(false);
         add(tfID);
 
-        binder.bind(tfID, Person::getIdStr, null);
+        binder.forField(tfID).withNullRepresentation("").withConverter(new StringToLongConverter("Id must be valid long")).bind("id");
 
         TextField tfName = new TextField("Name");
         tfName.setEnabled(false);
         add(tfName);
-
-        binder.bind(tfName, Person::getFirstName, null);
+        binder.forField(tfName).bind("firstName");
 
         TextField tfLastName = new TextField("Last name");
         tfLastName.setEnabled(false);
         add(tfLastName);
-
-        binder.bind(tfLastName, Person::getLastName, null);
+        binder.forField(tfLastName).bind("lastName");
 
         TextField tfEmail = new TextField("Email");
         tfEmail.setEnabled(false);
         add(tfEmail);
-
-        binder.bind(tfEmail, Person::getEmail, null);
+        binder.forField(tfEmail).bind("email");
 
         DatePicker.DatePickerI18n singleFormatI18n = new DatePicker.DatePickerI18n();
         singleFormatI18n.setDateFormat("dd.MM.yyyy");
@@ -63,10 +63,29 @@ public class MyAccount extends VerticalLayout {
         dpBirthDate.setI18n(singleFormatI18n);
         dpBirthDate.setEnabled(false);
         add(dpBirthDate);
-
-        binder.bind(dpBirthDate, Person::getDob, null);
+        binder.forField(dpBirthDate).bind("dob");
 
         Button btnSave = new Button("Save");
+        btnSave.setEnabled(false);
+
+        binder.addStatusChangeListener(event -> {
+            boolean isValid = event.getBinder().isValid();
+            boolean hasChanges = event.getBinder().hasChanges();
+
+            btnSave.setEnabled(hasChanges && isValid);
+            if (!isValid) {
+                btnSave.getStyle().set(BUTTON_BACKGROUND_COLOR, "red");
+                return;
+            }
+
+            if (!hasChanges) {
+                btnSave.getStyle().set(BUTTON_BACKGROUND_COLOR, "gray");
+                return;
+            }
+
+            btnSave.getStyle().set(BUTTON_BACKGROUND_COLOR, "cadetblue");
+        });
+
         btnSave.addClickListener(event -> {
             try {
                 binder.writeBean(person);
@@ -74,7 +93,16 @@ public class MyAccount extends VerticalLayout {
                 personService.savePerson(person);
                 Notification.show("Details saved successfully!").addThemeVariants(NotificationVariant.LUMO_SUCCESS);
             } catch (ValidationException e) {
-                Notification.show("Error while saving details: " + e.getMessage()).addThemeVariants(NotificationVariant.LUMO_ERROR);
+                Notification.show("Validation error while saving details: " + e.getMessage()).addThemeVariants(NotificationVariant.LUMO_ERROR);
+            } catch (Exception e) {
+                Notification.show("Fatal error while saving details: " + e.getMessage()).addThemeVariants(NotificationVariant.LUMO_ERROR);
+            }
+
+            try {
+                person = personService.getPersonById(person.getId());
+                binder.readBean(person);
+            } catch (Exception e) {
+                Notification.show("Fatal error while reading details: " + e.getMessage()).addThemeVariants(NotificationVariant.LUMO_ERROR);
             }
         });
 
@@ -202,26 +230,24 @@ public class MyAccount extends VerticalLayout {
 
         TextField tfBudget = new TextField("Budget in €");
         add(tfBudget);
-
-        binder.bind(tfBudget, p -> p.getScore().getBudged() != null ? p.getScore().getBudged().toString() : "", (p, value) -> p.getScore().setBudged(value == null || value.isEmpty() ? null : Double.valueOf(value)));
+        binder.forField(tfBudget).withNullRepresentation("").withConverter(new StringToDoubleConverter("Budget must be valid double")).bind("score.budged");
 
         TextField tfDistance = new TextField("Distance in km");
         add(tfDistance);
-
-        binder.bind(tfDistance, p -> p.getScore().getMaxDistance() != null ? p.getScore().getMaxDistance().toString() : "", (p, value) -> p.getScore().setMaxDistance(value == null || value.isEmpty() ? null : Double.valueOf(value)));
+        binder.forField(tfDistance).withNullRepresentation("").withConverter(new StringToDoubleConverter("Distance must be valid double")).bind("score.maxDistance");
 
         TextField tfDrivingTime = new TextField("Driving Time in h");
         add(tfDrivingTime);
-
-        binder.bind(tfDrivingTime, p -> p.getScore().getMaxDrivingTime() != null ? p.getScore().getMaxDrivingTime().toString() : "", (p, value) -> p.getScore().setMaxDrivingTime(value == null || value.isEmpty() ? null : Double.valueOf(value)));
+        binder.forField(tfDrivingTime).withNullRepresentation("").withConverter(new StringToDoubleConverter("Driving time must be valid double")).bind("score.maxDrivingTime");
 
         add(btnSave);
+        binder.setBean(person);
     }
 
     @Override
     protected void onAttach(AttachEvent attachEvent) {
         super.onAttach(attachEvent);
-        person = personService.getPersonById(1);
+        person = personService.getPersonById(1L);
         System.out.println(person);
         binder.readBean(person);
     }

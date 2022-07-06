@@ -1,8 +1,5 @@
 package com.example.application.service;
 
-import java.util.List;
-import java.util.Objects;
-
 import com.example.application.dto.Person;
 import com.example.application.dto.Score;
 import org.springframework.http.HttpHeaders;
@@ -10,6 +7,9 @@ import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
+
+import java.util.List;
+import java.util.Objects;
 
 @Service
 public class RestPersonService {
@@ -22,7 +22,7 @@ public class RestPersonService {
         return Objects.requireNonNull(spec.retrieve().toEntityList(Person.class).block()).getBody();
     }
 
-    public Person getPersonById(int id) {
+    public Person getPersonById(Long id) {
         WebClient.RequestHeadersSpec<?> spec = WebClient.create().get().uri(BASE_PATH + EXTENSION + id);
 
         return Objects.requireNonNull(spec.retrieve().toEntity(Person.class).block()).getBody();

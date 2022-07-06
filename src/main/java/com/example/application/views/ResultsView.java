@@ -5,17 +5,12 @@ import com.example.application.dto.Result;
 import com.example.application.dto.Skiresort;
 import com.example.application.service.GDistanceMatrixService;
 import com.example.application.service.RestPersonService;
-import com.example.application.service.ScoreEvaluator;
-import org.springframework.beans.factory.annotation.Autowired;
-
 import com.example.application.service.RestSkiresortService;
+import com.example.application.service.ScoreEvaluator;
 import com.example.application.utils.SingleItem;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
-import com.vaadin.flow.router.BeforeEvent;
-import com.vaadin.flow.router.HasUrlParameter;
-import com.vaadin.flow.router.OptionalParameter;
-import com.vaadin.flow.router.PageTitle;
-import com.vaadin.flow.router.Route;
+import com.vaadin.flow.router.*;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -48,7 +43,7 @@ public class ResultsView extends VerticalLayout implements HasUrlParameter<Strin
     public void setParameter(BeforeEvent event, @OptionalParameter String parameter) {
         if (parameter != null) {
             if (parameter.equals("sponsored")) {
-                // ToDo
+                // ToDo - Future feature.
             } else {
                 this.getAllSkiresorts().forEach(d -> {
                     SingleItem item = new SingleItem();
@@ -73,7 +68,7 @@ public class ResultsView extends VerticalLayout implements HasUrlParameter<Strin
             return result;
         }
 
-        Person person = personService.getPersonById(1);
+        Person person = personService.getPersonById(1L);
 
         for (Skiresort resort : result) {
             Result scoreResult = scoreEvaluator.evaluateScore(person, resort, LocalDateTime.now());

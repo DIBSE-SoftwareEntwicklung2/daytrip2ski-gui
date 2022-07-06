@@ -5,7 +5,13 @@ src\main\java\com\example\application\service\ScoreEvaluator                8KB
 src\main\java\com\example\application\service\WeatherService                2KB
 
 src\main\java\com\example\application\ - total nice code                    18KB = 23%
+src\main\java\com\example\application\dto\ - total                          12KB
+src\main\java\com\example\application\model\ - total                        1KB
+src\main\java\com\example\application\service\ - total                      16KB
+src\main\java\com\example\application\utils\ - total                        4KB
+src\main\java\com\example\application\views\ - total                        38KB
+src\main\java\com\example\application\windows\ - total                      5KB
 src\main\java\com\example\application\ - total                              77KB
 
-src\main\java\com\example\application\ - test coverage of nice code         83% of lines
-src\main\java\com\example\application\ - test coverage total                51% of lines
+src\main\java\com\example\application\ - test coverage of nice code         0% of lines
+src\main\java\com\example\application\ - test coverage total                18% of lines
