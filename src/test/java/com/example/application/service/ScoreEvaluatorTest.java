@@ -2,7 +2,6 @@ package com.example.application.service;
 
 import com.example.application.dto.*;
 import com.example.application.dto.gdistancematrix.*;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -36,10 +35,6 @@ class ScoreEvaluatorTest {
     private static RestSkiresortService rss;
     @InjectMocks
     private ScoreEvaluator scoreEvaluator;
-
-    @BeforeAll
-    static void beforeAll() {
-    }
 
     @BeforeEach
     void setUp() {

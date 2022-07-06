@@ -16,8 +16,8 @@ public class GDistanceMatrixService {
     /**
      * calls to the google distance matrix api with the lat/lon of a person and a Skiresort
      *
-     * @param person
-     * @param skiresort
+     * @param person    person
+     * @param skiresort skiresort
      * @return ResultDistanceMatrix Object
      */
     public ResultDistanceMatrix getDistanceMatrix(Person person, Skiresort skiresort) {

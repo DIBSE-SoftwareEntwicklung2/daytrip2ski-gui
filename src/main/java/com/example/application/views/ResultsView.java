@@ -15,11 +15,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import java.time.LocalDateTime;
 import java.util.List;
 
-import static java.lang.Integer.valueOf;
 import static java.lang.Math.abs;
 
 /**
- * shows All the ski resorts including sponsered resorts
+ * shows All the ski resorts including sponsored resorts
  */
 @PageTitle("All Ski Resorts")
 @Route(value = "results", layout = MainLayout.class)
@@ -53,7 +52,7 @@ public class ResultsView extends VerticalLayout implements HasUrlParameter<Strin
     }
 
     /**
-     * showing the ski resorts on the page including thier images
+     * showing the ski resorts on the page including their images
      *
      * @param event     events
      * @param parameter parameter
@@ -97,14 +96,10 @@ public class ResultsView extends VerticalLayout implements HasUrlParameter<Strin
                 continue;
             }
             //this is a workaround right now
-            if (scoreResult.isRecommended() == false) {
+            if (!scoreResult.isRecommended()) {
                 System.out.println(resort.getName());
                 System.out.println(scoreResult);
-                if (scoreResult.getRecommendedErrors().size() > 2) {
-                    scoreResult.setScore(scoreResult.getScore() * -1);
-                } else if (scoreResult.getRecommendedErrors().size() == 2 && !(scoreResult.getRecommendedErrors().contains("Resort is out of Season") && scoreResult.getRecommendedErrors().contains("Resort is closed at this time"))) {
-                    scoreResult.setScore(scoreResult.getScore() * -1);
-                } else if (scoreResult.getRecommendedErrors().size() == 1 && !(scoreResult.getRecommendedErrors().contains("Resort is out of Season") || scoreResult.getRecommendedErrors().contains("Resort is closed at this time"))) {
+                if ((scoreResult.getRecommendedErrors().size() > 2) || (scoreResult.getRecommendedErrors().size() == 2 && !(scoreResult.getRecommendedErrors().contains("Resort is out of Season") && scoreResult.getRecommendedErrors().contains("Resort is closed at this time"))) || (scoreResult.getRecommendedErrors().size() == 1 && !(scoreResult.getRecommendedErrors().contains("Resort is out of Season") || scoreResult.getRecommendedErrors().contains("Resort is closed at this time")))) {
                     scoreResult.setScore(scoreResult.getScore() * -1);
                 }
             }
@@ -112,7 +107,7 @@ public class ResultsView extends VerticalLayout implements HasUrlParameter<Strin
             resort.setScore(scoreResult.getScore());
         }
 
-        result.sort((r1, r2) -> valueOf(abs(r2.getScore())).compareTo(valueOf(abs(r1.getScore()))));
+        result.sort((r1, r2) -> Integer.compare(abs(r2.getScore()), abs(r1.getScore())));
         return result;
     }
 }

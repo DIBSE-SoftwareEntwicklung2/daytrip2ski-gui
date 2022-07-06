@@ -18,8 +18,9 @@ import com.vaadin.flow.data.converter.StringToDoubleConverter;
 import com.vaadin.flow.data.converter.StringToLongConverter;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.vaadin.addons.PaperSlider;
+
+import javax.validation.constraints.NotNull;
 
 /**
  * User personal account page, enable the user to change his custom filters and see his personal information
@@ -28,9 +29,7 @@ import org.vaadin.addons.PaperSlider;
 @Route(value = "account", layout = MainLayout.class)
 public class MyAccount extends VerticalLayout {
     private static final String BUTTON_BACKGROUND_COLOR = "background-color";
-    @Autowired
-    // No serialization needed.
-    private transient RestPersonService personService;
+    private final transient RestPersonService rps;
 
     private static final long serialVersionUID = 1L;
     private final BeanValidationBinder<Person> binder = new BeanValidationBinder<>(Person.class);
@@ -38,7 +37,8 @@ public class MyAccount extends VerticalLayout {
     // No serialization needed.
     private transient Person person;
 
-    public MyAccount() {
+    public MyAccount(@NotNull RestPersonService rps) {
+        this.rps = rps;
         TextField tfID = new TextField("ID");
         tfID.setEnabled(false);
         add(tfID);
@@ -92,8 +92,7 @@ public class MyAccount extends VerticalLayout {
         btnSave.addClickListener(event -> {
             try {
                 binder.writeBean(person);
-                System.out.println(person);
-                personService.savePerson(person);
+                this.rps.savePerson(person);
                 Notification.show("Details saved successfully!").addThemeVariants(NotificationVariant.LUMO_SUCCESS);
             } catch (ValidationException e) {
                 Notification.show("Validation error while saving details: " + e.getMessage()).addThemeVariants(NotificationVariant.LUMO_ERROR);
@@ -102,7 +101,7 @@ public class MyAccount extends VerticalLayout {
             }
 
             try {
-                person = personService.getPersonById(person.getId());
+                person = this.rps.getPersonById(person.getId());
                 binder.readBean(person);
             } catch (Exception e) {
                 Notification.show("Fatal error while reading details: " + e.getMessage()).addThemeVariants(NotificationVariant.LUMO_ERROR);
@@ -251,8 +250,7 @@ public class MyAccount extends VerticalLayout {
     @Override
     protected void onAttach(AttachEvent attachEvent) {
         super.onAttach(attachEvent);
-        person = personService.getPersonById(1L);
-        System.out.println(person);
+        person = rps.getPersonById(1L);
         binder.readBean(person);
     }
 }

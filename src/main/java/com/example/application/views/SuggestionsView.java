@@ -18,9 +18,9 @@ public class SuggestionsView extends ResultsView {
     /**
      * Get needed information about ski resorts, person, and distance
      *
-     * @param restSkiresortService
-     * @param personService
-     * @param distanceService
+     * @param restSkiresortService rest skiresort service
+     * @param personService        person service
+     * @param distanceService      distance service
      */
     @Autowired
     public SuggestionsView(RestSkiresortService restSkiresortService, RestPersonService personService, GDistanceMatrixService distanceService) {

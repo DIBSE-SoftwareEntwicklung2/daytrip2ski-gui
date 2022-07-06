@@ -7,6 +7,7 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
+import java.time.Period;
 
 /**
  * Class that represents a Person
@@ -39,12 +40,12 @@ public class Person {
     /**
      * Smaller Constructor without Id and Score object
      *
-     * @param firstName
-     * @param lastName
-     * @param email
-     * @param dob
-     * @param homeLatitude
-     * @param homeLongitude
+     * @param firstName     first name
+     * @param lastName      last name
+     * @param email         email
+     * @param dob           day of birth
+     * @param homeLatitude  home location latitude
+     * @param homeLongitude home location longitude
      */
     public Person(String firstName, String lastName, String email, LocalDate dob, Double homeLatitude, double homeLongitude) {
         this.firstName = firstName;

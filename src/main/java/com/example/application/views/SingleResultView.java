@@ -219,8 +219,8 @@ public class SingleResultView extends VerticalLayout implements HasUrlParameter<
     /**
      * Set the information we got from the API
      *
-     * @param event
-     * @param parameter
+     * @param event     before event
+     * @param parameter parameter
      */
     @Override
     public void setParameter(BeforeEvent event, Long parameter) {
