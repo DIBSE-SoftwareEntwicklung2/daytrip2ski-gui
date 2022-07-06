@@ -92,18 +92,10 @@ jobs:
                 service-name: 'daytrip2ski-gui' 
                 region: 'europe-west1' 
                 unauthenticated: true      
-    
-    build_for_heroku:
-        executor: vaadinrepo-executor
-        description: build the project for heroku (needed cause other steps are neccesary)
-        steps:
-            - checkout
-            - run: mvn package -Pproduction
-            - store_artifacts: 
-                path: target
-
+                
     heroku_deploy:
         executor: vaadinrepo-executor
+        description: build and deploy the project for heroku (build = needed cause other steps are neccesary)
         steps:
             - checkout
             - heroku/install
@@ -117,4 +109,17 @@ workflows:
     version: 2
     workflow: 
         jobs:
-        - heroku_deploy
+        - build 
+        - test: 
+            requires: 
+                - build
+        - static_code_analysis:
+            context: SonarCloud
+            requires: 
+                - build
+        - build_push_image_gcr:
+            requires: 
+                - test 
+        - heroku_deploy:
+            requires: 
+                - test
