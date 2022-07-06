@@ -16,7 +16,7 @@ public class ScoreEvaluator {
     private final RestSkiresortService rss;
 
     /**
-     *
+     * Constructor
      * @param rps RestPersonService
      * @param dms GDistanceMatrixService
      * @param rss RestSkiresortService
@@ -28,10 +28,10 @@ public class ScoreEvaluator {
     }
 
     /**
-     *
-     * @param person
-     * @param skiresort
-     * @param dateTimeForTrip
+     * Evaluates a Person and a Skiresort and returnes (if Valid) a Score and/or multiple reasons why it is not recommendet
+     * @param person Person
+     * @param skiresort Skiresort
+     * @param dateTimeForTrip TimeoftheTrip
      * @return Result object
      */
     public Result evaluateScore(@NotNull Person person,@NotNull Skiresort skiresort,@NotNull LocalDateTime dateTimeForTrip) {
