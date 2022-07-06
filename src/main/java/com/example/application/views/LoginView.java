@@ -1,9 +1,11 @@
 package com.example.application.views;
 
+import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.dependency.CssImport;
 import com.vaadin.flow.component.html.Image;
 import com.vaadin.flow.component.login.LoginForm;
 import com.vaadin.flow.component.login.LoginI18n;
+import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
@@ -39,8 +41,14 @@ public class LoginView extends VerticalLayout {
         i18n.setAdditionalInformation("If you need more info about this app please send email at info@slopesearcher.com");
         LoginForm login = new LoginForm(i18n);
         login.setForgotPasswordButtonVisible(true);
-        login.addLoginListener(e -> {
-            // ToDo
+        login.addLoginListener(event -> {
+            if ("martin".equals(event.getUsername()) && "mypassword".equals(event.getPassword())) {
+                UI.getCurrent().navigate(ResultsView.class, "test");
+
+            } else {
+                Notification.show("Wrong Credentials");
+                UI.getCurrent().getPage().reload();
+            }
         });
         login.addForgotPasswordListener(e -> {
             // ToDo
