@@ -97,7 +97,7 @@ public class MainLayout extends AppLayout {
         H2 appName = new H2("My App");
         appName.addClassNames("app-name");
         Image logo = new Image();
-        logo.addClickListener(e -> UI.getCurrent().navigate(HomeView.class));
+        logo.addClickListener(e -> UI.getCurrent().navigate(ResultsView.class));
         logo.setSrc("images/logo-dark.png");
         logo.setWidth("168px");
         logo.setHeight("100px");
@@ -127,7 +127,7 @@ public class MainLayout extends AppLayout {
 
     private MenuItemInfo[] createMenuItems() {
         return new MenuItemInfo[]{ //
-                new MenuItemInfo("HOME", "la la-globe", HomeView.class), new MenuItemInfo("Suggestions", "la la-thumbs-up", SuggestionsView.class), new MenuItemInfo("Favorites", "la la-star", HomeView.class), new MenuItemInfo("My account", "la la-user", MyAccount.class),};
+                new MenuItemInfo("HOME", "la la-globe", ResultsView.class), new MenuItemInfo("Suggestions", "la la-thumbs-up", SuggestionsView.class), new MenuItemInfo("Favorites", "la la-star", SuggestionsView.class), new MenuItemInfo("My account", "la la-user", MyAccount.class),};
     }
 
     private Footer createFooter() {
