@@ -104,9 +104,13 @@ jobs:
             - run : ls
             - run: mkdir -p buildfiles
             - run: mvn package -Pproduction -DoutputDirectory=/app/buildfiles
+            - run: echo "Hello, world!" > buildfiles/echo-output
+            - run : ls /app/buildfiles
             - persist_to_workspace:
                 root: buildfiles
-                paths: -myapp-1.0-SNAPSHOT.jar
+                paths: 
+                    - myapp-1.0-SNAPSHOT.jar
+                    - echo-output
             
             - store_artifacts: 
                 path: target
