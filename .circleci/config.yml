@@ -18,7 +18,6 @@ executors:
     vaadinrepo-executor:
         docker:
             - image: sugan1234/vaadinrepo:latest
-        working_directory: /app
 jobs:
     build:
         description: Build the Project
