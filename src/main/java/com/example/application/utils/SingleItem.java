@@ -38,6 +38,10 @@ public class SingleItem extends Div {
             H2 scoreText = new H2(score + "%");
             scoreText.setClassName("score");
             add(scoreText);
+        } else if( score != null && score < -1){
+            H2 scoreText = new H2((score * -1) + "%");
+            scoreText.setClassName("score-not-recommendet");
+            add(scoreText);
         }
 
         return this;

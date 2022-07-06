@@ -11,28 +11,33 @@ orbs:
 
 executors:
     gcloud-executor:
+        description: Executor for Google Cloud Build
         docker:
             - image: google/cloud-sdk
+
     machine-executor:
+        description: Executor for Google Cloud Deploy
         machine: true
+
     vaadinrepo-executor:
+        description: Standard executor 
         docker:
             - image: sugan1234/vaadinrepo:latest
+
 jobs:
     build:
         description: Build the Project
-        docker:
-            - image: sugan1234/vaadinrepo:latest
+        executor: vaadinrepo-executor
         steps: 
             - checkout 
             - run: mvn package -Pproduction
             - store_artifacts: 
                 path: target 
                 destination: target 
+
     test:
         description: Test the Project
-        docker: 
-            - image: sugan1234/vaadinrepo:latest 
+        executor: vaadinrepo-executor
         steps: 
             - checkout 
             - run: mvn test -e 
@@ -41,10 +46,8 @@ jobs:
                 destination: reports
 
     static_code_analysis:
-        description: Runs a static code analysis
-        docker:
-            # replace with your preferred image
-            - image: sugan1234/vaadinrepo:latest
+        description: Runs a static code analysis with Sonarcloud and push the results to sonarcloud
+        executor: vaadinrepo-executor
         steps:
             - checkout
             - run:
@@ -66,16 +69,18 @@ jobs:
                     echo 'export GOOGLE_CLOUD_KEYS=$(cat $HOME/gcloud-service-key.json)' >> $BASH_ENV 
                     echo 'export TAG=$CIRCLE_SHA1' >> $BASH_ENV 
                     
-            - gcp-gcr/gcr-auth 
+            - gcp-gcr/gcr-auth #Handle Authentifcation with Google Cloud
             
             - gcp-gcr/build-image: 
+                #description: Build docker Image for Google Cloud 
                 dockerfile: Dockerfile 
                 google-project-id: GOOGLE_PROJECT_ID 
                 image: $CIRCLE_WORKFLOW_ID 
                 registry-url: "gcr.io" 
                 tag: "latest" 
                 
-            - gcp-gcr/push-image: 
+            - gcp-gcr/push-image:
+                #description: Push docker Image to Google Cloud
                 google-project-id: GOOGLE_PROJECT_ID 
                 image: $CIRCLE_WORKFLOW_ID 
                 registry-url: "gcr.io" 
@@ -94,8 +99,8 @@ jobs:
                 unauthenticated: true      
                 
     heroku_deploy:
-        executor: vaadinrepo-executor
         description: build and deploy the project for heroku (build = needed cause other steps are neccesary)
+        executor: vaadinrepo-executor
         steps:
             - checkout
             - heroku/install
@@ -110,19 +115,25 @@ workflows:
     workflow: 
         jobs:
         - build 
+
         - test: 
             requires: 
                 - build
+
         - static_code_analysis:
             context: SonarCloud
             requires: 
                 - build
+
         - build_push_image_gcr:
             requires: 
                 - test
+
         - gcp_cloudrun_deploy: 
             requires: 
                 - build_push_image_gcr
+
         - heroku_deploy:
             requires: 
                 - test
+                

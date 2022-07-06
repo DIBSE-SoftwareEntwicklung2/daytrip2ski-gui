@@ -24,3 +24,12 @@
     font-weight: 600;
     background: #80D9E1;
 }
+.score-not-recommendet {
+    padding: 10px;
+    bottom: 0;
+    left: 0;
+    width: auto;
+    position: absolute;
+    font-weight: 600;
+    background: #FF0000;
+}
