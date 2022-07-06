@@ -15,6 +15,10 @@ executors:
             - image: google/cloud-sdk
     machine-executor:
         machine: true
+    vaadinrepo-executor:
+        docker:
+            - image: sugan1234/vaadinrepo:latest
+        working_directory: /app
 jobs:
     build:
         description: Build the Project
@@ -77,7 +81,7 @@ jobs:
                 image: $CIRCLE_WORKFLOW_ID 
                 registry-url: "gcr.io" 
                 tag: "latest"
-                
+
     gcp_cloudrun_deploy: 
         description: Deploy using cloud run 
         executor: machine-executor 
@@ -91,28 +95,32 @@ jobs:
                 unauthenticated: true      
     
     build_for_heroku:
+        executor: vaadinrepo-executor
         description: build the project for heroku (needed cause other steps are neccesary)
-        docker: 
-            - image: sugan1234/vaadinrepo:latest 
         steps:
-            - checkout 
-            - run: mvn package -Pproduction
+            - checkout
+            - heroku/install
+            - run: heroku plugins:install java
+            - run : ls
+            - run: mkdir -p buildfiles
+            - run: mvn package -Pproduction -DoutputDirectory=/app/buildfiles
+            - persist_to_workspace:
+                root: buildfiles
+                paths: -myapp-1.0-SNAPSHOT.jar
+            
             - store_artifacts: 
-                path: target 
-                destination: target  
+                path: target
     heroku_deploy:
-        executor: heroku/default
+        executor: vaadinrepo-executor
         steps:
-        - checkout
-        - heroku/install
-        - run: heroku plugins:install java
-        - run: heroku deploy:jar target/myapp-1.0-SNAPSHOT.jar --app daytrip2ski-gui
-
+            - attach_workspace:
+                at: /app/buildfiles
+            - run: heroku deploy:jar /app/buildfiles/myapp-1.0-SNAPSHOT.jar --app daytrip2ski-gui
 workflows: 
     version: 2
     workflow: 
         jobs: 
         - build_for_heroku
-        - heroku_deploy:
+        - heroku_deploy: 
             requires:
                 - build_for_heroku
