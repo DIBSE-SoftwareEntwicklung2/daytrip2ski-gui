@@ -118,8 +118,21 @@ jobs:
 workflows: 
     version: 2
     workflow: 
-        jobs: 
-        - build_for_heroku
+        jobs:
+        - build 
+        - test: 
+            requires: 
+                - build
+        - static_code_analysis:
+            context: SonarCloud
+            requires: 
+                - build
+        - build_push_image_gcr:
+            requires: 
+                - test 
+        - build_for_heroku:
+            requires: 
+                - test
         - heroku_deploy: 
             requires:
                 - build_for_heroku
