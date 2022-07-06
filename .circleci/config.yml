@@ -103,10 +103,10 @@ jobs:
             - run: heroku plugins:install java
             - run : ls
             - run: mkdir -p buildfiles
-            - run: mvn package -Pproduction -DoutputDirectory=/app/buildfiles/jarfile
+            - run: mvn package -Pproduction -DoutputDirectory=/app/buildfiles
             - persist_to_workspace:
                 root: buildfiles
-                paths: -jarfile
+                paths: -myapp-1.0-SNAPSHOT.jar
             
             - store_artifacts: 
                 path: target
