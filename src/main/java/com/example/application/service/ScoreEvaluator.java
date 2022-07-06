@@ -2,23 +2,39 @@ package com.example.application.service;
 
 import com.example.application.dto.*;
 
+import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
 import static java.lang.Math.abs;
+
+
 
 public class ScoreEvaluator {
     private final RestPersonService rps;
     private final GDistanceMatrixService dms;
     private final RestSkiresortService rss;
 
-    public ScoreEvaluator(RestPersonService rps, GDistanceMatrixService dms, RestSkiresortService rss) {
+    /**
+     *
+     * @param rps RestPersonService
+     * @param dms GDistanceMatrixService
+     * @param rss RestSkiresortService
+     */
+    public ScoreEvaluator(@NotNull RestPersonService rps,@NotNull GDistanceMatrixService dms,@NotNull RestSkiresortService rss) {
         this.rps = rps;
         this.dms = dms;
         this.rss = rss;
     }
 
-    public Result evaluateScore(Person person, Skiresort skiresort, LocalDateTime dateTimeForTrip) {
+    /**
+     *
+     * @param person
+     * @param skiresort
+     * @param dateTimeForTrip
+     * @return Result object
+     */
+    public Result evaluateScore(@NotNull Person person,@NotNull Skiresort skiresort,@NotNull LocalDateTime dateTimeForTrip) {
         Result result = new Result();
         Score score = rps.getScoreFromPerson(person.getId());
         if (score == null) {
