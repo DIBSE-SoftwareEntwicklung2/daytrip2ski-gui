@@ -100,7 +100,7 @@ jobs:
             - checkout
             - run: mvn package -Pproduction
             - store_artifacts: 
-                path: target/heroku_build
+                path: target
 
     heroku_deploy:
         executor: vaadinrepo-executor
