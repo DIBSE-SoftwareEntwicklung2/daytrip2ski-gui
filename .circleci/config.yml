@@ -97,6 +97,7 @@ jobs:
         executor: vaadinrepo-executor
         description: build the project for heroku (needed cause other steps are neccesary)
         steps:
+            - checkout
             - run: mvn package -Pproduction
             - store_artifacts: 
                 path: target/heroku_build
