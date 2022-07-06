@@ -5,17 +5,12 @@ import com.example.application.dto.Result;
 import com.example.application.dto.Skiresort;
 import com.example.application.service.GDistanceMatrixService;
 import com.example.application.service.RestPersonService;
-import com.example.application.service.ScoreEvaluator;
-import org.springframework.beans.factory.annotation.Autowired;
-
 import com.example.application.service.RestSkiresortService;
+import com.example.application.service.ScoreEvaluator;
 import com.example.application.utils.SingleItem;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
-import com.vaadin.flow.router.BeforeEvent;
-import com.vaadin.flow.router.HasUrlParameter;
-import com.vaadin.flow.router.OptionalParameter;
-import com.vaadin.flow.router.PageTitle;
-import com.vaadin.flow.router.Route;
+import com.vaadin.flow.router.*;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -23,6 +18,9 @@ import java.util.List;
 import static java.lang.Integer.valueOf;
 import static java.lang.Math.abs;
 
+/**
+ * shows All the ski resorts including sponsered resorts
+ */
 @PageTitle("All Ski Resorts")
 @Route(value = "results", layout = MainLayout.class)
 public class ResultsView extends VerticalLayout implements HasUrlParameter<String> {
@@ -34,6 +32,13 @@ public class ResultsView extends VerticalLayout implements HasUrlParameter<Strin
 
     private final transient ScoreEvaluator scoreEvaluator;
 
+    /**
+     * Getting the details of the ski resorts
+     *
+     * @param restSkiresortService ski resorts
+     * @param personService        persons
+     * @param distanceService      distance
+     */
     @Autowired
     public ResultsView(RestSkiresortService restSkiresortService, RestPersonService personService, GDistanceMatrixService distanceService) {
         setWidthFull();
@@ -47,6 +52,12 @@ public class ResultsView extends VerticalLayout implements HasUrlParameter<Strin
         return false;
     }
 
+    /**
+     * showing the ski resorts on the page including thier images
+     *
+     * @param event     events
+     * @param parameter parameter
+     */
     @Override
     public void setParameter(BeforeEvent event, @OptionalParameter String parameter) {
         if (parameter != null) {
@@ -86,14 +97,14 @@ public class ResultsView extends VerticalLayout implements HasUrlParameter<Strin
                 continue;
             }
             //this is a workaround right now
-            if(scoreResult.isRecommended() == false){
+            if (scoreResult.isRecommended() == false) {
                 System.out.println(resort.getName());
                 System.out.println(scoreResult);
-                if(scoreResult.getRecommendedErrors().size() > 2){
+                if (scoreResult.getRecommendedErrors().size() > 2) {
                     scoreResult.setScore(scoreResult.getScore() * -1);
-                }else if(scoreResult.getRecommendedErrors().size() == 2 && !(scoreResult.getRecommendedErrors().contains("Resort is out of Season") && scoreResult.getRecommendedErrors().contains("Resort is closed at this time"))){
+                } else if (scoreResult.getRecommendedErrors().size() == 2 && !(scoreResult.getRecommendedErrors().contains("Resort is out of Season") && scoreResult.getRecommendedErrors().contains("Resort is closed at this time"))) {
                     scoreResult.setScore(scoreResult.getScore() * -1);
-                }else if(scoreResult.getRecommendedErrors().size() == 1 && !(scoreResult.getRecommendedErrors().contains("Resort is out of Season") || scoreResult.getRecommendedErrors().contains("Resort is closed at this time"))){
+                } else if (scoreResult.getRecommendedErrors().size() == 1 && !(scoreResult.getRecommendedErrors().contains("Resort is out of Season") || scoreResult.getRecommendedErrors().contains("Resort is closed at this time"))) {
                     scoreResult.setScore(scoreResult.getScore() * -1);
                 }
             }
