@@ -9,7 +9,9 @@ import java.util.Objects;
 import static java.lang.Math.abs;
 
 
-
+/**
+ * This Class is used to Evaluate how much a Skiresort fits to a Person
+ */
 public class ScoreEvaluator {
     private final RestPersonService rps;
     private final GDistanceMatrixService dms;

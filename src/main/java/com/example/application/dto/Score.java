@@ -2,6 +2,12 @@ package com.example.application.dto;
 
 import lombok.*;
 
+
+/**
+ * Stores the Score of Users utilized to determined how Skiresorts fit to the user
+ *
+ * auto generated getters and setters aswell as a NoArgsConstructor, AllArgsConstructor and a ToString method
+ */
 @Getter
 @Setter
 @NoArgsConstructor

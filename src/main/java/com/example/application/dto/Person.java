@@ -5,6 +5,11 @@ import java.time.Period;
 
 import lombok.*;
 
+
+/**
+ * Class that represents a Person
+ * has auto generated getters and setters aswell as a ToString method, AllArgsConstructor and no ArgsConstructor
+ */
 @Getter
 @Setter
 @NoArgsConstructor
@@ -25,6 +30,15 @@ public class Person {
         return id.toString();
     }
 
+    /**
+     * Smaller Constructor without Id and Score object
+     * @param firstName
+     * @param lastName
+     * @param email
+     * @param dob
+     * @param homeLatitude
+     * @param homeLongitude
+     */
     public Person(String firstName, String lastName, String email, LocalDate dob, Double homeLatitude, double homeLongitude) {
         this.firstName = firstName;
         this.lastName = lastName;
@@ -34,6 +48,10 @@ public class Person {
         this.homeLongitude = homeLongitude;
     }
 
+    /**
+     * getAge returns the age of a Person
+     * @return Integer
+     */
     public Integer getAge() {
         return Period.between(this.dob, LocalDate.now()).getYears();
     }

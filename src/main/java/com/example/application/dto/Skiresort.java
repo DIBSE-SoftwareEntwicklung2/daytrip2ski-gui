@@ -5,6 +5,11 @@ import lombok.*;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
+/**
+ * Stores all our knowledge about a Skiresort
+ *
+ * auto generated getters, setters, NoArgsConstructor, AllArgsConstructor and a ToStringMethod
+ */
 @Getter
 @Setter
 @ToString

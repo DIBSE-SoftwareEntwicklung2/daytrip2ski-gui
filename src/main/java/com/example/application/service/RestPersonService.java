@@ -11,23 +11,40 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
 
+/**
+ * This class handles all communication between frontend and backend regarding persons
+ */
 @Service
 public class RestPersonService {
     private static final String BASE_PATH = System.getenv("BASE_URL");
     private static final String EXTENSION = "api/v1/person/";
 
+    /**
+     * this function returns all persons saved in the database
+     * @return List<Person>
+     */
     public List<Person> getAllPersons() {
         WebClient.RequestHeadersSpec<?> spec = WebClient.create().get().uri(BASE_PATH + EXTENSION);
 
         return Objects.requireNonNull(spec.retrieve().toEntityList(Person.class).block()).getBody();
     }
 
+    /**
+     * this function returns a Person by its Id
+     * @param id ID
+     * @return Person
+     */
     public Person getPersonById(int id) {
         WebClient.RequestHeadersSpec<?> spec = WebClient.create().get().uri(BASE_PATH + EXTENSION + id);
 
         return Objects.requireNonNull(spec.retrieve().toEntity(Person.class).block()).getBody();
     }
 
+    /**
+     * this function return only the Score of a person recognized by its id
+     * @param id ID
+     * @return Score
+     */
     public Score getScoreFromPerson(Long id) {
         WebClient.RequestHeadersSpec<?> spec = WebClient.create().get().uri(BASE_PATH + EXTENSION + "score/" + id);
 
@@ -38,11 +55,19 @@ public class RestPersonService {
         return score;
     }
 
+    /**
+     * this function can register a new Person in the backend
+     * @param person Person
+     */
     public void postRegisterPerson(Person person) {
         Mono<Person> mono = WebClient.create().post().uri(BASE_PATH + EXTENSION + "register").header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE).body(Mono.just(person), Person.class).retrieve().onStatus(status -> status.value() == 500, clientResponse -> Mono.empty()).bodyToMono(Person.class);
         mono.block();
     }
 
+    /**
+     * this function updates a Person in the backend
+     * @param person Person
+     */
     public void savePerson(Person person) {
         Mono<Person> mono = WebClient.create().post().uri(BASE_PATH + EXTENSION + "save").header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE).body(Mono.just(person), Person.class).retrieve().onStatus(status -> status.value() == 500, clientResponse -> Mono.empty()).bodyToMono(Person.class);
         mono.block();

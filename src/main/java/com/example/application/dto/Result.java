@@ -5,6 +5,17 @@ import java.util.List;
 
 import lombok.*;
 
+/**
+ * Object that hold the result of an evaluation between Person and Skiresort by an ScoreEvaluator
+ *
+ * has auto generated getter and setters aswell as a ToString method and an All args Constructor
+ *
+ * boolean valid is false if it could not generate a Score also has an error message in valid Error
+ *
+ * int Score hold a result if valid = true
+ * even if a score exist we might not recommend it represented by boolean recommended
+ * List<String> recommendedErrors holds all given Errors if recommendet is false
+ */
 @AllArgsConstructor
 @Setter
 @Getter
@@ -16,6 +27,9 @@ public class Result {
     private boolean recommended;
     private List<String> recommendedErrors;
 
+    /**
+     * Constructor to create an empty result Object
+     */
     public Result() {
         this.valid = false;
         this.validError = "";
