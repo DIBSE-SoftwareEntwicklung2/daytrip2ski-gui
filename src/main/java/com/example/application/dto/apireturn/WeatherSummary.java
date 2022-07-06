@@ -4,7 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
-import java.util.ArrayList;
+import java.util.List;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -15,10 +15,11 @@ public class WeatherSummary {
     public int sunrise;
     public int sunset;
     public Temp temp;
+    @SuppressWarnings("squid:S116") // Api returns it like this.
     public FeelsLike feels_like;
     public int pressure;
     public int humidity;
-    public ArrayList<Weather> weather;
+    public List<Weather> weather;
     public double speed;
     public int deg;
     public double gust;

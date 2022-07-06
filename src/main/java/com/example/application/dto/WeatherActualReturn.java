@@ -3,7 +3,7 @@ package com.example.application.dto;
 import com.example.application.dto.apireturn.*;
 import lombok.*;
 
-import java.util.ArrayList;
+import java.util.List;
 
 @Getter
 @Setter
@@ -13,7 +13,7 @@ import java.util.ArrayList;
 @SuppressWarnings("squid:S1104") // We need public variables for the api return.
 public class WeatherActualReturn {
     public Coord coord;
-    public ArrayList<Weather> weather;
+    public List<Weather> weather;
     public String base;
     public Main main;
     public int visibility;

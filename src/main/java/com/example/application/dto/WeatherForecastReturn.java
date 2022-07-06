@@ -4,7 +4,7 @@ import com.example.application.dto.apireturn.City;
 import com.example.application.dto.apireturn.WeatherSummary;
 import lombok.*;
 
-import java.util.ArrayList;
+import java.util.List;
 
 @Getter
 @Setter
@@ -17,5 +17,5 @@ public class WeatherForecastReturn {
     public String cod;
     public double message;
     public int cnt;
-    public ArrayList<WeatherSummary> list;
+    public List<WeatherSummary> list;
 }

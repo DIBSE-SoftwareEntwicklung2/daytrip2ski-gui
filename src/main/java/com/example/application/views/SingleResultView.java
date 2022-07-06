@@ -170,31 +170,33 @@ public class SingleResultView extends VerticalLayout implements HasUrlParameter<
         vlMaps.setSizeFull();
         vlMaps.setHeight("600px");
 
+        String widthHeightOfIcons = "150px";
+
         HorizontalLayout hlAltitude = new HorizontalLayout();
         Image imgAltitude = new Image("icons/mountain.png", "");
-        imgAltitude.setMaxWidth("150px");
-        imgAltitude.setMaxHeight("150px");
+        imgAltitude.setMaxWidth(widthHeightOfIcons);
+        imgAltitude.setMaxHeight(widthHeightOfIcons);
         hlAltitude.add(imgAltitude, new VerticalLayout(hlAltValley, hlAltMountain));
         hlAltitude.setAlignItems(Alignment.CENTER);
 
         HorizontalLayout hlNumbers = new HorizontalLayout();
         Image imgLifts = new Image("icons/ski-lift.png", "");
-        imgLifts.setMaxWidth("150px");
-        imgLifts.setMaxHeight("150px");
+        imgLifts.setMaxWidth(widthHeightOfIcons);
+        imgLifts.setMaxHeight(widthHeightOfIcons);
         hlNumbers.add(imgLifts, new VerticalLayout(hlNumOfCogRail, hlNumOfFunicular, hlNumOfCableCar, hlNumOfGondolLift, hlNumOfChairLift, hlNumOfTBarLift, hlNumOfBabyLift, hlNumOfMovingCarpet));
         hlNumbers.setAlignItems(Alignment.CENTER);
 
         HorizontalLayout hlDistances = new HorizontalLayout();
         Image imgSlopes = new Image("icons/slopes.png", "");
-        imgSlopes.setMaxHeight("150px");
-        imgSlopes.setMaxWidth("150px");
+        imgSlopes.setMaxHeight(widthHeightOfIcons);
+        imgSlopes.setMaxWidth(widthHeightOfIcons);
         hlDistances.add(imgSlopes, new VerticalLayout(hlDistanceEasy, hlDistanceIntermediate, hlDistanceDifficult));
         hlDistances.setAlignItems(Alignment.CENTER);
 
         HorizontalLayout hlPrices = new HorizontalLayout();
         Image imgPrices = new Image("icons/ticket.png", "");
-        imgPrices.setMaxWidth("150px");
-        imgPrices.setMaxHeight("150px");
+        imgPrices.setMaxWidth(widthHeightOfIcons);
+        imgPrices.setMaxHeight(widthHeightOfIcons);
         hlPrices.add(imgPrices, new VerticalLayout(hlPriceDayTicketAdults, hlPriceDayTicketYouth, hlPriceDayTicketChildren));
         hlPrices.setAlignItems(Alignment.CENTER);
 

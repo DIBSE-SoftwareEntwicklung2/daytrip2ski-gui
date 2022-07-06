@@ -7,6 +7,7 @@ import lombok.ToString;
 public class Element {
     public Distance distance;
     public Duration duration;
+    @SuppressWarnings("squid:S116") // Api returns it like this.
     public DurationInTraffic duration_in_traffic;
     public String status;
 }
