@@ -1,0 +1,11 @@
+src\main\java\com\example\application\service\GDistanceMatrixService        1KB
+src\main\java\com\example\application\service\RestPersonService             3KB
+src\main\java\com\example\application\service\RestSkiresortService          4KB
+src\main\java\com\example\application\service\ScoreEvaluator                8KB
+src\main\java\com\example\application\service\WeatherService                2KB
+
+src\main\java\com\example\application\ - total nice code                    18KB = 23%
+src\main\java\com\example\application\ - total                              77KB
+
+src\main\java\com\example\application\ - test coverage of nice code         83% of lines
+src\main\java\com\example\application\ - test coverage total                51% of lines
