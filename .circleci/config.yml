@@ -119,7 +119,10 @@ workflows:
                 - build
         - build_push_image_gcr:
             requires: 
-                - test 
+                - test
+        - gcp_cloudrun_deploy: 
+            requires: 
+                - build_push_image_gcr
         - heroku_deploy:
             requires: 
                 - test
