@@ -1,7 +1,6 @@
 # Use the latest 2.1 version of CircleCI pipeline process engine.
 # See: https://circleci.com/docs/2.0/configuration-reference
 version: 2.1
-
 orbs:
     gcp-gcr: circleci/gcp-gcr@0.15.0
     cloudrun: circleci/gcp-cloud-run@1.0.1
@@ -11,25 +10,33 @@ orbs:
 
 executors:
     gcloud-executor:
+        description: Executor for Google Cloud Build
         docker:
             - image: google/cloud-sdk
+
     machine-executor:
+        description: Executor for Google Cloud Deploy
         machine: true
+
+    vaadinrepo-executor:
+        description: Standard executor 
+        docker:
+            - image: sugan1234/vaadinrepo:latest
+
 jobs:
     build:
         description: Build the Project
-        docker:
-            - image: sugan1234/vaadinrepo:latest
+        executor: vaadinrepo-executor
         steps: 
             - checkout 
             - run: mvn package -Pproduction
             - store_artifacts: 
                 path: target 
                 destination: target 
+
     test:
         description: Test the Project
-        docker: 
-            - image: sugan1234/vaadinrepo:latest 
+        executor: vaadinrepo-executor
         steps: 
             - checkout 
             - run: mvn test -e 
@@ -38,10 +45,8 @@ jobs:
                 destination: reports
 
     static_code_analysis:
-        description: Runs a static code analysis
-        docker:
-            # replace with your preferred image
-            - image: sugan1234/vaadinrepo:latest
+        description: Runs a static code analysis with Sonarcloud and push the results to sonarcloud
+        executor: vaadinrepo-executor
         steps:
             - checkout
             - run:
@@ -63,21 +68,23 @@ jobs:
                     echo 'export GOOGLE_CLOUD_KEYS=$(cat $HOME/gcloud-service-key.json)' >> $BASH_ENV 
                     echo 'export TAG=$CIRCLE_SHA1' >> $BASH_ENV 
                     
-            - gcp-gcr/gcr-auth 
+            - gcp-gcr/gcr-auth #Handle Authentifcation with Google Cloud
             
             - gcp-gcr/build-image: 
+                #description: Build docker Image for Google Cloud 
                 dockerfile: Dockerfile 
                 google-project-id: GOOGLE_PROJECT_ID 
                 image: $CIRCLE_WORKFLOW_ID 
                 registry-url: "gcr.io" 
                 tag: "latest" 
                 
-            - gcp-gcr/push-image: 
+            - gcp-gcr/push-image:
+                #description: Push docker Image to Google Cloud
                 google-project-id: GOOGLE_PROJECT_ID 
                 image: $CIRCLE_WORKFLOW_ID 
                 registry-url: "gcr.io" 
                 tag: "latest"
-                
+
     gcp_cloudrun_deploy: 
         description: Deploy using cloud run 
         executor: machine-executor 
@@ -89,30 +96,46 @@ jobs:
                 service-name: 'daytrip2ski-gui' 
                 region: 'europe-west1' 
                 unauthenticated: true      
-    
-    build_for_heroku:
-        description: build the project for heroku (needed cause other steps are neccesary)
-        docker: 
-            - image: sugan1234/vaadinrepo:latest 
+                
+    heroku_deploy:
+        description: build and deploy the project for heroku (build = needed cause other steps are neccesary)
+        executor: vaadinrepo-executor
         steps:
-            - checkout 
+            - checkout
+            - heroku/install
             - run: mvn package -Pproduction
             - store_artifacts: 
-                path: target 
-                destination: target  
-    heroku_deploy:
-        executor: heroku/default
-        steps:
-        - checkout
-        - heroku/install
-        - run: heroku plugins:install java
-        - run: heroku deploy:jar target/myapp-1.0-SNAPSHOT.jar --app daytrip2ski-gui
+                path: target
+            - run: heroku plugins:install java
+            - run: heroku deploy:jar target/myapp-1.0-SNAPSHOT.jar --app daytrip2ski-gui
 
 workflows: 
     version: 2
     workflow: 
-        jobs: 
-        - build_for_heroku
+        jobs:
+        - build:
+            filters:
+                branches:
+                    only:
+                        - main 
+                        
+        - test: 
+            requires: 
+                - build
+
+        - static_code_analysis:
+            context: SonarCloud
+            requires: 
+                - build
+
+        - build_push_image_gcr:
+            requires: 
+                - test
+
+        - gcp_cloudrun_deploy: 
+            requires: 
+                - build_push_image_gcr
+
         - heroku_deploy:
-            requires:
-                - build_for_heroku
+            requires: 
+                - test
