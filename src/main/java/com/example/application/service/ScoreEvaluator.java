@@ -66,7 +66,7 @@ public class ScoreEvaluator {
          Assuming that we calculate that the user can teleport instantly to the destination at the moment
          we can add a preferred visiting time later on
         */
-        if (!skiresort.getIsActive()) {
+        if (Boolean.FALSE.equals(skiresort.getIsActive())) {
             result.setRecommended(false);
             result.getRecommendedErrors().add("Resort is closed");
         }
@@ -81,20 +81,18 @@ public class ScoreEvaluator {
     }
 
     private void resolveBooleans(Skiresort skiresort, Result result, Score score) {
-        if (score.getRequiresRental() && !skiresort.getSkiRental()) {
+        if (Boolean.TRUE.equals(score.getRequiresRental()) && Boolean.FALSE.equals(skiresort.getSkiRental())) {
             result.setRecommended(false);
             result.getRecommendedErrors().add("Does not have Rental");
         }
-        if (score.getRequiresFamilyFriendly() && !skiresort.getFamilyFriendly()) {
+        if (Boolean.TRUE.equals(score.getRequiresFamilyFriendly()) && Boolean.FALSE.equals(skiresort.getFamilyFriendly())) {
             result.setRecommended(false);
             result.getRecommendedErrors().add("Is not Family friendly");
         }
     }
 
     private void resolveBudged(Skiresort skiresort, Result result, Score score) {
-        /*
-        i am also assuming right now that only one adult is going for one day
-         */
+        // I am also assuming right now that only one adult is going for one day
         if (score.getBudged() < skiresort.getPriceDayTicketAdults()) {
             result.setRecommended(false);
             result.getRecommendedErrors().add("Does not fit Budget");

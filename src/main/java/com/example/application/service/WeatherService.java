@@ -9,7 +9,7 @@ import org.springframework.web.reactive.function.client.WebClient;
 import java.util.Objects;
 
 /**
- * this class handels calls to the openweathermap api
+ * this class handles calls to the openweathermap api
  */
 @Service
 public class WeatherService {

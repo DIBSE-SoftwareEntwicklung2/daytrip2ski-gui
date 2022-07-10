@@ -96,12 +96,8 @@ public class ResultsView extends VerticalLayout implements HasUrlParameter<Strin
                 continue;
             }
             //this is a workaround right now
-            if (!scoreResult.isRecommended()) {
-                System.out.println(resort.getName());
-                System.out.println(scoreResult);
-                if ((scoreResult.getRecommendedErrors().size() > 2) || (scoreResult.getRecommendedErrors().size() == 2 && !(scoreResult.getRecommendedErrors().contains("Resort is out of Season") && scoreResult.getRecommendedErrors().contains("Resort is closed at this time"))) || (scoreResult.getRecommendedErrors().size() == 1 && !(scoreResult.getRecommendedErrors().contains("Resort is out of Season") || scoreResult.getRecommendedErrors().contains("Resort is closed at this time")))) {
-                    scoreResult.setScore(scoreResult.getScore() * -1);
-                }
+            if (!scoreResult.isRecommended() && ((scoreResult.getRecommendedErrors().size() > 2) || (scoreResult.getRecommendedErrors().size() == 2 && !(scoreResult.getRecommendedErrors().contains("Resort is out of Season") && scoreResult.getRecommendedErrors().contains("Resort is closed at this time"))) || (scoreResult.getRecommendedErrors().size() == 1 && !(scoreResult.getRecommendedErrors().contains("Resort is out of Season") || scoreResult.getRecommendedErrors().contains("Resort is closed at this time"))))) {
+                scoreResult.setScore(scoreResult.getScore() * -1);
             }
             //this ends the workaround
             resort.setScore(scoreResult.getScore());

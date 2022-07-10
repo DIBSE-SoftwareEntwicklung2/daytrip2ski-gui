@@ -41,6 +41,12 @@ public class Result {
         this.recommendedErrors = new ArrayList<>();
     }
 
+    /**
+     * Overridden equals method to be able to compare two results for sorting.
+     *
+     * @param o comparing object
+     * @return True when equal, otherwise false.
+     */
     @Override
     public boolean equals(Object o) {
         if (o == this) {
@@ -67,6 +73,11 @@ public class Result {
         return true;
     }
 
+    /**
+     * Overridden hashCode for sorting
+     *
+     * @return hashcode as integer
+     */
     @Override
     public int hashCode() {
         int result = 17;

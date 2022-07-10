@@ -9,12 +9,12 @@ import org.springframework.web.reactive.function.client.WebClient;
 import java.util.Objects;
 
 /**
- * This class is utilized to recieve an api call result from the google distance matrix api
+ * This class is utilized to receive an api call result from the Google distance matrix api
  */
 @Service
 public class GDistanceMatrixService {
     /**
-     * calls to the google distance matrix api with the lat/lon of a person and a Skiresort
+     * calls to the Google distance matrix api with the lat/lon of a person and a Skiresort
      *
      * @param person    person
      * @param skiresort skiresort
