@@ -40,6 +40,14 @@ jobs:
         steps: 
             - checkout 
             - run: mvn test -e 
+            - run:
+                name: Save test results
+                command: |
+                    mkdir -p ~/test-results/junit/
+                    find . -type f -regex ".*/target/surefire-reports/.*xml" -exec cp {} ~/test-results/junit/ \;
+                when: always
+            - store_test_results:
+                path: ~/test-results
             - store_artifacts: 
                 path: reports 
                 destination: reports
@@ -49,6 +57,15 @@ jobs:
         executor: vaadinrepo-executor
         steps:
             - checkout
+            - run: mvn test -e 
+            - run:
+                name: Save test results
+                command: |
+                    mkdir -p ~/test-results/junit/
+                    find . -type f -regex ".*/target/surefire-reports/.*xml" -exec cp {} ~/test-results/junit/ \;
+                when: always
+            - store_test_results:
+                path: ~/test-results
             - run:
                 name: Analyze on SonarCloud
                 command: mvn verify sonar:sonar -Dsonar.projectKey=DIBSE-SoftwareEntwicklung2_daytrip2ski-gui
