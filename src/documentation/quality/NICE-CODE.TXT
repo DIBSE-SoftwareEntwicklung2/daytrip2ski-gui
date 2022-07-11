@@ -1,17 +1,24 @@
-src\main\java\com\example\application\service\GDistanceMatrixService        1KB
-src\main\java\com\example\application\service\RestPersonService             3KB
-src\main\java\com\example\application\service\RestSkiresortService          4KB
-src\main\java\com\example\application\service\ScoreEvaluator                8KB
+Mit allen Tests:
+src\main\java\com\example\application\dto\Person                            3KB
+src\main\java\com\example\application\service\GDistanceMatrixService        2KB
+src\main\java\com\example\application\service\ScoreEvaluator                9KB
 src\main\java\com\example\application\service\WeatherService                2KB
 
-src\main\java\com\example\application\ - total nice code                    18KB = 23%
-src\main\java\com\example\application\dto\ - total                          12KB
-src\main\java\com\example\application\model\ - total                        1KB
-src\main\java\com\example\application\service\ - total                      16KB
-src\main\java\com\example\application\utils\ - total                        4KB
-src\main\java\com\example\application\views\ - total                        38KB
-src\main\java\com\example\application\windows\ - total                      5KB
-src\main\java\com\example\application\ - total                              77KB
+Mit wenigen Tests:
+src\main\java\com\example\application\dto\Score                             2KB
+src\main\java\com\example\application\service\RestPersonService             4KB
+src\main\java\com\example\application\service\RestSkiresortService          5KB
 
-src\main\java\com\example\application\ - test coverage of nice code         0% of lines
-src\main\java\com\example\application\ - test coverage total                18% of lines
+Clean code aber ohne Tests:
+src\main\java\com\example\application\dto\Result                            2KB
+src\main\java\com\example\application\views\HomeView                        3KB
+src\main\java\com\example\application\views\MyAccount                       12KB
+src\main\java\com\example\application\views\ResultsView                     5KB
+src\main\java\com\example\application\views\SuggestionsView                 2KB
+
+
+Alle Tests sind auch clean code.
+
+src\main\java\com\example\application\ - clean code mit Tests total         27KB/95KB = 28%
+src\main\java\com\example\application\ - clean code total                   49KB/95KB = 52%
+src\main\java\com\example\application\ - test coverage total                29% of lines
