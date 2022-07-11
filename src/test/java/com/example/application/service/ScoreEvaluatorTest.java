@@ -19,6 +19,9 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.any;
 import static org.mockito.Mockito.when;
 
+/**
+ * Testing all score relevant things
+ */
 class ScoreEvaluatorTest {
     static Person person;
     static Skiresort skiresort;
@@ -36,6 +39,9 @@ class ScoreEvaluatorTest {
     @InjectMocks
     private ScoreEvaluator scoreEvaluator;
 
+    /**
+     * Set up before each test for default settings
+     */
     @BeforeEach
     void setUp() {
         MockitoAnnotations.openMocks(this);
@@ -95,6 +101,9 @@ class ScoreEvaluatorTest {
         distanceMatrix.status = "";
     }
 
+    /**
+     * Invalid score - no score to compare
+     */
     @Test
     void evaluateScorePersonHasNoScore() {
         when(rps.getScoreFromPerson(any(Long.class))).thenReturn(null);
@@ -103,6 +112,9 @@ class ScoreEvaluatorTest {
         assertEquals(new Result(false, "No score to compare found", 0, true, expected), result);
     }
 
+    /**
+     * Recommended test for time
+     */
     @Test
     void resolveTimeRecommended() {
         when(dms.getDistanceMatrix(any(Person.class), any(Skiresort.class))).thenReturn(distanceMatrix);
@@ -121,6 +133,9 @@ class ScoreEvaluatorTest {
         assertEquals(new Result(true, "", 70, true, new ArrayList<>()), result);
     }
 
+    /**
+     * Not valid time because of inactive
+     */
     @Test
     void resolveTimeNotRecommendedActive() {
         skiresort.setIsActive(false);
@@ -132,6 +147,9 @@ class ScoreEvaluatorTest {
         assertEquals(new Result(true, "", 70, false, expected), result);
     }
 
+    /**
+     * Not valid date because of out of season
+     */
     @Test
     void resolveTimeNotRecommendedDate() {
         when(dms.getDistanceMatrix(any(Person.class), any(Skiresort.class))).thenReturn(distanceMatrix);
@@ -147,6 +165,9 @@ class ScoreEvaluatorTest {
         assertEquals(new Result(true, "", 70, false, expected), result);
     }
 
+    /**
+     * Not valid time because out of time
+     */
     @Test
     void resolveTimeNotRecommendedTime() {
         when(dms.getDistanceMatrix(any(Person.class), any(Skiresort.class))).thenReturn(distanceMatrix);
@@ -162,6 +183,9 @@ class ScoreEvaluatorTest {
         assertEquals(new Result(true, "", 70, false, expected), result);
     }
 
+    /**
+     * Recommended test for rental, family friendly, max distance
+     */
     @Test
     void resolveBooleansRecommended() {
         // All true.
@@ -217,6 +241,9 @@ class ScoreEvaluatorTest {
         assertEquals(new Result(true, "", 70, true, expected), result);
     }
 
+    /**
+     * No rental
+     */
     @Test
     void resolveBooleansSkiRentalNotRecommended() {
         skiresort.setSkiRental(false);
@@ -233,6 +260,9 @@ class ScoreEvaluatorTest {
         assertEquals(new Result(true, "", 70, false, expected), result);
     }
 
+    /**
+     * Not family friendly
+     */
     @Test
     void resolveBooleansFamilyFriendlyNotRecommended() {
         skiresort.setSkiRental(true);
@@ -249,6 +279,9 @@ class ScoreEvaluatorTest {
         assertEquals(new Result(true, "", 70, false, expected), result);
     }
 
+    /**
+     * Budget ok
+     */
     @Test
     void resolveBudgetRecommended() {
         score.setBudged(50D);
@@ -270,6 +303,9 @@ class ScoreEvaluatorTest {
         assertEquals(new Result(true, "", 70, true, expected), result);
     }
 
+    /**
+     * Budget too low
+     */
     @Test
     void resolveBudgetNotRecommended() {
         score.setBudged(50D);
@@ -295,6 +331,9 @@ class ScoreEvaluatorTest {
     // Driving Time: recommended?; (durationInTraffic - max) / (10min - max) -> (1 - TimeCalculated) * 10 (durationInTraffic = 3, max = 5, defaultResult = 4.138 = 4)
     // DefaultResult = 42 / 6 * 10 = 70
 
+    /**
+     * No error, all valid
+     */
     @Test
     void resolveDefault() {
         when(dms.getDistanceMatrix(any(Person.class), any(Skiresort.class))).thenReturn(distanceMatrix);
@@ -306,6 +345,9 @@ class ScoreEvaluatorTest {
         assertEquals(new Result(true, "", 70, true, expected), result);
     }
 
+    /**
+     * Calculate result and only change the slope easy km
+     */
     @Test
     void resolveSlopeEasy() {
         when(dms.getDistanceMatrix(any(Person.class), any(Skiresort.class))).thenReturn(distanceMatrix);
@@ -371,6 +413,9 @@ class ScoreEvaluatorTest {
         assertEquals(new Result(true, "", 63, true, expected), result);
     }
 
+    /**
+     * Calculate result and only change the slope intermediate km
+     */
     @Test
     void resolveSlopeIntermediate() {
         when(dms.getDistanceMatrix(any(Person.class), any(Skiresort.class))).thenReturn(distanceMatrix);
@@ -436,6 +481,9 @@ class ScoreEvaluatorTest {
         assertEquals(new Result(true, "", 62, true, expected), result);
     }
 
+    /**
+     * Calculate result and only change the slope difficult km
+     */
     @Test
     void resolveSlopeDifficult() {
         when(dms.getDistanceMatrix(any(Person.class), any(Skiresort.class))).thenReturn(distanceMatrix);
@@ -501,6 +549,9 @@ class ScoreEvaluatorTest {
         assertEquals(new Result(true, "", 62, true, expected), result);
     }
 
+    /**
+     * Calculate result and only change the variety
+     */
     @Test
     void resolveVariety() {
         when(dms.getDistanceMatrix(any(Person.class), any(Skiresort.class))).thenReturn(distanceMatrix);
@@ -566,6 +617,9 @@ class ScoreEvaluatorTest {
         assertEquals(new Result(true, "", 68, true, expected), result);
     }
 
+    /**
+     * Calculate result and only change the distance
+     */
     @Test
     void resolveDistance() {
         when(rps.getScoreFromPerson(any(Long.class))).thenReturn(score);
@@ -617,6 +671,9 @@ class ScoreEvaluatorTest {
         assertEquals(new Result(true, "", 68, true, expected), result);
     }
 
+    /**
+     * Calculate result and only change the driving time
+     */
     @Test
     void resolveTime() {
         when(rps.getScoreFromPerson(any(Long.class))).thenReturn(score);

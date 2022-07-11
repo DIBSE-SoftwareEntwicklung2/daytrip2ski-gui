@@ -22,6 +22,9 @@ import com.vaadin.flow.router.RouteAlias;
 public class HomeView extends VerticalLayout {
     private static final long serialVersionUID = 1115700137807593311L;
 
+    /**
+     * Constructor - Initializing components
+     */
     public HomeView() {
         //Initialization home view - default vaadin functions
         setSizeFull();
@@ -34,7 +37,6 @@ public class HomeView extends VerticalLayout {
         form.setClassName("form-center-bottom"); //adding css class name
         Image logo = new Image();
         logo.setSrc("images/logo.png");
-
 
         //creating buttons
         Button btnWithAccount = new Button("With account");

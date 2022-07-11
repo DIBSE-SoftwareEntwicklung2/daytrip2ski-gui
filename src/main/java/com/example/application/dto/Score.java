@@ -9,7 +9,7 @@ import javax.validation.constraints.NotNull;
 /**
  * Stores the Score of Users utilized to determined how Skiresorts fit to the user
  * <p>
- * auto generated getters and setters aswell as a NoArgsConstructor, AllArgsConstructor and a ToString method
+ * auto generated getters and setters as well as a NoArgsConstructor, AllArgsConstructor and a ToString method
  */
 @Getter
 @Setter
